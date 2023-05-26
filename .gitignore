@@ -2,15 +2,6 @@
 #
 # Get latest from https://github.com/github/gitignore/blob/main/Unity.gitignore
 #
-<<<<<<< HEAD
-coleeee/[Ll]ibrary
-coleeee/[Tt]emp/
-coleeee/[Oo]bj/
-coleeee/[Bb]uild/
-coleeee/[Bb]uilds/
-coleeee/[Ll]ogs/
-coleeee/[Uu]ser[Ss]ettings/
-=======
 cne-game/[Ll]ibrary/
 cne-game/[Tt]emp/
 cne-game/[Oo]bj/
@@ -18,7 +9,6 @@ cne-game/[Bb]uild/
 cne-game/[Bb]uilds/
 cne-game/[Ll]ogs/
 cne-game/[Uu]ser[Ss]ettings/
->>>>>>> parent of f9f9979 (Add minigame)
 
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
