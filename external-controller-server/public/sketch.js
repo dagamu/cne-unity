@@ -2,7 +2,17 @@ var drag;
 var touchMode;
 var cnv;
 var btns;
-var playerColor = 'rgba(30,30,30,0.5)';
+
+var colorTheme = {
+  bg: 33,
+  stroke: 25,
+  btn: 40,
+  text: 50,
+  pressed: 100,
+
+}
+var colorSliders = {};
+var playerColor = colorTheme.btn;
 
 const webSocket = new WebSocket(document.baseURI.replace('http','ws'));
 var gameID;
@@ -45,6 +55,12 @@ function moveMsg() {
   webSocket.send('Move:' + [gameID, controlMessage].toString())
 }
 
+function showSliders(){
+  for( cslider in colorSliders ){
+    colorSliders[cslider].style( 'visibility', 'visible')
+  }   
+}
+
 function setup() {
 
   cnv = createCanvas(windowWidth - 10, windowHeight - 10);
@@ -53,11 +69,22 @@ function setup() {
   drag = false
   touchMode = windowWidth < 900;
 
+  for( c in colorTheme ){
+    let newColorSlider = createSlider(0, 255, colorTheme[c] );
+    newColorSlider.position(10, colorSliders.length*20 + 10);
+    newColorSlider.style('width', '80px');
+    newColorSlider.style('visibility', 'hidden');
+    colorSliders[c] = newColorSlider  
+  }
+
 }
 
 function draw() {
-  background('#252526');
+  background( colorTheme.bg );
   noFill()
+
+  for( c in colorSliders ) colorTheme[c] = colorSliders[c].value()
+  
 
   let prop = width / height
 
@@ -85,8 +112,8 @@ function draw() {
 
   //Joystick
   strokeWeight(4)
-  stroke('#1e1e1e')
-  fill('rgba(30,30,30,0.5)')
+  stroke( colorTheme.stroke )
+  fill(colorTheme.btn )
 
   var pos
 
@@ -122,7 +149,7 @@ function draw() {
   //Buttons
   translate(-width / 24, 0)
   strokeWeight(6)
-  fill('rgba(30,30,30,0.5)')
+  fill( colorTheme.btn )
 
   var btnSize = rsp.btns.size
   const checkButton = (x, y) => 
@@ -145,9 +172,9 @@ function draw() {
 
     push()
     strokeWeight(4)
-    stroke('#1e1e1e')
+    stroke( colorTheme.stroke )
     if( pressed ) {
-      stroke('#292a2d')
+      stroke( colorTheme.pressed )
       moveMsg()
     }
     circle( ...btn, btnSize)
@@ -156,7 +183,7 @@ function draw() {
 
   noStroke()
   textSize(height / 15)
-  fill('rgba(0,0,0,0.2)')
+  fill( colorTheme.text )
   text('Id: ' + gameID, height / 10, height / 10)
 
   if( !controlMessage.every( e => !e ) ){
