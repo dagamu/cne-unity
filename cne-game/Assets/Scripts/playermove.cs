@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class playermove : MonoBehaviour
 {
-    private float speed = 2.0f;
+    public float speed = 0.1f;
     public Vector3 jump;
     public float jumpForce = 2.0f;
 
