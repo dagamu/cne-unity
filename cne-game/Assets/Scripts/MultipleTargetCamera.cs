@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Camera))]
 public class MultipleTargetCamera : MonoBehaviour
 {
-    public List<Transform> targets;
+    public List<Transform> targets = new List<Transform>();
 
     public Vector3 offset;
     public float smoothTime = .5f;
@@ -24,8 +24,9 @@ public class MultipleTargetCamera : MonoBehaviour
 
     void LateUpdate()
     {
-        if (targets.Count == 0)
+        if (targets.Count == 0 || targets == null ){
             return;
+        }
 
         Move();
         Zoom();

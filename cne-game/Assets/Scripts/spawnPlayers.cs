@@ -4,10 +4,58 @@ using System.Collections.Generic;
 using System.Collections.Concurrent;
 using WebSocketSharp;
 using UnityEngine;
+using gamePlayerSpace;
 
 public class spawnPlayers : MonoBehaviour
 {
 
+    GameObject GamepadConnect;
+    GamepadConnect gamepadConnectComponent;
+
+    public GameObject playerPrefab;
+
+    Camera camera;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+
+        camera = (Camera) GameObject.FindObjectOfType(typeof(Camera));
+
+        GamepadConnect = GameObject.Find("GamepadConnect");
+        gamepadConnectComponent = GamepadConnect.GetComponent<GamepadConnect> ();
+
+        var i = 0;
+        foreach( gamePlayer player in gamepadConnectComponent.players ){
+            Vector3 newPosition = GameObject.Find("SpawnPoints").transform.GetChild(i).transform.position;
+            InstantiatePlayer( player, newPosition );
+            i++;
+        }
+
+    }
+
+    public void InstantiatePlayer( gamePlayer playerObj, Vector3 pos ){
+
+        GameObject characterPrefab = Resources.Load<GameObject>("Characters/"+playerObj.model);
+        var player = Instantiate(playerPrefab) as GameObject;
+        var newPlayerController = player.GetComponent<playerController>();
+        var playerModel = Instantiate(characterPrefab) as GameObject;
+       
+        player.transform.parent = gameObject.transform;
+        player.transform.position = pos;
+        playerModel.transform.position = pos;
+        playerModel.transform.parent = player.transform;
+
+        newPlayerController.gameId = playerObj.id;
+        newPlayerController.playerData = playerObj;
+        newPlayerController.setColor( playerObj.color );
+
+
+        var multipleTarget = camera.GetComponent<MultipleTargetCamera>();
+        multipleTarget.targets.Add(player.transform);
+
+    }
+    /*
     WebSocket ws;
     Camera camera;
 
@@ -98,5 +146,5 @@ public class spawnPlayers : MonoBehaviour
             EmitConnection = true;
         }
         
-    }
+    }*/
 }

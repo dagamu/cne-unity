@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ObstaclesSpawner : MonoBehaviour
 {
-    public GameObject Obstacle; //Arrastrar Prefab de Obstáculo Aquí
+    public GameObject Obstacle; //Arrastrar Prefab de Obstï¿½culo Aquï¿½
     public float minX;
     public float maxX;
 
@@ -28,6 +28,7 @@ public class ObstaclesSpawner : MonoBehaviour
         float X = Random.Range(minX, maxX);
         Quaternion newRotation = Random.rotation;
 
-        Instantiate(Obstacle, transform.position + new Vector3(X, 0, 0), newRotation);
+        GameObject newObstacle = Instantiate(Obstacle, transform.position + new Vector3(X, 0, 0), newRotation);
+        newObstacle.transform.parent = gameObject.transform;
     }
 }

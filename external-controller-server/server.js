@@ -39,7 +39,13 @@ wss.on('connection', (ws) => {
 
             let newId = getUniqueID()  
             ws.id = newId
-            ws.color = Colors[connections.length].join(';')
+            
+            let colorIndex = 0
+            ws.color = Colors[colorIndex].join(';')
+            while( connections.filter( c => c.color == ws.color ).length ){
+                colorIndex++
+                ws.color = Colors[colorIndex].join(';')
+            }
 
             ws.send("ID:"+ws.id);
             ws.send("Color:"+ws.color)
@@ -54,11 +60,13 @@ wss.on('connection', (ws) => {
             
             let newId = getUniqueID() 
             ws.id = newId
+            ws.isUnityClient = true
             unityClient = ws.id
 
             console.log(`UnityClient established: ${newId}`)
 
             connections.forEach( p => {
+                console.log(`Player ${ p.id } entered into Unity`)
                 ws.send(`newPlayer:${ p.id },${ p.color }`)
             })
 
@@ -70,7 +78,8 @@ wss.on('connection', (ws) => {
     });
 
     ws.on('close', () => {
-        connections.splice(connections.indexOf( ws ))
+        if( ws.isUnityClient ) return
+        connections.splice(connections.indexOf( ws ), 1)
         console.log(`Player left: ${ws.id} [${connections.length}]`)
         wss.clients.forEach( c => {
             c.send('Delete:' + ws.id)

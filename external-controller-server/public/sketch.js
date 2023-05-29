@@ -2,15 +2,28 @@ var drag;
 var touchMode;
 var cnv;
 var btns;
+var themeImg;
 
-var colorTheme = {
-  bg: 33,
-  stroke: 25,
-  btn: 40,
-  text: 50,
-  pressed: 100,
+const ColorThemes = [
+  {
+    bg: 33,
+    stroke: 25,
+    btn: 40,
+    text: 50,
+    pressed: 100,
+  
+  },
+  {
+    bg: 255,
+    stroke: 40,
+    btn: 230,
+    text: 20,
+    pressed: 150,
+  
+  }
+]
 
-}
+var colorTheme = ColorThemes[0]
 var colorSliders = {};
 var playerColor = colorTheme.btn;
 
@@ -61,6 +74,10 @@ function showSliders(){
   }   
 }
 
+function preload(){
+   themeImg = loadImage('https://static-00.iconduck.com/assets.00/dark-theme-icon-512x512-185rlszm.png')
+}
+
 function setup() {
 
   cnv = createCanvas(windowWidth - 10, windowHeight - 10);
@@ -69,13 +86,13 @@ function setup() {
   drag = false
   touchMode = windowWidth < 900;
 
-  for( c in colorTheme ){
+  /* for( c in colorTheme ){
     let newColorSlider = createSlider(0, 255, colorTheme[c] );
     newColorSlider.position(10, colorSliders.length*20 + 10);
     newColorSlider.style('width', '80px');
     newColorSlider.style('visibility', 'hidden');
     colorSliders[c] = newColorSlider  
-  }
+  } */
 
 }
 
@@ -184,11 +201,11 @@ function draw() {
   noStroke()
   textSize(height / 15)
   fill( colorTheme.text )
-  text('Id: ' + gameID, height / 10, height / 10)
+  text('Id: ' + gameID, height / 8, height / 10)
 
-  if( !controlMessage.every( e => !e ) ){
-    moveMsg()
-  }
+  moveMsg()
+  tint(255, 70)
+  image( themeImg, width - height/5.7, height/12, height/6, height/6 );
 
 }
 
@@ -200,17 +217,26 @@ function mousePressed() {
 
 function mouseReleased() {
   drag = false
+  if( mouseX > width - height/5 && mouseY < height/4 ){
+    colorTheme = ColorThemes[ ( ColorThemes.indexOf( colorTheme ) + 1) % ColorThemes.length ]
+  }
 }
 
 function touchStarted() {
+
   touchMode = true
   drag = true
 
   moveMsg()
+  let fs = fullscreen();
+  if(!fs) fullscreen(!fs)
 }
 
 function touchEnded() {
   drag = false
+  if(touches.filter( t => t.x > width - height/5 && t.y < height/4 ).length){
+    colorTheme = ColorThemes[ ( ColorThemes.indexOf( colorTheme ) + 1) % ColorThemes.length ]
+  }
 }
 
 /* full screening will change the size of the canvas */

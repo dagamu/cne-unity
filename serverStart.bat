@@ -1,2 +1,4 @@
 @echo off
-node external-controller-server/server.js
+cd external-controller-server/
+START /W npm i
+node server.js

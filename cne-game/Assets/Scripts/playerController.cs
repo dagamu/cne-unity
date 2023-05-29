@@ -4,27 +4,29 @@ using System.Collections.Concurrent;
 using UnityEngine;
 using WebSocketSharp;
 using System;
-
-
+using gamePlayerSpace;
 
 public class playerController : MonoBehaviour
 {
     // Start is called before the first frame update
     public string gameId;
     public Color playerColor;
-    public float velocity = 10f;
-    private readonly ConcurrentQueue<Action> _actions = new ConcurrentQueue<Action>();
+    public CharacterController cController;
+    public gamePlayer playerData;
+    public Transform orientation;
 
+    public float speed = 30f;
+    public float turnSmooth = 0.1f;
+    public float sensX = 10;
+    float turnSmoothVel;
+    
     WebSocket ws;
     Rigidbody rb;
     SpriteRenderer sr;
 
+    GameObject PointingSprite;
     Vector3 moveDirection;
-    public Transform orientation;
 
-    public void setId( string id ){
-        gameId = id;
-    }
     public void setColor( string colorStr ){
         string[] colorList = colorStr.Split(';');
         playerColor = new Color( 
@@ -33,96 +35,61 @@ public class playerController : MonoBehaviour
             float.Parse(colorList[2]),
             1f
         );
+        
     }
 
-    private void SpeedControl()
-    {
-        Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-
-        // limit velocity if needed
-        if (flatVel.magnitude > velocity)
-        {
-            Vector3 limitedVel = flatVel.normalized * velocity;
-            rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
-        }
-    }
 
     public void deletePlayer(){
         Destroy(gameObject);
     }
-    public void playerMove( string[] data ){
-
-        float[] joyAxis = {0f, 0f};
-
-        joyAxis[0] = float.Parse(data[1]);
-        joyAxis[1] = float.Parse(data[2]);
-
-        moveDirection = orientation.forward * joyAxis[1] + orientation.right * joyAxis[0];
-        rb.AddForce(moveDirection.normalized * velocity * 10f, ForceMode.Force);
-
-
-
-        /*
-        rb.velocity = new Vector3( 
-            velocity * joyAxis[0] * Time.deltaTime,
-            velocity * joyAxis[1] * Time.deltaTime,
-             0 
-            ) ;*/
-    }
-
     
     void Awake(){
         rb = GetComponent<Rigidbody> ();
-        sr = GetComponent<SpriteRenderer> ();
         
     }
 
     void Start()
     {
-        //rb.AddForce( new Vector3( -100f * Time.deltaTime, 0, 0 ) );  
-        /*ws = new WebSocket("wss://localhost:8080/");
-        ws.OnMessage += (sender, e) =>
-        {
-            string[] sMsg = e.Data.Split(",");
-            Debug.Log(e.Data);
-            if( sMsg[0] == gameId){
-                _actions.Enqueue(() => socketController(sMsg));
-            }
-        };   
-        ws.Connect();*/
+       for (int i = 0; i < gameObject.transform.childCount; i++){
+
+    GameObject child = gameObject.transform.GetChild(i).gameObject;
+    if( child.name == "Pointing Sprite"){
+        PointingSprite = child;
+        Color SpriteColor = playerColor;
+        SpriteColor.a = 0.4f;
+        PointingSprite.GetComponent<SpriteRenderer>().color = SpriteColor;
+    }
+}
     }
 
     // Update is called once per frame
     void Update()
     {
-        while(_actions.Count > 0)
-            {
-                if(_actions.TryDequeue(out var action))
-                {
-                    action?.Invoke();
-                }
-            }
-        if( Input.GetKeyDown(KeyCode.Space) ){
-            ws.Send("Hello");
-        }
+
+        var data = playerData.gamepadData;
+
+        Vector3 direction = new Vector3(
+            data[0], 0f, data[1]
+        ).normalized;
+
+        float targetAngle = Mathf.Atan2( direction.x, direction.z ) * Mathf.Rad2Deg;
+        float angle = Mathf.SmoothDampAngle( 
+            transform.eulerAngles.y, targetAngle, ref turnSmoothVel, turnSmooth );
+        transform.rotation = Quaternion.Euler(0f, angle, 0f);
+
+        moveDirection = transform.forward * data[1] + transform.right * data[0];
+        rb.AddRelativeForce(Vector3.forward * speed * moveDirection.magnitude, ForceMode.Force );
 
         SpeedControl();
     }
 
-    private static void socketController(string[] data) 
-    {
-
-        Debug.Log(data[1] + " " + data[2]);
-
-        /*
-
-        moves[0] = float.Parse(moves[0]);
-        moves[1] = float.Parse(moves[1]);
-
-        rb.velocity = new Vector3( 
-            velocity * moves[0] * Time.deltaTime,
-            velocity * moves[1] * Time.deltaTime,
-             0 
-            ) ; */
+    private void SpeedControl(){
+        Vector3 flatVel = new Vector3( rb.velocity.x, 0f, rb.velocity.z );
+        if( flatVel.magnitude > speed ){
+            Vector3 limitedVel = flatVel.normalized*speed;
+            rb.velocity = new Vector3( limitedVel.x, rb.velocity.y, limitedVel.z );
+        }
     }
+
+    
 }
