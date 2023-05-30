@@ -1,0 +1,32 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+html, body {
+  background-color: #252526;
+  overflow: hidden;
+  height: 100%
+}
+.rotated {
+  transform: rotate(90deg);
+  position:absolute;
+  top: 0; bottom: 0; left: 0; right: 0;
+  margin: auto;
+}
+.rotateDevice{
+  display: none;
+  background-image: url('https://static.thenounproject.com/png/58309-200.png');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-color: #ccc;
+  position: absolute;
+  top: 0; bottom: 0; left: 0; right: 0;
+  width: 100%;
+  height: 100%;
+}
+@media screen and (orientation: portrait) {
+  .rotateDevice {
+    display: block;
+  }
+}

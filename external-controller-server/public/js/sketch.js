@@ -1,8 +1,8 @@
-var drag;
-var touchMode;
-var cnv;
-var btns;
-var themeImg;
+var drag,
+     touchMode,
+     cnv,
+     themeImg,
+     gameID
 
 const ColorThemes = [
   {
@@ -17,62 +17,17 @@ const ColorThemes = [
     bg: 255,
     stroke: 40,
     btn: 230,
-    text: 20,
+    text: 170,
     pressed: 150,
   
   }
 ]
 
 var colorTheme = ColorThemes[0]
-var colorSliders = {};
 var playerColor = colorTheme.btn;
 
-const webSocket = new WebSocket(document.baseURI.replace('http','ws'));
-var gameID;
-
-webSocket.onmessage = (event) => {
-
-  let message = event.data.split(':')
-  let type = message[0]
-  let data = message[1] ? message[1].split(',') : ''
-
-  var proccessByType = {
-
-    'ID': () => {
-      gameID = data
-      console.log('ID: ' + gameID)
-
-    },
-    'Color': () => {
-
-      colorData = message[1].split(';')
-      let colorList = colorData.map( r => parseInt(r)*160)
-      colorList[3] = 0.1
-      playerColor = `rgba(${colorList.join(',')})`
-      console.log(playerColor)
-
-    }
-  }
-
-  if (proccessByType[type]) proccessByType[type]()
-  
-
-};
-
-webSocket.addEventListener("open", () => {
-  console.log("We are connected");
-  webSocket.send('createPlayer')
-});
-
-function moveMsg() {
-  webSocket.send('Move:' + [gameID, controlMessage].toString())
-}
-
-function showSliders(){
-  for( cslider in colorSliders ){
-    colorSliders[cslider].style( 'visibility', 'visible')
-  }   
-}
+const moveMsg = () => webSocket.send('Move:' + [gameID, controlMessage].toString() )
+function windowResized () { resizeCanvas(windowWidth, windowHeight) }
 
 function preload(){
    themeImg = loadImage('https://static-00.iconduck.com/assets.00/dark-theme-icon-512x512-185rlszm.png')
@@ -86,22 +41,11 @@ function setup() {
   drag = false
   touchMode = windowWidth < 900;
 
-  /* for( c in colorTheme ){
-    let newColorSlider = createSlider(0, 255, colorTheme[c] );
-    newColorSlider.position(10, colorSliders.length*20 + 10);
-    newColorSlider.style('width', '80px');
-    newColorSlider.style('visibility', 'hidden');
-    colorSliders[c] = newColorSlider  
-  } */
-
 }
 
 function draw() {
   background( colorTheme.bg );
   noFill()
-
-  for( c in colorSliders ) colorTheme[c] = colorSliders[c].value()
-  
 
   let prop = width / height
 
@@ -132,7 +76,7 @@ function draw() {
   stroke( colorTheme.stroke )
   fill(colorTheme.btn )
 
-  var pos
+  let pos
 
   if (touchMode) {
     pos = rsp.Joystick.center
@@ -147,11 +91,10 @@ function draw() {
     }
 
 
-  } else {
-    pos = drag ? [mouseX, mouseY] : rsp.Joystick.center
-  }
+  } else pos = drag ? [mouseX, mouseY] : rsp.Joystick.center
+  
 
-  circle(...pos, rsp.Joystick.handler)
+  circle( ...pos, rsp.Joystick.handler )
 
 
   controlMessage = [
@@ -201,48 +144,12 @@ function draw() {
   noStroke()
   textSize(height / 15)
   fill( colorTheme.text )
-  text('Id: ' + gameID, height / 8, height / 10)
+  textAlign(LEFT)
+  text('Id: ' + gameID, height / 6, height / 10)
 
   moveMsg()
   tint(255, 70)
-  image( themeImg, width - height/5.7, height/12, height/6, height/6 );
+  image( themeImg, width - height/5.8, height/16, height/6, height/6 );
 
 }
 
-function mousePressed() {
-  touchMode = false
-  if (mouseX < width / 2) drag = true
-  moveMsg()
-}
-
-function mouseReleased() {
-  drag = false
-  if( mouseX > width - height/5 && mouseY < height/4 ){
-    colorTheme = ColorThemes[ ( ColorThemes.indexOf( colorTheme ) + 1) % ColorThemes.length ]
-  }
-}
-
-function touchStarted() {
-
-  touchMode = true
-  drag = true
-
-  moveMsg()
-  let fs = fullscreen();
-  if(!fs) fullscreen(!fs)
-}
-
-function touchEnded() {
-  drag = false
-  if(touches.filter( t => t.x > width - height/5 && t.y < height/4 ).length){
-    colorTheme = ColorThemes[ ( ColorThemes.indexOf( colorTheme ) + 1) % ColorThemes.length ]
-  }
-}
-
-/* full screening will change the size of the canvas */
-function windowResized() {
-
-  resizeCanvas(windowWidth, windowHeight)
-
-
-}
