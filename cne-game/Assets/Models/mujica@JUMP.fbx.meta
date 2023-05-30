@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 3c5de6b0d719e2c4fb16bb38bea5978e
+guid: 9f04f6710bffcaf489cf1794b1b5102a
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -17,10 +17,7 @@ ModelImporter:
     removeConstantScaleCurves: 1
     motionNodeName: 
     rigImportErrors: 
-    rigImportWarnings: "Avatar Rig Configuration mis-match. Bone length in configuration
-      does not match position in animation file:\n\t'mixamorig:LeftUpLeg' : position
-      error = 184.743759 mm\n\t'mixamorig:RightUpLeg' : position error = 185.136551
-      mm\n"
+    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
@@ -78,10 +75,7 @@ ModelImporter:
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
-  referencedClips:
-  - 1a8dff3f1a490654ea1fdf914641c25d
-  - 9f04f6710bffcaf489cf1794b1b5102a
-  - cd5ae1c956066f44d916cbb53acfbc49
+  referencedClips: []
   importAnimation: 1
   humanDescription:
     serializedVersion: 3
@@ -880,11 +874,11 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 1
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 3c5de6b0d719e2c4fb16bb38bea5978e, type: 3}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 3
   humanoidOversampling: 1
-  avatarSetup: 1
+  avatarSetup: 2
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   remapMaterialsIfMaterialImportModeIsNone: 0
   additionalBone: 0

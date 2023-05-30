@@ -280,9 +280,9 @@ GameObject:
   - component: {fileID: 686854751}
   - component: {fileID: 686854750}
   - component: {fileID: 686854749}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -681,7 +681,7 @@ GameObject:
   - component: {fileID: 1745900405}
   - component: {fileID: 1745900404}
   - component: {fileID: 1745900403}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (1)
   m_TagString: Ground
   m_Icon: {fileID: 0}
