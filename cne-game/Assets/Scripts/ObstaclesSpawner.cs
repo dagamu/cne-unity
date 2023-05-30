@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ObstaclesSpawner : MonoBehaviour
 {
-    public GameObject Obstacle; //Arrastrar Prefab de Obst�culo Aqu�
+    public GameObject Obstacle; 
     public float minX;
     public float maxX;
 

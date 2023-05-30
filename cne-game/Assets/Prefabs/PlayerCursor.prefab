@@ -92,7 +92,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 
-  cursorSpeed: 0.3
+  cursorSpeed: 0.15
   playerColor: {r: 0, g: 0, b: 0, a: 0}
   characterSelect: {fileID: 0}
 --- !u!61 &-3463012931401744591

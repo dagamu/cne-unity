@@ -12,6 +12,8 @@ public class cursorControl : MonoBehaviour
     public Color playerColor;
     public GameObject characterSelect;
 
+    public Camera Camera;
+
     GameObject GamepadConnect;
     GamepadConnect gamepadConnectComponent;
     gamePlayer playerObject;
@@ -57,8 +59,14 @@ public class cursorControl : MonoBehaviour
             0
         );
         gameObject.transform.position += velocity;
-            
-        
+
+        var xpos = Mathf.Clamp(transform.position.x, 0, Screen.width);
+        var ypos = Mathf.Clamp(transform.position.y, 0, Screen.height);
+
+        transform.position = new Vector3( xpos, ypos, 0f);
+
+
+
     }
 
     void OnTriggerEnter2D (Collider2D  col) {
