@@ -7,7 +7,7 @@ function mousePressed() {
   function mouseReleased() {
     drag = false
     if( mouseX > width - height/5 && mouseY < height/4 ){
-      colorTheme = ColorThemes[ ( ColorThemes.indexOf( colorTheme ) + 1) % ColorThemes.length ]
+      changeTheme()
     }
   }
   
@@ -24,8 +24,10 @@ function mousePressed() {
   function touchEnded() {
     drag = false
     if(touches.filter( t => t.x > width - height/5 && t.y < height/4 ).length){
-      colorTheme = ColorThemes[ ( ColorThemes.indexOf( colorTheme ) + 1) % ColorThemes.length ]
+      changeTheme()
     }
   }
+
+  const changeTheme = () => colorTheme = ColorThemes[ ( ColorThemes.indexOf( colorTheme ) + 1) % ColorThemes.length ]
   
   
