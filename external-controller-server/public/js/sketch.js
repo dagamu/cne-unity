@@ -79,6 +79,10 @@ function draw() {
   let pos
 
   if (touchMode) {
+    push()
+    fill('red')
+    rect( 10, 10, 10, 10 )
+    pop()
     pos = rsp.Joystick.center
     if (drag) {
       touches.some(t => {

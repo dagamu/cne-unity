@@ -6,6 +6,7 @@ public class orbitCube : MonoBehaviour
 {
 
     public int level;
+    float radius = 0.35f;
     float delay;
     int direction;
     
@@ -23,9 +24,9 @@ public class orbitCube : MonoBehaviour
     void Update()
     {
         transform.position = transform.parent.position + new Vector3( 
-            Mathf.Sin( Time.time * 3 + delay * level ) * 0.1f * level * direction,
+            Mathf.Sin( Time.time * 3 + delay * level ) * radius * level * direction,
             0,
-            Mathf.Cos( Time.time * 3 + delay * level ) * 0.1f * level
+            Mathf.Cos( Time.time * 3 + delay * level ) * radius * level
             );
         
     }

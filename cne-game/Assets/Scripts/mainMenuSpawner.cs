@@ -7,6 +7,7 @@ public class mainMenuSpawner : MonoBehaviour
 {
   
     public GameObject cursorPrefab;
+    public Object FirstScene;
 
     private void NewPlayer( string[] args ) 
     {
@@ -21,6 +22,6 @@ public class mainMenuSpawner : MonoBehaviour
 
     public void PlayGame()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(FirstScene.name);
      }
 }

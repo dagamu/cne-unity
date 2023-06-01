@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 624033253}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -348,10 +348,10 @@ MonoBehaviour:
   obstaclesNumber: 7
   HallObstacles:
   - {fileID: 5805461725701588587, guid: d975540d8b6a06c489e68976d0c51571, type: 3}
-  - {fileID: 6553291839568064326, guid: a2722533bbc7196439158996e3b2ac96, type: 3}
-  - {fileID: 6425138018998765528, guid: 2bcb767c057c16c439d0ee94660e251b, type: 3}
+  - {fileID: 5894916160671924762, guid: c6c8c94af1d81e540876dc3dee376488, type: 3}
+  - {fileID: 3145904639322037944, guid: 39e3b2c16b5f71448acf73d6195c93dc, type: 3}
   - {fileID: 3278358368935524617, guid: d574c27dea2cf3b43ae6b263a56c1871, type: 3}
-  - {fileID: 3278358368935524617, guid: d574c27dea2cf3b43ae6b263a56c1871, type: 3}
+  - {fileID: 1450563558500390482, guid: 55d96c9e36d8fd9488dd765aacea957b, type: 3}
 --- !u!4 &822682186
 Transform:
   m_ObjectHideFlags: 0
@@ -481,7 +481,7 @@ GameObject:
   - component: {fileID: 1205486639}
   m_Layer: 0
   m_Name: Map
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -580,7 +580,7 @@ GameObject:
   - component: {fileID: 1587843035}
   m_Layer: 0
   m_Name: Cube (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -743,7 +743,7 @@ GameObject:
   - component: {fileID: 1676515024}
   m_Layer: 0
   m_Name: Cube (2)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

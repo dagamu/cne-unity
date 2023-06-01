@@ -1,5 +1,4 @@
 function mousePressed() {
-    touchMode = false
     if (mouseX < width / 2) drag = true
     moveMsg()
   }
@@ -22,7 +21,6 @@ function mousePressed() {
   }
   
   function touchEnded() {
-    drag = false
     if(touches.filter( t => t.x > width - height/5 && t.y < height/4 ).length){
       changeTheme()
     }

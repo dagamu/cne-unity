@@ -13,17 +13,23 @@ public class playerController : MonoBehaviour
     public Color playerColor;
     public gamePlayer playerData;
 
-    public float jumpHeight = 1f;
+    public float jumpForce = 4f;
+    public float fallMultiplier = 2.5f;
+    public float lowJumpMultiplier = 2f;
     public LayerMask whatIsGround;
     bool grounded;
 
     public float speed = 30f;
-    public float groundDrag = 0;
     public float turnSmooth = 0.1f;
     float turnSmoothVel;
 
+    GameObject takedObject;
+    public float takedObjectRadius;
+    public float takedObjectInterpolation;
+
     WebSocket ws;
     Rigidbody rb;
+    GameObject cam;
     GameObject playerModel;
 
     GameObject PointingSprite;
@@ -41,13 +47,11 @@ public class playerController : MonoBehaviour
     }
 
 
-    public void deletePlayer() {
-        Destroy(gameObject);
-    }
+    public void deletePlayer() { Destroy(gameObject);}
 
     void Awake() {
         rb = GetComponent<Rigidbody>();
-
+        cam = GameObject.Find("Main Camera");
     }
 
     void Start()
@@ -68,48 +72,90 @@ public class playerController : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
 
         var data = playerData.gamepadData;
-        grounded = Physics.Raycast(transform.position, Vector3.down, 2 * 0.5f + 0.3f, whatIsGround);
 
-        if (data[3] == 1 && grounded )
-        {
-            playerModel.GetComponent<Animator>().SetTrigger("Jump");
-            rb.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
-        }
+        Jump( data ); 
+        Move( data );
 
-        Vector3 direction = new Vector3(
+        BetterJump( data[3] == 0 );
+        SpeedControl();
+
+        manageTakedObject();
+
+    }
+
+    private void Move( float[] data ){
+
+         Vector3 direction = new Vector3(
             data[0], 0f, data[1]
         ).normalized;
 
-        float targetAngle = Mathf.Atan2( direction.x, direction.z ) * Mathf.Rad2Deg;
+        float targetAngle = Mathf.Atan2( direction.x, direction.z ) * Mathf.Rad2Deg + cam.transform.eulerAngles.y ;
         float angle = Mathf.SmoothDampAngle( 
             transform.eulerAngles.y, targetAngle, ref turnSmoothVel, turnSmooth );
-        transform.rotation = Quaternion.Euler(0f, angle, 0f);
+            
+        if( data[0] != 0 && data[1] != 0){
+            transform.rotation = Quaternion.Euler(0f, angle, 0f);
+        } else { rb.angularVelocity = Vector3.zero; }
 
         moveDirection = transform.forward * data[1] + transform.right * data[0];
         rb.AddRelativeForce(Vector3.forward * speed * moveDirection.magnitude, ForceMode.Force );
 
         playerModel.GetComponent<Animator>().SetBool("Running", moveDirection.magnitude > 0.1 );
+        
+    }
 
+    private void Jump( float[] data ){
 
-        SpeedControl();
+        if ( data[3] == 1 && grounded )
+        {
+            playerModel.GetComponent<Animator>().SetTrigger("Jump" );
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            grounded = false;
+        }
 
-        if (grounded)
-            rb.drag = groundDrag;
-        else
-            rb.drag = 0;
+    }
+
+    private void manageTakedObject(){
+        if( takedObject != null && Vector3.Distance( takedObject.transform.position, transform.position ) > takedObjectRadius ){
+            Vector3 newPos = Vector3.Lerp( takedObject.transform.position, transform.position, takedObjectInterpolation );
+            takedObject.transform.position = new Vector3( newPos.x, takedObject.transform.position.y, newPos.z);
+        }
+    }
+
+    private void BetterJump( bool jumpBtn ){
+        if( rb.velocity.y < 0 ){
+            rb.velocity = Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
+        } else if ( rb.velocity.y > 0 && jumpBtn ){
+            rb.velocity = Vector3.up * Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
+        }
     }
 
     private void SpeedControl(){
+
         Vector3 flatVel = new Vector3( rb.velocity.x, 0f, rb.velocity.z );
         if( flatVel.magnitude > speed ){
             Vector3 limitedVel = flatVel.normalized*speed;
             rb.velocity = new Vector3( limitedVel.x, rb.velocity.y, limitedVel.z );
         }
+
+    }
+
+    void OnTriggerEnter( Collider collision ){
+        if ( collision.gameObject.CompareTag("Takable") && takedObject == null ){ takedObject = collision.gameObject; }
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ground")){ grounded = true; } 
+        
+    }
+    void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ground")) { grounded = false; }
     }
 
 }
