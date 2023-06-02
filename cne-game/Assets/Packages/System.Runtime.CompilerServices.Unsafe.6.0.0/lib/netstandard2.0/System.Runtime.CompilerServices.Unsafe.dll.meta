@@ -1,7 +1,5 @@
 fileFormatVersion: 2
-guid: 4aea42d329c327d48b571cbb0b0cbdfe
-labels:
-- NuGetForUnity
+guid: e7c4764f873d4754a9c452ba49869c7a
 PluginImporter:
   externalObjects: {}
   serializedVersion: 2
@@ -16,7 +14,7 @@ PluginImporter:
   - first:
       Any: 
     second:
-      enabled: 0
+      enabled: 1
       settings: {}
   - first:
       Editor: Editor
@@ -27,8 +25,9 @@ PluginImporter:
   - first:
       Windows Store Apps: WindowsStoreApps
     second:
-      enabled: 1
-      settings: {}
+      enabled: 0
+      settings:
+        CPU: AnyCPU
   userData: 
   assetBundleName: 
   assetBundleVariant: 
