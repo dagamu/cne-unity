@@ -11,8 +11,6 @@ public class ObstaclesSpawner : MonoBehaviour
     public float TimeBetweenSpawn;
     private float SpawnTime;
 
-    void Start() { }
-
     void Update()
     {
 
@@ -21,6 +19,7 @@ public class ObstaclesSpawner : MonoBehaviour
             Spawn();
             SpawnTime = Time.time + TimeBetweenSpawn;
         }
+
     }
 
     void Spawn()
@@ -30,5 +29,6 @@ public class ObstaclesSpawner : MonoBehaviour
 
         GameObject newObstacle = Instantiate(Obstacle, transform.position + new Vector3(X, 0, 0), newRotation);
         newObstacle.transform.parent = gameObject.transform;
+
     }
 }

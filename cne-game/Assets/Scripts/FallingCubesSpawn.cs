@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +11,10 @@ public class FallingCubesSpawn : MonoBehaviour
     public int gridWeight = 10;
     public float cubeWeight = 1;
 
+    public float inAirTime;
+    public float fallingTime;
+    public float angularSmooth;
+
     float timer;
     public float riseSpeed;
     string cubesState = "inAir";
@@ -22,11 +25,11 @@ public class FallingCubesSpawn : MonoBehaviour
     List<actionsDelegate> cubeActions = new List<actionsDelegate>();
 
     void fallCube( GameObject cube ){
-        cube.GetComponent<Rigidbody>().useGravity = true;
-    }
 
-    void RestartCubes(){
-
+        var cubeRb = cube.GetComponent<Rigidbody>();
+        cubeRb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
+        cubeRb.useGravity = true;
+        cubeRb.angularVelocity = new Vector3( Random.Range(-1,1), Random.Range(-1,1), Random.Range(-1,1));
     }
 
     void LoopCubeMatrix(){
@@ -43,10 +46,10 @@ public class FallingCubesSpawn : MonoBehaviour
         cubeActions.Add( ( GameObject cube ) => { // Filas Pares
              if( (cube.transform.position.x + cubeWeight/2) % 2 != 0 ) { fallCube( cube ); } 
         } );
-        cubeActions.Add( ( GameObject cube ) => { // Círculo
+        cubeActions.Add( ( GameObject cube ) => { // Cï¿½rculo
              if( Vector3.Distance( cube.transform.position, Vector3.zero ) > gridWeight/3 ) { fallCube( cube ); } 
         } );
-        cubeActions.Add((GameObject cube) => { // Círculo
+        cubeActions.Add((GameObject cube) => { // Cï¿½rculo
             if (Vector3.Distance(cube.transform.position, Vector3.zero) < gridWeight / 3) { fallCube(cube); }
         });
 
@@ -71,39 +74,73 @@ public class FallingCubesSpawn : MonoBehaviour
 
     }
 
+
     private void Update()
     {
         timer += Time.deltaTime;
 
-        if (timer >= 2f && cubesState == "inAir") {
+        if (timer >= inAirTime && cubesState == "inAir") {
             fallCubes();
             cubesState = "falling";
             timer = 0;
         }
 
-        if(timer >= 2f && cubesState == "falling")
+        if(timer >= fallingTime  && cubesState == "falling")
         {
-            riseCubes();
+            if( riseCubes() == 0 ){
+                
+                setCubes();
+                cubesState = "inAir";
+                timer = 0;
+            };
+
         }
     }
 
-    private void riseCubes()
+    void setCubes(){
+        for (int i = 0; i < cubeMatrix.GetLength(0); i++)
+        {
+            for (int j = 0; j < cubeMatrix.GetLength(0); j++)
+            {
+                var currentCube = cubeMatrix[i, j];
+                var cubePos = currentCube.transform.position;
+                cubePos = new Vector3( cubePos.y, 0f, cubePos.z );
+                currentCube.transform.rotation = Quaternion.identity;
+                currentCube.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation ;
+   
+            } 
+        }
+    }
+
+    private float riseCubes()
     {
+
+        float diffCount = 0;
+
         for (int i = 0; i < cubeMatrix.GetLength(0); i++)
         {
             for (int j = 0; j < cubeMatrix.GetLength(0); j++)
             {
                 cubeMatrix[i, j].GetComponent<Rigidbody>().useGravity = false;
+                cubeMatrix[i, j].GetComponent<Rigidbody>().velocity = Vector3.zero;
+                cubeMatrix[i, j].GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+                
                 Vector3 cubePos = cubeMatrix[i, j].transform.position;
 
                 Vector3 newPos = Vector3.Lerp(cubePos,
-                    new Vector3(cubePos.x, 0, cubePos.z), riseSpeed);
+                    new Vector3(cubePos.x, transform.position.y , cubePos.z), riseSpeed);
+
+                newPos.y = newPos.y > transform.position.y - 0.01f ? transform.position.y : newPos.y; 
+
                 cubeMatrix[i, j].transform.position = new Vector3(cubePos.x, newPos.y, cubePos.z);
+                cubeMatrix[i, j].transform.rotation = Quaternion.Lerp(cubeMatrix[i, j].transform.rotation, Quaternion.identity, angularSmooth);
 
-
+                diffCount += transform.position.y-newPos.y;
 
             }
         }
+        
+        return diffCount;
     }
 
     private void fallCubes()
@@ -116,7 +153,7 @@ public class FallingCubesSpawn : MonoBehaviour
             for (int j = 0; j < cubeMatrix.GetLength(0); j++)
             {
                 d(cubeMatrix[i, j]);
-            }
+            } 
         }
     }
 

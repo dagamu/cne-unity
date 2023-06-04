@@ -14,23 +14,28 @@ public class spawnPlayers : MonoBehaviour
 
     public GameObject playerPrefab;
 
-    Camera camera;
+    Camera cam;
 
     // Start is called before the first frame update
     void Start()
     {
 
-        camera = (Camera) GameObject.FindObjectOfType(typeof(Camera));
+        cam = (Camera) GameObject.FindObjectOfType(typeof(Camera));
 
         GamepadConnect = GameObject.Find("GamepadConnect");
-        gamepadConnectComponent = GamepadConnect.GetComponent<GamepadConnect> ();
+        if( GamepadConnect != null ){ 
+        
+            gamepadConnectComponent = GamepadConnect.GetComponent<GamepadConnect> ();
 
-        var i = 0;
-        foreach( gamePlayer player in gamepadConnectComponent.players ){
-            Vector3 newPosition = GameObject.Find("SpawnPoints").transform.GetChild(i).transform.position;
-            InstantiatePlayer( player, newPosition );
-            i++;
+            var i = 0;
+            foreach( gamePlayer player in gamepadConnectComponent.players ){
+                Vector3 newPosition = GameObject.Find("SpawnPoints").transform.GetChild(i).transform.position;
+                InstantiatePlayer( player, newPosition );
+                i++;
+            }
         }
+
+        
 
     }
 
@@ -51,8 +56,8 @@ public class spawnPlayers : MonoBehaviour
         newPlayerController.setColor( playerObj.color );
 
 
-        var multipleTarget = camera.GetComponent<MultipleTargetCamera>();
-        multipleTarget.targets.Add(player.transform);
+        var multipleTarget = cam.GetComponent<MultipleTargetCamera>();
+        if( multipleTarget != null) { multipleTarget.targets.Add(player.transform); }
 
     }
     /*

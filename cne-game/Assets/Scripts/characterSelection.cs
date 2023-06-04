@@ -13,7 +13,7 @@ public class characterSelection : MonoBehaviour
     {
         foreach( var sprite in charactersThumbnails ){
             GameObject newCharacter = Instantiate(characterThumbnail);
-            newCharacter.transform.parent = gameObject.transform;
+            newCharacter.transform.SetParent(gameObject.transform);
             Image imageComponent = newCharacter.transform.GetChild(0).GetComponent<Image>();
             imageComponent.sprite = sprite;
 

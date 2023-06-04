@@ -9,22 +9,25 @@ public class cursorControl : MonoBehaviour
 
     public string id;
     public float cursorSpeed;
+    public float velSmooth;
     public Color playerColor;
-    public GameObject characterSelect;
-
-    public Camera Camera;
 
     GameObject GamepadConnect;
     GamepadConnect gamepadConnectComponent;
     gamePlayer playerObject;
 
+    private GameObject characterSelect;
+
     Vector3 velocity;
-    
+    Rigidbody2D rb;
+
     // Start is called before the first frame update
     void Start()
     {
         GamepadConnect = GameObject.Find("GamepadConnect");
         gamepadConnectComponent = GamepadConnect.GetComponent<GamepadConnect> ();
+
+        rb = GetComponent<Rigidbody2D>();
 
         var players = gamepadConnectComponent.players;
 
@@ -51,14 +54,15 @@ public class cursorControl : MonoBehaviour
     {
          
         var players = gamepadConnectComponent.players;
-
        
-        velocity = new Vector3( 
-            playerObject.gamepadData[0] * cursorSpeed,
-            playerObject.gamepadData[1] * cursorSpeed,
-            0
-        );
-        gameObject.transform.position += velocity;
+        velocity = new Vector2( 
+            playerObject.gamepadData[0],
+            playerObject.gamepadData[1]
+        ).normalized;
+
+        rb.velocity = Vector3.Lerp( rb.velocity, velocity * cursorSpeed * 100f, 0.1f );
+
+        //gameObject.transform.position += velocity;
 
         var xpos = Mathf.Clamp(transform.position.x, 0, Screen.width);
         var ypos = Mathf.Clamp(transform.position.y, 0, Screen.height);
