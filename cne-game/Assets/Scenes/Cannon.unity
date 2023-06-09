@@ -359,6 +359,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cannon
       objectReference: {fileID: 0}
+    - target: {fileID: 6991750663706148456, guid: b395a5018fd80344d9088ccc17f584e4, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b395a5018fd80344d9088ccc17f584e4, type: 3}
 --- !u!1 &1028558113
@@ -525,5 +529,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 7
-  speed: 0.01
-  spinSpeed: 0.01
+  lerpDuration: 3
+  BulletPrefab: {fileID: 4048455776668593139, guid: ac39a0ddae6b4f7408f24a0523c64824, type: 3}
+  bulletForce: 200
