@@ -21,7 +21,7 @@ public class FallingCubesSpawn : MonoBehaviour
 
     private GameObject[,] cubeMatrix = new GameObject[ 10, 10 ];
 
-    public delegate void actionsDelegate( GameObject cube );
+    public delegate void actionsDelegate( GameObject cube, float aux );
     List<actionsDelegate> cubeActions = new List<actionsDelegate>();
 
     void fallCube( GameObject cube ){
@@ -32,24 +32,31 @@ public class FallingCubesSpawn : MonoBehaviour
         cubeRb.angularVelocity = new Vector3( Random.Range(-1,1), Random.Range(-1,1), Random.Range(-1,1));
     }
 
-    void LoopCubeMatrix(){
-        
-    }
 
     // Start is called before the first frame update
     void Start()
     {
 
-        cubeActions.Add( ( GameObject cube ) => { //
-             if( cube.transform.position.x > 0 ) { fallCube( cube ); } 
+        cubeActions.Add( ( GameObject cube, float aux ) => { 
+            bool[] conditions = new bool[]{
+                cube.transform.position.x > 0,
+                cube.transform.position.x < 0,
+                cube.transform.position.z > 0,
+                cube.transform.position.z < 0
+            };
+            int index = (int) Mathf.Round( aux % conditions.Length );
+            if( conditions[ index  ] ) { fallCube( cube ); } 
         } );
-        cubeActions.Add( ( GameObject cube ) => { // Filas Pares
+        cubeActions.Add( ( GameObject cube, float aux ) => { // Filas Pares
              if( (cube.transform.position.x + cubeWeight/2) % 2 != 0 ) { fallCube( cube ); } 
         } );
-        cubeActions.Add( ( GameObject cube ) => { // C�rculo
+        cubeActions.Add( ( GameObject cube, float aux ) => { // Columnas Pares
+             if( (cube.transform.position.z + cubeWeight/2) % 2 != 0 ) { fallCube( cube ); } 
+        } );
+        cubeActions.Add( ( GameObject cube, float aux ) => { // Circulo
              if( Vector3.Distance( cube.transform.position, Vector3.zero ) > gridWeight/3 ) { fallCube( cube ); } 
         } );
-        cubeActions.Add((GameObject cube) => { // C�rculo
+        cubeActions.Add((GameObject cube, float aux) => { // Circulo
             if (Vector3.Distance(cube.transform.position, Vector3.zero) < gridWeight / 3) { fallCube(cube); }
         });
 
@@ -132,7 +139,7 @@ public class FallingCubesSpawn : MonoBehaviour
 
                 newPos.y = newPos.y > transform.position.y - 0.01f ? transform.position.y : newPos.y; 
 
-                cubeMatrix[i, j].transform.position = new Vector3(cubePos.x, newPos.y, cubePos.z);
+                cubeMatrix[i, j].transform.position = new Vector3( Mathf.Round( cubePos.x * 10 ) / 10, newPos.y, Mathf.Round( cubePos.z * 10  ) / 10 );
                 cubeMatrix[i, j].transform.rotation = Quaternion.Lerp(cubeMatrix[i, j].transform.rotation, Quaternion.identity, angularSmooth);
 
                 diffCount += transform.position.y-newPos.y;
@@ -145,14 +152,15 @@ public class FallingCubesSpawn : MonoBehaviour
 
     private void fallCubes()
     {
-        actionsDelegate d = cubeActions[UnityEngine.Random.Range(0, cubeActions.Count)];
+        actionsDelegate d = cubeActions[ UnityEngine.Random.Range(0, cubeActions.Count) ];
+        float aux = Random.value;
         //d = cubeActions[3];
 
         for (int i = 0; i < cubeMatrix.GetLength(0); i++)
         {
             for (int j = 0; j < cubeMatrix.GetLength(0); j++)
             {
-                d(cubeMatrix[i, j]);
+                d(cubeMatrix[i, j], aux);
             } 
         }
     }

@@ -102,7 +102,7 @@ public class playerController : MonoBehaviour
         } else { rb.angularVelocity = Vector3.zero; }
 
         moveDirection = transform.forward * data[1] + transform.right * data[0];
-        rb.AddRelativeForce(Vector3.forward * speed * moveDirection.magnitude, ForceMode.Force );
+        rb.AddRelativeForce(Vector3.forward * speed * moveDirection.magnitude * Time.deltaTime, ForceMode.Force );
 
         playerModel.GetComponent<Animator>().SetBool("Running", moveDirection.magnitude > 0.1 );
         

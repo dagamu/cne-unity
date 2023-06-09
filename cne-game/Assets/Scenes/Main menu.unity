@@ -684,7 +684,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cursorPrefab: {fileID: 8760288491580277707, guid: ad6ff186a2a4ecb4989f54171d7c6b44, type: 3}
-  FirstScene: {fileID: 102900000, guid: 865e4feed7c8faf49b3dacac5c09537f, type: 3}
+  FirstScene: {fileID: 102900000, guid: 7584172c89f6bae49b895ab0cd4c4692, type: 3}
 --- !u!1 &400501789
 GameObject:
   m_ObjectHideFlags: 0
