@@ -7,6 +7,7 @@ TagManager:
   - Ground
   - Takable
   - FallingCube
+  - Border
   layers:
   - Default
   - TransparentFX
@@ -17,7 +18,7 @@ TagManager:
   - Falling Cube
   - Cannon
   - CannonBullet
-  - 
+  - Border
   - 
   - 
   - 
