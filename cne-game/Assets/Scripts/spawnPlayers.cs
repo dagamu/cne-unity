@@ -54,7 +54,7 @@ public class spawnPlayers : MonoBehaviour
         newPlayerController.gameId = playerObj.id;
         newPlayerController.playerData = playerObj;
         newPlayerController.setColor( playerObj.color );
-
+    
 
         var multipleTarget = cam.GetComponent<MultipleTargetCamera>();
         if( multipleTarget != null) { multipleTarget.targets.Add(player.transform); }

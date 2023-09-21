@@ -684,7 +684,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cursorPrefab: {fileID: 8760288491580277707, guid: ad6ff186a2a4ecb4989f54171d7c6b44, type: 3}
-  FirstScene: {fileID: 102900000, guid: 7584172c89f6bae49b895ab0cd4c4692, type: 3}
+  FirstScene: {fileID: 102900000, guid: c92fa409cc465c947befb227eb33a5d5, type: 3}
 --- !u!1 &400501789
 GameObject:
   m_ObjectHideFlags: 0
@@ -1647,8 +1647,8 @@ MonoBehaviour:
   charactersThumbnails:
   - {fileID: 21300000, guid: 6d06a02469e03db4a83b1a1df39660bf, type: 3}
   - {fileID: 21300000, guid: edc6dcbb5a235d64abad8bab20aa7e86, type: 3}
-  - {fileID: 21300000, guid: ac02ff11498c35f46aac4284a8f92318, type: 3}
   - {fileID: 21300000, guid: 259b0f02bd7e2944f864dd087fa60b5f, type: 3}
+  - {fileID: 21300000, guid: ac02ff11498c35f46aac4284a8f92318, type: 3}
   characterThumbnail: {fileID: 2977791201372056923, guid: e75e2d1c3167e7a4dabe9566b40643f0, type: 3}
 --- !u!114 &2103629693
 MonoBehaviour:

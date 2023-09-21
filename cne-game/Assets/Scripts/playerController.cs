@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Concurrent;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using WebSocketSharp;
 using System;
 using gamePlayerSpace;
@@ -16,7 +17,6 @@ public class playerController : MonoBehaviour
     public float jumpForce = 4f;
     public float fallMultiplier = 2.5f;
     public float lowJumpMultiplier = 2f;
-    public LayerMask whatIsGround;
     bool grounded;
 
     public float speed = 30f;
@@ -27,13 +27,17 @@ public class playerController : MonoBehaviour
     public float takedObjectRadius;
     public float takedObjectInterpolation;
 
-    WebSocket ws;
+
     Rigidbody rb;
     GameObject cam;
     GameObject playerModel;
 
     GameObject PointingSprite;
     Vector3 moveDirection;
+
+    bool rolling = false;
+    public GameObject diceObj;
+    public GameObject rollText;
 
     public void setColor(string colorStr) {
         string[] colorList = colorStr.Split(';');
@@ -52,10 +56,34 @@ public class playerController : MonoBehaviour
     void Awake() {
         rb = GetComponent<Rigidbody>();
         cam = GameObject.Find("Main Camera");
+
+    }
+
+    GameObject newDice;
+    void startRoll(){
+
+        rolling = true;
+
+        newDice = Instantiate(diceObj);
+        //newDice.transform.parent = transform;
+        newDice.transform.position = new Vector3( transform.position.x, 3, transform.position.z) ;
+
+        Rigidbody diceRb = newDice.GetComponent<Rigidbody>();
+        diceRb.angularVelocity = new Vector3(UnityEngine.Random.Range(-200, 200),
+                                UnityEngine.Random.Range(-200, 200),
+                                UnityEngine.Random.Range(-200, 200)); 
+
     }
 
     void Start()
     {
+
+        if( SceneManager.GetActiveScene().name == "Board" ){
+            if( playerData.turn == 0 ){
+                startRoll();
+            }
+        }
+
         for (int i = 0; i < gameObject.transform.childCount; i++) {
 
             GameObject child = gameObject.transform.GetChild(i).gameObject;
@@ -79,6 +107,7 @@ public class playerController : MonoBehaviour
 
         Jump( data ); 
         Move( data );
+
 
         BetterJump( data[3] == 0 );
         SpeedControl();
@@ -112,6 +141,22 @@ public class playerController : MonoBehaviour
 
         if ( data[3] == 1 && grounded )
         {
+            if( rolling ){
+
+                rolling = false;
+
+                Debug.Log("Jump");  
+                float rollNum = Mathf.Floor( UnityEngine.Random.Range( 1, 6 ) ) ; 
+                GameObject rollTag = Instantiate( rollText );
+                rollTag.transform.position = transform.position + Vector3.up*3;
+                rollTag.transform.parent = transform;
+                rollTag.GetComponent<TextMesh>().text = rollNum.ToString();
+                Destroy( newDice );
+                Destroy( rollTag, 2f);
+
+            }
+            
+
             playerModel.GetComponent<Animator>().SetTrigger("Jump" );
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             grounded = false;
@@ -146,13 +191,16 @@ public class playerController : MonoBehaviour
 
     void OnTriggerEnter( Collider collision ){
         if ( collision.gameObject.CompareTag("Takable") && takedObject == null ){ takedObject = collision.gameObject; }
-    }
-
-    void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Ground")){ grounded = true; } 
         
     }
+
+    void OnCollisionEnter( Collision collision ){
+        if (collision.gameObject.CompareTag("Ground")){ grounded = true; }
+        
+    }
+
+    
+
     void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject.CompareTag("Ground")) { grounded = false; }

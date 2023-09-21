@@ -20,7 +20,7 @@ TagManager:
   - CannonBullet
   - Border
   - TowerCube
-  - 
+  - NonCollision
   - 
   - 
   - 

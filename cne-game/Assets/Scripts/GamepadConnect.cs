@@ -13,6 +13,7 @@ namespace gamePlayerSpace
         public string id;
         public string color;
         public string model;
+        public int turn = 0;
 
         public float[] gamepadData = new float[6] {0, 0, 0, 0, 0, 0} ;
 

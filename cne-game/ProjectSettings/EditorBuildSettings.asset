@@ -21,6 +21,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Fence Steal.unity
     guid: a3a780f7b7e69f245b51f8712bbd2f73
   - enabled: 1
+    path: Assets/Scenes/Board.unity
+    guid: c92fa409cc465c947befb227eb33a5d5
+  - enabled: 1
     path: Assets/Scenes/Falling Cubes.unity
     guid: 865e4feed7c8faf49b3dacac5c09537f
   m_configObjects: {}
