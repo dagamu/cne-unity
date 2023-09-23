@@ -13,13 +13,20 @@ namespace gamePlayerSpace
         public string id;
         public string color;
         public string model;
+        public int turnRoll = 0;
         public int turn = 0;
+
+        public GameObject currentBoardPoint;
 
         public float[] gamepadData = new float[6] {0, 0, 0, 0, 0, 0} ;
 
         public gamePlayer( string id, string color ){
             this.id = id;
             this.color = color;
+        }
+
+        public void updateTurn( int turn ){
+            this.turn = turn;
         }
 
     }
