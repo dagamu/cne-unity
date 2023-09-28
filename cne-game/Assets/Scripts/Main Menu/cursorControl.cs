@@ -12,6 +12,7 @@ public class cursorControl : MonoBehaviour
     public float velSmooth;
     public Color playerColor;
 
+
     GameObject GamepadConnect;
     GamepadConnect gamepadConnectComponent;
     gamePlayer playerObject;

@@ -32,30 +32,15 @@ public class playerController : MonoBehaviour
     bool grounded, onBoard;
 
     Rigidbody rb;
-    GameObject cam, playerModel, PointingSprite ;
+    GameObject cam, PointingSprite ;
     Vector3 moveDirection, autoMove;
 
     int boardStepsLeft = 0;
 
     [HideInInspector]
-    public GameObject currentBoardPoint, targetPoint, newDice, UIBoardBox;
+    public GameObject targetPoint, newDice, UIBoardBox, playerModel;
 
     BoardManager boardManager;
-
-    public void setColor(string colorStr)
-    {
-        string[] colorList = colorStr.Split(';');
-        playerColor = new Color(
-            float.Parse(colorList[0]),
-            float.Parse(colorList[1]),
-            float.Parse(colorList[2]),
-            1f
-        );
-
-    }
-
-
-    public void deletePlayer() { Destroy(gameObject); }
 
     void Awake()
     {
@@ -63,8 +48,6 @@ public class playerController : MonoBehaviour
         cam = GameObject.Find("Main Camera");
 
     }
-
-    
 
     void Start()
     {
@@ -94,7 +77,6 @@ public class playerController : MonoBehaviour
     void Update()
     {
 
-        
         var data = playerData.gamepadData;
 
         if( onBoard ){ boardManager.managePlayerOnBoard(); }
@@ -111,96 +93,7 @@ public class playerController : MonoBehaviour
     }
 
     /*  
-    Vector2 nearPoint = new Vector2(0, 0);
-    void managePathSelection()
-    {
-
-        var boardPoint = currentBoardPoint.GetComponent<BoardPointManager>();
-
-        if (boardPoint.nextPoints.Count > 0 && nearPoint.x < boardPoint.nextPoints.Count)
-        {
-            targetPoint = boardPoint.nextPoints[(int)nearPoint.x];
-        }
-
-        if (boardPoint.nextPoints.Count > 1)
-        {
-
-            for (int i = 0; i < boardPoint.nextPoints.Count; i++)
-            {
-                Vector2 mouseDir = new Vector2(playerData.gamepadData[0], playerData.gamepadData[1]);
-                Vector2 nPointDir = new Vector2(
-                    boardPoint.nextPoints[i].transform.position.x - transform.position.x,
-                    boardPoint.nextPoints[i].transform.position.y - transform.position.y
-                    );
-
-                if (Vector2.Angle(mouseDir, nPointDir) > nearPoint.y)
-                {
-                    nearPoint.x = i;
-                    nearPoint.y = Vector2.Angle(mouseDir, nPointDir);
-                }
-
-                boardPoint.pathLines[(int)i].GetComponent<LineRenderer>().material.color = Color.white;
-            }
-
-            boardPoint.pathLines[(int)nearPoint.x].GetComponent<LineRenderer>().material.color = playerColor;
-
-        }
-        else if (boardPoint.nextPoints.Count > 0)
-        {
-
-            if (boardPoint.pathLines.Count > 0)
-            {
-                boardPoint.pathLines[0].GetComponent<LineRenderer>().material.color = playerColor;
-            }
-
-            var nextPoint = currentBoardPoint.GetComponent<BoardPointManager>().nextPoints[0];
-
-            if (movingBoard)
-            {
-                targetPoint = nextPoint;
-            }
-        }
-
-        if (playerData.gamepadData[2] == 1 )
-        {
-
-            chosingPath = false;
-            movingBoard = true;
-            rb.velocity = Vector3.zero;
-            targetPoint = boardPoint.nextPoints[(int)nearPoint.x];
-            targetPoint.GetComponent<BoardPointManager>().showLine();
-
-        }
-
-        Vector3 dis = targetPoint.transform.position - transform.position;
-        if (dis.magnitude < 0.5f)
-        {
-
-            currentBoardPoint = targetPoint;
-
-            if (currentBoardPoint.GetComponent<BoardPointManager>().nextPoints.Count != 1)
-            {
-
-                movingBoard = false;
-                rb.velocity = Vector3.zero;
-                playerModel.GetComponent<Animator>().SetBool("Running", false);
-                targetPoint = null;
-
-            }
-
-            boardPoint.hideLine();
-        }
-        if (movingBoard)
-        {
-
-            var normVel = Vector3.Normalize(dis);
-            autoMove = new Vector3(normVel.x, 0, normVel.z);
-            rb.velocity = autoMove * speed * 0.7f * Time.deltaTime;
-            playerModel.GetComponent<Animator>().SetBool("Running", autoMove.magnitude > 0.1);
-
-        }
-
-    }
+    
     */
 
     private void Move(float[] data)
@@ -269,6 +162,21 @@ public class playerController : MonoBehaviour
             Vector3 limitedVel = flatVel.normalized * speed;
             rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
         }
+
+    }
+
+    public void deletePlayer() { Destroy(gameObject); }
+
+    
+    public void setColor(string colorStr)
+    {
+        string[] colorList = colorStr.Split(';');
+        playerColor = new Color(
+            float.Parse(colorList[0]),
+            float.Parse(colorList[1]),
+            float.Parse(colorList[2]),
+            1f
+        );
 
     }
 
