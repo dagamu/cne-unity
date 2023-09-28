@@ -13,13 +13,18 @@ public class BasketballController : MonoBehaviour
     public Transform Target;
 
     // variables
-    private bool IsBallInHands = true;
-    private bool IsBallFlying = false;
+    public bool IsBallInHands = true;
+    public bool IsBallFlying = false;
     private float T = 0;
+
+    private float timer = 0f;
 
     // Update is called once per frame
     void Update()
     {
+
+        timer += Time.deltaTime;
+        Debug.Log(timer);
 
         // walking
         Vector3 direction = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
@@ -51,9 +56,12 @@ public class BasketballController : MonoBehaviour
             if (Input.GetKeyUp(KeyCode.Space))
             {
                 IsBallInHands = false;
+                timer = -3f;
                 IsBallFlying = true;
                 T = 0;
             }
+        } else if(timer > 0){
+            IsBallInHands = true;
         }
 
         // ball in the air
@@ -88,6 +96,7 @@ public class BasketballController : MonoBehaviour
         if (!IsBallInHands && !IsBallFlying)
         {
 
+            Debug.Log("trigger");
             IsBallInHands = true;
             Ball.GetComponent<Rigidbody>().isKinematic = true;
         }
