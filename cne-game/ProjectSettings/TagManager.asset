@@ -8,6 +8,7 @@ TagManager:
   - Takable
   - FallingCube
   - Border
+  - Basketball
   layers:
   - Default
   - TransparentFX

@@ -11,9 +11,10 @@ public class BasketballController : MonoBehaviour
     public Transform PosOverHead;
     public Transform Arms;
     public Transform Target;
+    public GameObject pointText;
 
     // variables
-    public bool IsBallInHands = true;
+    public bool IsBallInHands = false;
     public bool IsBallFlying = false;
     private float T = 0;
 
@@ -24,7 +25,7 @@ public class BasketballController : MonoBehaviour
     {
 
         timer += Time.deltaTime;
-        Debug.Log(timer);
+       
 
         // walking
         Vector3 direction = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
@@ -59,10 +60,10 @@ public class BasketballController : MonoBehaviour
                 timer = -3f;
                 IsBallFlying = true;
                 T = 0;
+                //pointText++
             }
-        } else if(timer > 0){
-            IsBallInHands = true;
-        }
+        } 
+        
 
         // ball in the air
         if (IsBallFlying)
@@ -90,10 +91,11 @@ public class BasketballController : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision other)
     {
-
-        if (!IsBallInHands && !IsBallFlying)
+        Debug.Log(other.gameObject.tag);
+        if (other.gameObject.tag == "Basketball" && 
+            !IsBallInHands && !IsBallFlying)
         {
 
             Debug.Log("trigger");
