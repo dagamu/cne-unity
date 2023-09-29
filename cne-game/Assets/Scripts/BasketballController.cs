@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class BasketballController : MonoBehaviour
 {
@@ -60,7 +61,8 @@ public class BasketballController : MonoBehaviour
                 timer = -3f;
                 IsBallFlying = true;
                 T = 0;
-                //pointText++
+
+               
             }
         } 
         
@@ -85,6 +87,8 @@ public class BasketballController : MonoBehaviour
             // moment when ball arrives at the target
             if (t01 >= 1)
             {
+                var pText = pointText.GetComponent<TMP_Text>();
+                pText.SetText((int.Parse(pText.text) + 1).ToString());
                 IsBallFlying = false;
                 Ball.GetComponent<Rigidbody>().isKinematic = false;
             }
@@ -98,7 +102,7 @@ public class BasketballController : MonoBehaviour
             !IsBallInHands && !IsBallFlying)
         {
 
-            Debug.Log("trigger");
+            Ball = other.transform;
             IsBallInHands = true;
             Ball.GetComponent<Rigidbody>().isKinematic = true;
         }
