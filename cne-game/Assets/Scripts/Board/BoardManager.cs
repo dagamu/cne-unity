@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using gamePlayerSpace;
 
 public class BoardManager : MonoBehaviour
@@ -15,12 +16,15 @@ public class BoardManager : MonoBehaviour
     public bool rolling, chosingPath, movingBoard,
      waitingTurn, BoardUIsetted, onTurn = false;
 
+    public List<string> Minigames;
+
      Vector3 autoMove;
 
     float timer = 0;
     int playersWithTurn = 0;
 
     public int currentTurn = 1;
+    int boardStepsLeft = 0;
 
     public void managePlayerOnBoard()
     {
@@ -84,6 +88,7 @@ public class BoardManager : MonoBehaviour
                     nearPoint.y = Vector2.Angle(mouseDir, nPointDir);
                 }
 
+                if(bP.pathLines.Count == 0) { bP.showLine();  }
                 bP.pathLines[(int)i]
                     .GetComponent<LineRenderer>().material.color = Color.white;
             }
@@ -146,8 +151,15 @@ public class BoardManager : MonoBehaviour
 
         if (dis.magnitude < 0.5f){
 
-            Debug.Log("Arrive");
+            boardStepsLeft--;
+            Debug.Log(boardStepsLeft);
+            if (boardStepsLeft == 0)
+            {
+                int newMinigame = (int) Mathf.Floor( Random.Range(0, Minigames.Count) );
+                SceneManager.LoadScene(Minigames[newMinigame]);
+            }
 
+               currentBoardPoint.GetComponent<BoardPointManager>().hideLine();
             currentBoardPoint = targetPoint;
 
             if ( currentBoardPoint.GetComponent<BoardPointManager>().nextPoints.Count > 1 ){
@@ -158,8 +170,10 @@ public class BoardManager : MonoBehaviour
                 getController(gameObject).playerModel
                     .GetComponent<Animator>().SetBool("Running", false);
                 targetPoint = null;
+                chosingPath = true;
             } else
             {
+                currentBoardPoint.GetComponent<BoardPointManager>().showLine();
                 targetPoint = currentBoardPoint.GetComponent<BoardPointManager>().nextPoints[0];
             }
         }
@@ -194,7 +208,6 @@ public class BoardManager : MonoBehaviour
         rolling = false;
 
         int rollNum = (int) Mathf.Floor(UnityEngine.Random.Range(1, 6));
-        //boardStepsLeft = rollNum;
         GameObject rollTag = Instantiate(rollText);
 
         rollTag.transform.position = transform.position + Vector3.up * 3;
@@ -211,6 +224,7 @@ public class BoardManager : MonoBehaviour
         } else if( onTurn ){
             currentBoardPoint.GetComponent<BoardPointManager>().showLine();
             chosingPath = true;
+            boardStepsLeft = rollNum;
         }
     }
 
