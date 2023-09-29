@@ -140,9 +140,9 @@ public class BoardManager : MonoBehaviour
 
         Vector3 dis = targetPoint.transform.position - transform.position;
 
-        Quaternion lookRotation = Quaternion.LookRotation(targetPoint.position - transform.position);
-        transform.rotation = Quaternion.Slerp(transform.roation, lookRotation, timer)
-        if(lookRotation.Angle == 0) { }
+        Quaternion lookRotation = Quaternion.LookRotation(targetPoint.transform.position - transform.position);
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, timer);
+        if(Quaternion.Angle(transform.rotation, lookRotation) == 0) { timer = 0; }
 
         if (dis.magnitude < 0.5f){
 
