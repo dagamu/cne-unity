@@ -25,6 +25,9 @@ const ColorThemes = [
 
 var colorTheme = ColorThemes[0]
 var playerColor = colorTheme.btn;
+const userAgent = navigator.userAgent.toLowerCase();
+var isTablet = /(ipad|tablet|(android(?!.*mobile))|(windows(?!.*phone)(.*touch))|kindle|playbook|silk|(puffin(?!.*(IP|AP|WP))))/.test(userAgent);
+isTablet = true;
 
 const moveMsg = () => webSocket.send('Move:' + [gameID, controlMessage].toString() )
 function windowResized () { resizeCanvas(windowWidth, windowHeight) }
@@ -51,21 +54,31 @@ function draw() {
 
   var rsp = {
     Joystick: {
-      size: prop > 2.5 ? height * 4 / 5 :
-             width / 2.7,
-      center: [ width / 4, height / 2 ],
-      handler: prop > 2.5 ? height / 3 :
-              width / 7
+      size:     isTablet ? width * 0.2  :
+                prop > 2.5 ? height * 4 / 5 : width / 2.7,
+      center:   isTablet ? [ width * 0.15, height / 2 ] : [ width / 4, height / 2 ],
+      handler:  isTablet ?  width * 0.08 :
+                prop > 2.5 ? height / 3 : width / 7
+                
     },
     btns: {
-      size: prop < 2 ? width / 6 :
-            prop > 2.5 ? height / 2.5:
-            width / 8,
-      xOffset: prop < 1.6 || prop > 2.5 ? width / 8:
-                prop < 2 ? height / 4:
+      size: isTablet ? width / 10 :
+            prop < 2 ? width / 6 :
+            prop > 2.5 ? height / 2.5 : width / 8,
+      xOffset:  isTablet ? height / 10:
+                prop < 1.6 || prop > 2.5 ? width / 8 :
+                prop < 2 ? height / 4 :
                 height / 4,
     }
   };
+
+  if( isTablet ){
+    push()
+    noStroke()
+    fill(colorTheme.btn)
+    rect( width *0.3, 0, width*0.4, height)
+    pop()
+  }
 
   stroke( playerColor )
   strokeWeight(6)
@@ -116,14 +129,19 @@ function draw() {
     touches.some( t => dist(x, y, t.x, t.y) < btnSize * 3 / 5 )
     || dist(x, y, mouseX, mouseY) < btnSize * 3 / 5 && mouseIsPressed
 
-
-  btns = [
+  btns = !isTablet ? [
     [ width * 3 / 4, height / 4     ],                    //Up
     [ width * 3 / 4, height * 3 / 4 ],                    //Down
     [ width * 3 / 4 - rsp.btns.xOffset, height / 2 ],     //Left
     [ width * 3 / 4 + rsp.btns.xOffset, height / 2 ],     //Right
 
+  ] : [
+    [ width * 0.9, height / 3     ],                    //Up
+    [ width * 0.9, height * 2 / 3 ],                    //Down
+    [ width * 0.9 - rsp.btns.xOffset, height / 2 ],     //Left
+    [ width * 0.9 + rsp.btns.xOffset, height / 2 ],     //Right
   ]
+  
 
   btns.forEach( (btn, i) => {
     
