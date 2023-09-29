@@ -140,7 +140,13 @@ public class BoardManager : MonoBehaviour
 
         Vector3 dis = targetPoint.transform.position - transform.position;
 
+        Quaternion lookRotation = Quaternion.LookRotation(targetPoint.position - transform.position);
+        transform.rotation = Quaternion.Slerp(transform.roation, lookRotation, timer)
+        if(lookRotation.Angle == 0) { }
+
         if (dis.magnitude < 0.5f){
+
+            Debug.Log("Arrive");
 
             currentBoardPoint = targetPoint;
 
@@ -148,9 +154,13 @@ public class BoardManager : MonoBehaviour
 
                 movingBoard = false;
                 GetComponent<Rigidbody>().velocity = Vector3.zero;
+                transform.position = currentBoardPoint.transform.position;
                 getController(gameObject).playerModel
                     .GetComponent<Animator>().SetBool("Running", false);
                 targetPoint = null;
+            } else
+            {
+                targetPoint = currentBoardPoint.GetComponent<BoardPointManager>().nextPoints[0];
             }
         }
 
