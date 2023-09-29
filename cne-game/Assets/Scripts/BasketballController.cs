@@ -18,7 +18,7 @@ public class BasketballController : MonoBehaviour
     public bool IsBallInHands = false;
     public bool IsBallFlying = false;
     private float T = 0;
-
+    [SerializeField] private AudioSource CanastaSoundEffect;
     private float timer = 0f;
 
     // Update is called once per frame
@@ -57,6 +57,7 @@ public class BasketballController : MonoBehaviour
             // throw ball
             if (Input.GetKeyUp(KeyCode.Space))
             {
+                CanastaSoundEffect.Play();
                 IsBallInHands = false;
                 timer = -3f;
                 IsBallFlying = true;
