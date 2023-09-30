@@ -13,10 +13,10 @@ public class BoardManager : MonoBehaviour
     [HideInInspector]
     public GameObject targetPoint, currentBoardPoint;
     public Transform playerBoxContainer;
-    public bool rolling, chosingPath, movingBoard,
-     waitingTurn, BoardUIsetted, onTurn = false;
+    public bool rolling;
+    bool chosingPath, movingBoard, waitingTurn, onTurn = false;
 
-    public List<string> Minigames;
+    public List<string> Minigames = new List<string>();
 
      Vector3 autoMove;
 
@@ -24,6 +24,7 @@ public class BoardManager : MonoBehaviour
     int playersWithTurn = 0;
 
     public int currentTurn = 1;
+    public float boardSpeed = 100;
     int boardStepsLeft = 0;
 
     public void managePlayerOnBoard()
@@ -42,6 +43,7 @@ public class BoardManager : MonoBehaviour
             && transform.parent.GetComponent<BoardManager>().currentTurn == getData(player).turn ){
 
             onTurn = true;
+            setCamera();
             waitingTurn = false;
             startRoll( playerPos );
         } else if( chosingPath ) { managePathSelection(); }
@@ -49,13 +51,16 @@ public class BoardManager : MonoBehaviour
 
     }
 
+    void setCamera(){
+        GameObject.Find("Main Camera").GetComponent<MultipleTargetCamera>().targets = new List<Transform>() { transform };
+    }
+
     void setBoardUIBoxes(){
-        BoardUIsetted = true;
         for (int i = 0; i < transform.childCount; i++)
         {
             GameObject newPlayerBox = Instantiate( UIPlayerBox );
 
-            newPlayerBox.transform.parent = playerBoxContainer;
+            newPlayerBox.transform.SetParent(playerBoxContainer);
             newPlayerBox.GetComponent<RectTransform>().localPosition = new Vector3(-520, 90 - 90 * i, 0);
             var playerModelName = getData( transform.GetChild(i).gameObject ).model;
                                         
@@ -152,11 +157,10 @@ public class BoardManager : MonoBehaviour
         if (dis.magnitude < 0.5f){
 
             boardStepsLeft--;
-            Debug.Log(boardStepsLeft);
             if (boardStepsLeft == 0)
             {
-                int newMinigame = (int) Mathf.Floor( Random.Range(0, Minigames.Count) );
-                SceneManager.LoadScene(Minigames[newMinigame]);
+                int newMinigame = (int) Mathf.Round( Random.Range(0, Minigames.Count - 1) );
+                SceneManager.LoadScene(transform.parent.GetComponent<BoardManager>().Minigames[newMinigame]);
             }
 
                currentBoardPoint.GetComponent<BoardPointManager>().hideLine();
@@ -181,7 +185,7 @@ public class BoardManager : MonoBehaviour
         var normVel = Vector3.Normalize(dis);
         autoMove = new Vector3(normVel.x, 0, normVel.z);
         GetComponent<Rigidbody>().velocity =
-                             autoMove * getController(gameObject).speed * 0.7f * Time.deltaTime;
+                             autoMove * boardSpeed * 0.7f * Time.deltaTime;
         getController(gameObject).playerModel
             .GetComponent<Animator>().SetBool("Running", autoMove.magnitude > 0.1);
 

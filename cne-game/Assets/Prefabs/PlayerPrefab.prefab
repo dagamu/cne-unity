@@ -47,7 +47,7 @@ Rigidbody:
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!136 &7065152594365306781
@@ -81,10 +81,14 @@ MonoBehaviour:
   jumpForce: 5
   fallMultiplier: 8
   lowJumpMultiplier: 2
-  speed: 204.4
+  speed: 10
   turnSmooth: 0.1
+  smoothInputSpeed: 0.2
   takedObjectRadius: 1.8
   takedObjectInterpolation: 0.1
-  diceObj: {fileID: 5349854405127575898, guid: b7b0c82ca6bfaaf42b442d0898be650e, type: 3}
-  rollText: {fileID: 8621863604404888273, guid: fb5bd1eb8f116e7428791a9ddfb27e73, type: 3}
-  currentBoardPoint: {fileID: 0}
+  cam: {fileID: 0}
+  PointingSprite: {fileID: 0}
+  targetPoint: {fileID: 0}
+  newDice: {fileID: 0}
+  UIBoardBox: {fileID: 0}
+  playerModel: {fileID: 0}

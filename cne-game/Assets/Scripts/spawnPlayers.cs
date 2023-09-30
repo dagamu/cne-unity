@@ -61,7 +61,9 @@ public class spawnPlayers : MonoBehaviour
 
         }
 
-        player.GetComponent<BoardManager>().currentBoardPoint = firstBoardPoint;    
+        if( firstBoardPoint != null ){
+            player.GetComponent<BoardManager>().currentBoardPoint = firstBoardPoint;    
+        }
 
         var multipleTarget = cam.GetComponent<MultipleTargetCamera>();
         if( multipleTarget != null) { multipleTarget.targets.Add(player.transform); }

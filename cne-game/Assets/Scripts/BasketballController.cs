@@ -98,7 +98,6 @@ public class BasketballController : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        Debug.Log(other.gameObject.tag);
         if (other.gameObject.tag == "Basketball" && 
             !IsBallInHands && !IsBallFlying)
         {

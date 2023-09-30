@@ -22,6 +22,7 @@ public class playerController : MonoBehaviour
                 lowJumpMultiplier = 2f,
                 speed = 30f,
                 turnSmooth = 0.1f,
+                smoothInputSpeed,
                 takedObjectRadius,
                 takedObjectInterpolation;
 
@@ -32,15 +33,16 @@ public class playerController : MonoBehaviour
     bool grounded, onBoard;
 
     Rigidbody rb;
-    GameObject cam, PointingSprite ;
-    Vector3 moveDirection, autoMove;
-
-    int boardStepsLeft = 0;
+    public GameObject cam, PointingSprite;
+    Vector3 moveDirection;
 
     [HideInInspector]
     public GameObject targetPoint, newDice, UIBoardBox, playerModel;
 
     BoardManager boardManager;
+
+    private Vector3 currentInputVector;
+    private Vector3 smoothInputVelocity;
 
     void Awake()
     {
@@ -91,19 +93,16 @@ public class playerController : MonoBehaviour
         manageTakedObject();
 
     }
-
-    /*  
     
-    */
-
     private void Move(float[] data)
     {
 
         Vector3 direction = new Vector3(
            data[0], 0f, data[1]
        ).normalized;
+       currentInputVector = Vector3.SmoothDamp(currentInputVector, direction, ref smoothInputVelocity, smoothInputSpeed );
 
-        float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.transform.eulerAngles.y;
+        float targetAngle = Mathf.Atan2(currentInputVector.x, currentInputVector.z) * Mathf.Rad2Deg + cam.transform.eulerAngles.y;
         float angle = Mathf.SmoothDampAngle(
             transform.eulerAngles.y, targetAngle, ref turnSmoothVel, turnSmooth);
 

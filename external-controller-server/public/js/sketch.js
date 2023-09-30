@@ -27,7 +27,6 @@ var colorTheme = ColorThemes[0]
 var playerColor = colorTheme.btn;
 const userAgent = navigator.userAgent.toLowerCase();
 var isTablet = /(ipad|tablet|(android(?!.*mobile))|(windows(?!.*phone)(.*touch))|kindle|playbook|silk|(puffin(?!.*(IP|AP|WP))))/.test(userAgent);
-isTablet = true;
 
 const moveMsg = () => webSocket.send('Move:' + [gameID, controlMessage].toString() )
 function windowResized () { resizeCanvas(windowWidth, windowHeight) }
@@ -136,10 +135,10 @@ function draw() {
     [ width * 3 / 4 + rsp.btns.xOffset, height / 2 ],     //Right
 
   ] : [
-    [ width * 0.9, height / 3     ],                    //Up
-    [ width * 0.9, height * 2 / 3 ],                    //Down
-    [ width * 0.9 - rsp.btns.xOffset, height / 2 ],     //Left
-    [ width * 0.9 + rsp.btns.xOffset, height / 2 ],     //Right
+    [ width * 0.9, height * 1.1 / 3     ],                    //Up
+    [ width * 0.9, height * 1.1 * 2 / 3 ],                    //Down
+    [ width * 0.9 - rsp.btns.xOffset, height * 1.1 / 2 ],     //Left
+    [ width * 0.9 + rsp.btns.xOffset, height * 1.1 / 2 ],     //Right
   ]
   
 

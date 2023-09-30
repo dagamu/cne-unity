@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Falling Cubes.unity
     guid: 865e4feed7c8faf49b3dacac5c09537f
+  - enabled: 1
+    path: Assets/Scenes/Basketball.unity
+    guid: e327ea4814c307c41b7e30395ef064e5
   m_configObjects: {}
