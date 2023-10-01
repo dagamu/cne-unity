@@ -6,12 +6,11 @@ using TMPro;
 public class BasketballController : MonoBehaviour
 {
 
-    public float MoveSpeed = 10;
     public Transform Ball;
-    public Transform PosDribble;
-    public Transform PosOverHead;
-    public Transform Arms;
-    public Transform Target;
+    Transform PosDribble;
+    Transform PosOverHead;
+    Transform Arms;
+    Transform Target;
     public GameObject pointText;
 
     // variables
@@ -21,30 +20,36 @@ public class BasketballController : MonoBehaviour
     [SerializeField] private AudioSource CanastaSoundEffect;
     private float timer = 0f;
 
+    bool previusShootStatus = false;
+
+    public void setPoints(){
+
+        var modelTransform = GetComponent<playerController>().playerModel.transform;
+        PosDribble = modelTransform.Find("Points/Cadera");
+        PosOverHead = modelTransform.Find("Points/Cabeza");
+        Arms = modelTransform.Find("Points/Mano");
+        Target = GameObject.Find("BasketballTarget").transform;
+    }
+
     // Update is called once per frame
     void Update()
     {
 
         timer += Time.deltaTime;
-       
-
-        // walking
-        Vector3 direction = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
-        transform.position += direction * MoveSpeed * Time.deltaTime;
-        transform.LookAt(transform.position + direction);
 
         // ball in hands
         if (IsBallInHands)
         {
 
             // hold over head
-            if (Input.GetKey(KeyCode.Space))
+            if ( Utility.getData(gameObject).gamepadData[2] == 1 )
             {
+                previusShootStatus = Utility.getData(gameObject).gamepadData[2] == 1;
                 Ball.position = PosOverHead.position;
                 Arms.localEulerAngles = Vector3.right * 180;
 
                 // look towards the target
-                transform.LookAt(Target.parent.position);
+                transform.LookAt(Target.position);
             }
 
             // dribbling
@@ -55,9 +60,10 @@ public class BasketballController : MonoBehaviour
             }
 
             // throw ball
-            if (Input.GetKeyUp(KeyCode.Space))
+            if ( Utility.getData(gameObject).gamepadData[2] == 0 && previusShootStatus  )
             {
-                CanastaSoundEffect.Play();
+                previusShootStatus = false;
+                //CanastaSoundEffect.Play();
                 IsBallInHands = false;
                 timer = -3f;
                 IsBallFlying = true;
@@ -88,8 +94,8 @@ public class BasketballController : MonoBehaviour
             // moment when ball arrives at the target
             if (t01 >= 1)
             {
-                var pText = pointText.GetComponent<TMP_Text>();
-                pText.SetText((int.Parse(pText.text) + 1).ToString());
+                /*var pText = pointText.GetComponent<TMP_Text>();
+                pText.SetText((int.Parse(pText.text) + 1).ToString());*/
                 IsBallFlying = false;
                 Ball.GetComponent<Rigidbody>().isKinematic = false;
             }

@@ -1314,14 +1314,10 @@ MonoBehaviour:
   currentBoardPoint: {fileID: 0}
   playerBoxContainer: {fileID: 999783011}
   rolling: 0
-  chosingPath: 0
-  movingBoard: 0
-  waitingTurn: 0
-  BoardUIsetted: 0
-  onTurn: 0
   Minigames:
   - Basketball
   currentTurn: 1
+  boardSpeed: 100
 --- !u!1 &1043849134
 GameObject:
   m_ObjectHideFlags: 0

@@ -50,15 +50,17 @@ public class spawnPlayers : MonoBehaviour
         newPlayerController.gameId = playerObj.id;
         newPlayerController.playerData = playerObj;
         newPlayerController.setColor( playerObj.color );
+        newPlayerController.playerModel = playerModel;
 
-        BoardManager BoardManager = GetComponent<BoardManager>();
-        if( SceneManager.GetActiveScene().name == "Board" ){ 
 
-            var bm = player.AddComponent<BoardManager>();
-            bm.diceObj = BoardManager.diceObj;
-            bm.rollText = BoardManager.rollText;
-            bm.playerBoxContainer = BoardManager.playerBoxContainer;
-
+        string currentScene = SceneManager.GetActiveScene().name;
+        switch(  currentScene ){ 
+            case "Board": 
+                addBoardManager(player);
+                break;
+            case "Basketball":
+                addBasketballController(player);
+                break;
         }
 
         if( firstBoardPoint != null ){
@@ -68,5 +70,20 @@ public class spawnPlayers : MonoBehaviour
         var multipleTarget = cam.GetComponent<MultipleTargetCamera>();
         if( multipleTarget != null) { multipleTarget.targets.Add(player.transform); }
 
+    }
+
+    void addBoardManager( GameObject player ){
+        BoardManager BoardManager = GetComponent<BoardManager>();
+        var bm = player.AddComponent<BoardManager>();
+        bm.diceObj = BoardManager.diceObj;
+        bm.rollText = BoardManager.rollText;
+        bm.playerBoxContainer = BoardManager.playerBoxContainer;
+
+    }
+
+    void addBasketballController( GameObject player ){
+        BasketballController BasketballController = GetComponent<BasketballController>();
+        var bkM = player.AddComponent<BasketballController>();
+        bkM.setPoints();
     }
 }

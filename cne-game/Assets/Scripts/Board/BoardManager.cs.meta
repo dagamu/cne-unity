@@ -3,7 +3,13 @@ guid: 2327f7c52bc19ee419801d0add5ee38b
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - diceObj: {fileID: 5349854405127575898, guid: b7b0c82ca6bfaaf42b442d0898be650e, type: 3}
+  - rollText: {instanceID: 0}
+  - UIPlayerBox: {instanceID: 0}
+  - targetPoint: {instanceID: 0}
+  - currentBoardPoint: {instanceID: 0}
+  - playerBoxContainer: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

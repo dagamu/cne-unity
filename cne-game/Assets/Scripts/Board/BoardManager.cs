@@ -32,15 +32,15 @@ public class BoardManager : MonoBehaviour
         var player = gameObject;
         Vector3 playerPos = player.transform.position;
 
-        if ( getData(player).turn + getData(player).turnRoll == 0 && !rolling && timer > 2 ) {
+        if ( Utility.getData(player).turn + Utility.getData(player).turnRoll == 0 && !rolling && timer > 2 ) {
              startRoll( playerPos );
              if( (int) playerBoxContainer.transform.childCount == 0 ){ 
                 transform.parent.GetComponent<BoardManager>().setBoardUIBoxes();
             }
         }
 
-        else if( waitingTurn && getData(player).turn > 0 && !onTurn 
-            && transform.parent.GetComponent<BoardManager>().currentTurn == getData(player).turn ){
+        else if( waitingTurn && Utility.getData(player).turn > 0 && !onTurn 
+            && transform.parent.GetComponent<BoardManager>().currentTurn == Utility.getData(player).turn ){
 
             onTurn = true;
             setCamera();
@@ -62,12 +62,12 @@ public class BoardManager : MonoBehaviour
 
             newPlayerBox.transform.SetParent(playerBoxContainer);
             newPlayerBox.GetComponent<RectTransform>().localPosition = new Vector3(-520, 90 - 90 * i, 0);
-            var playerModelName = getData( transform.GetChild(i).gameObject ).model;
+            var playerModelName = Utility.getData( transform.GetChild(i).gameObject ).model;
                                         
             Sprite newSprite = Resources.Load<Sprite>("Thumbnails/"+playerModelName);
             newPlayerBox.transform.GetChild(0).GetComponent<Image>().sprite = newSprite;
 
-            getController(transform.GetChild(i).gameObject).UIBoardBox = newPlayerBox;
+            Utility.getController(transform.GetChild(i).gameObject).UIBoardBox = newPlayerBox;
         }
     }
 
@@ -80,7 +80,7 @@ public class BoardManager : MonoBehaviour
         for (int i = 0; i < nextPoints.Count; i++)
 
             {
-                var playerData = getData(gameObject);
+                var playerData = Utility.getData(gameObject);
                 Vector2 mouseDir = new Vector2(playerData.gamepadData[0], playerData.gamepadData[1]);
                 Vector2 nPointDir = new Vector2(
                     nextPoints[i].transform.position.x - transform.position.x,
@@ -99,7 +99,7 @@ public class BoardManager : MonoBehaviour
             }
 
             bP.pathLines[(int)nearPoint.x]
-                .GetComponent<LineRenderer>().material.color = getController(gameObject).playerColor;
+                .GetComponent<LineRenderer>().material.color = Utility.getController(gameObject).playerColor;
 
     }
 
@@ -122,7 +122,7 @@ public class BoardManager : MonoBehaviour
             if ( boardPoint.pathLines.Count > 0 )
             {
                 boardPoint.pathLines[0]
-                    .GetComponent<LineRenderer>().material.color = getController(gameObject).playerColor;
+                    .GetComponent<LineRenderer>().material.color = Utility.getController(gameObject).playerColor;
             }
 
             var nextPoint = currentBoardPoint.GetComponent<BoardPointManager>().nextPoints[0];
@@ -133,7 +133,7 @@ public class BoardManager : MonoBehaviour
             }
         }
 
-        if ( getData(gameObject).gamepadData[2] == 1 ){
+        if ( Utility.getData(gameObject).gamepadData[2] == 1 ){
 
             chosingPath = false;
             movingBoard = true;
@@ -171,7 +171,7 @@ public class BoardManager : MonoBehaviour
                 movingBoard = false;
                 GetComponent<Rigidbody>().velocity = Vector3.zero;
                 transform.position = currentBoardPoint.transform.position;
-                getController(gameObject).playerModel
+                Utility.getController(gameObject).playerModel
                     .GetComponent<Animator>().SetBool("Running", false);
                 targetPoint = null;
                 chosingPath = true;
@@ -186,7 +186,7 @@ public class BoardManager : MonoBehaviour
         autoMove = new Vector3(normVel.x, 0, normVel.z);
         GetComponent<Rigidbody>().velocity =
                              autoMove * boardSpeed * 0.7f * Time.deltaTime;
-        getController(gameObject).playerModel
+        Utility.getController(gameObject).playerModel
             .GetComponent<Animator>().SetBool("Running", autoMove.magnitude > 0.1);
 
     }
@@ -250,8 +250,8 @@ public class BoardManager : MonoBehaviour
             {
                 for (int j = min+1; j < transform.childCount; j++)
                     {
-                        var minValue = getData(Children[min]).turnRoll;
-                        var eValue = getData(Children[j]).turnRoll;
+                        var minValue = Utility.getData(Children[min]).turnRoll;
+                        var eValue = Utility.getData(Children[j]).turnRoll;
 
                         if( minValue < eValue ){
                             var aux = Children[min];
@@ -263,12 +263,12 @@ public class BoardManager : MonoBehaviour
 
             for (int i = 0; i < Children.Count; i++)
             {
-                getData(Children[i]).updateTurn(i+1);
-                getController(Children[i])
+                Utility.getData(Children[i]).updateTurn(i+1);
+                Utility.getController(Children[i])
                                 .UIBoardBox
                                 .GetComponent<UIPlayerBoxController>()
                                 .yPositionTarget = 90 - 90 * i;
-                getData(Children[i]).turnRoll = 0;
+                Utility.getData(Children[i]).turnRoll = 0;
             }
         }
 
@@ -277,13 +277,5 @@ public class BoardManager : MonoBehaviour
     
 
     void Update(){ timer += Time.deltaTime; }
-
-    gamePlayer getData( GameObject player ){
-        return player.GetComponent<playerController>()
-                                    .playerData;
-    }
-    playerController getController( GameObject player ){
-        return player.GetComponent<playerController>();
-    }
    
 }
