@@ -91,16 +91,45 @@ public class BoardManager : MonoBehaviour
                 {
                     nearPoint.x = i;
                     nearPoint.y = Vector2.Angle(mouseDir, nPointDir);
+
                 }
 
-                if(bP.pathLines.Count == 0) { bP.showLine();  }
-                bP.pathLines[(int)i]
+                var currentTargetPoint = bP.nextPoints[i].GetComponent<BoardPointManager>();
+                var nextTargetPoint = currentTargetPoint.nextPoints[0]
+                                .GetComponent<BoardPointManager>();
+
+                while( currentTargetPoint.nextPoints.Count == 1 && currentTargetPoint != bP ){
+                    
+                    
+                    if( currentTargetPoint.pathLines.Count == 0 ){
+                        currentTargetPoint.showLine();
+                    } else {
+                        currentTargetPoint.pathLines[0].GetComponent<LineRenderer>().material.color = Color.white;
+                    }
+
+                    var aux = currentTargetPoint;
+                    currentTargetPoint = nextTargetPoint;
+                    nextTargetPoint = aux.nextPoints[0]
+                                .GetComponent<BoardPointManager>();
+                    
+                }
+
+                if(bP.pathLines.Count == 0){ bP.showLine(); };
+
+                bP.pathLines[ (int)i ]
                     .GetComponent<LineRenderer>().material.color = Color.white;
             }
 
-            bP.pathLines[(int)nearPoint.x]
+            bP.pathLines[ (int) nearPoint.x ]
                 .GetComponent<LineRenderer>().material.color = Utility.getController(gameObject).playerColor;
 
+            var selectedTargetPoint = bP.nextPoints[ (int) nearPoint.x ].GetComponent<BoardPointManager>();
+            while( selectedTargetPoint.pathLines.Count == 1 ){
+                selectedTargetPoint.pathLines[ 0 ]
+                .GetComponent<LineRenderer>().material.color = Utility.getController(gameObject).playerColor;
+                selectedTargetPoint = selectedTargetPoint.nextPoints[0]
+                                        .GetComponent<BoardPointManager>();
+        }
     }
 
 
@@ -140,7 +169,7 @@ public class BoardManager : MonoBehaviour
 
             GetComponent<Rigidbody>().velocity = Vector3.zero;
             targetPoint = boardPoint.nextPoints[ (int)nearPoint.x ];
-            targetPoint.GetComponent<BoardPointManager>().showLine();
+            //targetPoint.GetComponent<BoardPointManager>().showLine();
 
         }
 
@@ -226,7 +255,6 @@ public class BoardManager : MonoBehaviour
             transform.parent.GetComponent<BoardManager>().updateTurnRoll();
             waitingTurn = true;
         } else if( onTurn ){
-            currentBoardPoint.GetComponent<BoardPointManager>().showLine();
             chosingPath = true;
             boardStepsLeft = rollNum;
         }
