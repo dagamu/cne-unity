@@ -1310,14 +1310,16 @@ MonoBehaviour:
   diceObj: {fileID: 5349854405127575898, guid: b7b0c82ca6bfaaf42b442d0898be650e, type: 3}
   rollText: {fileID: 8621863604404888273, guid: fb5bd1eb8f116e7428791a9ddfb27e73, type: 3}
   UIPlayerBox: {fileID: 741075066302615711, guid: 28bec598a6269a541a5ac0811742f9d7, type: 3}
+  DevMode: 1
   targetPoint: {fileID: 0}
   currentBoardPoint: {fileID: 0}
   playerBoxContainer: {fileID: 999783011}
   rolling: 0
   Minigames:
+  - Fence Steal
   - Basketball
   currentTurn: 1
-  boardSpeed: 100
+  boardSpeed: 300
 --- !u!1 &1043849134
 GameObject:
   m_ObjectHideFlags: 0

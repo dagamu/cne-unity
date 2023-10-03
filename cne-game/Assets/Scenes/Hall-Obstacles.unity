@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: a6627b434163ffd4f85c058a02d1baaf, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
+  m_IndirectSpecularColor: {r: 0.017654289, g: 0.034160204, b: 0.109684125, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -350,7 +350,6 @@ MonoBehaviour:
   - {fileID: 5805461725701588587, guid: d975540d8b6a06c489e68976d0c51571, type: 3}
   - {fileID: 5894916160671924762, guid: c6c8c94af1d81e540876dc3dee376488, type: 3}
   - {fileID: 3145904639322037944, guid: 39e3b2c16b5f71448acf73d6195c93dc, type: 3}
-  - {fileID: 3278358368935524617, guid: d574c27dea2cf3b43ae6b263a56c1871, type: 3}
   - {fileID: 1450563558500390482, guid: 55d96c9e36d8fd9488dd765aacea957b, type: 3}
 --- !u!4 &822682186
 Transform:
@@ -902,3 +901,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 7065152594365306723, guid: 7dbaee8c84dc30f4daa994a293b7f31f, type: 3}
+  firstBoardPoint: {fileID: 0}

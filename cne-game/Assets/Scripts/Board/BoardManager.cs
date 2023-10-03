@@ -9,6 +9,7 @@ public class BoardManager : MonoBehaviour
 {
 
     public GameObject diceObj, rollText, UIPlayerBox;
+    public bool DevMode;
 
     [HideInInspector]
     public GameObject targetPoint, currentBoardPoint;
@@ -188,7 +189,15 @@ public class BoardManager : MonoBehaviour
             boardStepsLeft--;
             if (boardStepsLeft == 0)
             {
-                int newMinigame = (int) Mathf.Round( Random.Range(0, Minigames.Count - 1) );
+                int newMinigame;
+                if (DevMode) {
+                    newMinigame = 0;    
+                }
+                else
+                {
+                    newMinigame = (int) Mathf.Round( Random.Range(0, Minigames.Count - 1) );
+                }
+
                 SceneManager.LoadScene(transform.parent.GetComponent<BoardManager>().Minigames[newMinigame]);
             }
 
