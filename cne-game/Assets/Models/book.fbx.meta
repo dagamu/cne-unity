@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6fb358da736df1945ad7a844a8533832
+guid: 9107c10633f7819439ded7da266a8e53
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -7,8 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: SchoolChair_Mat
-    second: {fileID: 2100000, guid: d8aa6deb0775ed44eb9b1b9ed9e96788, type: 2}
+      name: DefaultMaterial
+    second: {fileID: 2100000, guid: de5fae8204f4c764da3bbdddd80d8b8a, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

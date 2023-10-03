@@ -181,8 +181,18 @@ public class playerController : MonoBehaviour
 
     void OnTriggerEnter(Collider collision)
     {
-        if (collision.gameObject.CompareTag("Takable") && takedObject == null) { takedObject = collision.gameObject; }
+        
 
+        if (collision.gameObject.CompareTag("Takable") && takedObject == null) { takedObject = collision.gameObject; }
+        else if (collision.gameObject.CompareTag("TakableBase")){
+            Debug.Log(collision.gameObject.name + "; " + collision.transform.GetSiblingIndex() + 1);
+            if (collision.gameObject.name == "Base" + (collision.transform.GetSiblingIndex() + 1).ToString())
+            {
+                var aux = takedObject;
+                takedObject = null;
+                aux.transform.position += new Vector3(-2, 0, 0);
+            }
+        }
     }
 
     void OnCollisionEnter(Collision collision)
@@ -196,6 +206,7 @@ public class playerController : MonoBehaviour
     void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject.CompareTag("Ground")) { grounded = false; }
+  
     }
 
 }
