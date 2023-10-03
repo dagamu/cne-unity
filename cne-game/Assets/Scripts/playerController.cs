@@ -169,14 +169,7 @@ public class playerController : MonoBehaviour
     
     public void setColor(string colorStr)
     {
-        string[] colorList = colorStr.Split(';');
-        playerColor = new Color(
-            float.Parse(colorList[0]),
-            float.Parse(colorList[1]),
-            float.Parse(colorList[2]),
-            1f
-        );
-
+        playerColor = Utility.stringToColor( colorStr );
     }
 
     void OnTriggerEnter(Collider collision)

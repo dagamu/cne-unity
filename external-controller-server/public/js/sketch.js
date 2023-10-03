@@ -41,7 +41,7 @@ function setup() {
   windowResized()
 
   drag = false
-  touchMode = windowWidth < 900;
+  touchMode = userAgent.indexOf("win64") != -1 ? false : windowWidth < 900
 
 }
 

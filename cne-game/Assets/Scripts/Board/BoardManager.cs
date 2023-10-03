@@ -33,7 +33,7 @@ public class BoardManager : MonoBehaviour
         var player = gameObject;
         Vector3 playerPos = player.transform.position;
 
-        if ( Utility.getData(player).turn + Utility.getData(player).turnRoll == 0 && !rolling && timer > 2 ) {
+        if ( Utility.getData(player).turn + Utility.getData(player).turnRoll == 0 && !rolling && timer > 1.5f ) {
              startRoll( playerPos );
              if( (int) playerBoxContainer.transform.childCount == 0 ){ 
                 transform.parent.GetComponent<BoardManager>().setBoardUIBoxes();

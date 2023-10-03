@@ -40,6 +40,8 @@ public class GamepadConnect : MonoBehaviour
     private readonly ConcurrentQueue<Action> _actions = new ConcurrentQueue<Action>(); 
     private GameObject playerSpawn;
     public List<gamePlayer> players = new List<gamePlayer>();
+    public GameObject GamepadCanvasPrefab;
+    public GameObject GamepadCanvas;
     
     bool EmitConnection = false;
 
@@ -74,7 +76,6 @@ public class GamepadConnect : MonoBehaviour
         };
         ws.Connect();
 
-        
     }
 
     /* void Awake(){
@@ -99,31 +100,30 @@ public class GamepadConnect : MonoBehaviour
 
         players.ForEach( delegate( gamePlayer p) {
             if(sData[0] == p.id ){
-                p.gamepadData = new float[6] {
-                    float.Parse( sData[1] ),
-                    float.Parse( sData[2] ),
-                    Convert.ToBoolean( sData[3] ) ? 1 : 0,
-                    Convert.ToBoolean( sData[4] ) ? 1 : 0,
-                    Convert.ToBoolean( sData[5] ) ? 1 : 0,
-                    Convert.ToBoolean( sData[6] ) ? 1 : 0
+                float[] newData = new float[6] {
+                    float.Parse( sData[1] ),    // X axis
+                    float.Parse( sData[2] ),    // Y axis
+                    Convert.ToBoolean( sData[3] ) ? 1 : 0,  //Up
+                    Convert.ToBoolean( sData[4] ) ? 1 : 0,  //Down
+                    Convert.ToBoolean( sData[5] ) ? 1 : 0,  //Left
+                    Convert.ToBoolean( sData[6] ) ? 1 : 0   //Right
                 };
+                if( GamepadCanvas != null ){
+                    GamepadCanvas.GetComponent<DebugController>()
+                    .UpdateMovementData( players.IndexOf(p), newData );
+                }
+                
+                p.gamepadData = newData;
             }
         });
-
     }
 
     private void deletePlayer( string id ){
-
         players.ForEach( delegate( gamePlayer p ) {
             if(id == p.id ){
                 p = null;
-                /*var multipleTarget = GetComponent<Camera>().GetComponent<MultipleTargetCamera>();
-                multipleTarget.targets.Remove(p.gameObject.transform);*/
             }
         });
-
-        
-
     }
 
     // Update is called once per frame
@@ -131,15 +131,21 @@ public class GamepadConnect : MonoBehaviour
     {
         while(_actions.Count > 0)
         {
-            if(_actions.TryDequeue(out var action))
-            {
-                action?.Invoke();
-            }
+            if( _actions.TryDequeue(out var action) ){ action?.Invoke(); }
         }
 
         if( !EmitConnection && ws != null ){
             ws.Send("UnityConnection");
             EmitConnection = true;
+        }
+        
+        if( Input.GetKeyUp(KeyCode.F3) ){
+            if( GamepadCanvas == null ){
+                GamepadCanvas = Instantiate(GamepadCanvasPrefab);
+                GamepadCanvas.GetComponent<DebugController>().setGamepadBoxes(players);
+            } else {
+                Destroy(GamepadCanvas);
+            }
         }
         
     }
