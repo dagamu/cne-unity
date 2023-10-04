@@ -44,6 +44,7 @@ public class GamepadConnect : MonoBehaviour
     public GameObject GamepadCanvas;
     
     bool EmitConnection = false;
+    public bool DevMode;
 
     public static GamepadConnect gamepadConnect;
 
@@ -108,11 +109,14 @@ public class GamepadConnect : MonoBehaviour
                     Convert.ToBoolean( sData[5] ) ? 1 : 0,  //Left
                     Convert.ToBoolean( sData[6] ) ? 1 : 0   //Right
                 };
+
+                newData = manageData(newData);
+
                 if( GamepadCanvas != null ){
                     GamepadCanvas.GetComponent<DebugController>()
                     .UpdateMovementData( players.IndexOf(p), newData );
                 }
-                
+
                 p.gamepadData = newData;
             }
         });
@@ -124,6 +128,13 @@ public class GamepadConnect : MonoBehaviour
                 p = null;
             }
         });
+    }
+
+    float[] manageData( float[] data ){
+        Vector2 dir = new Vector2( data[0], data[1] ).normalized;
+        data[0] = dir.x;
+        data[1] = dir.y;
+        return data;
     }
 
     // Update is called once per frame
@@ -145,6 +156,36 @@ public class GamepadConnect : MonoBehaviour
                 GamepadCanvas.GetComponent<DebugController>().setGamepadBoxes(players);
             } else {
                 Destroy(GamepadCanvas);
+            }
+        }
+
+        if( Input.GetMouseButtonDown(2) ){
+            DevMode = !DevMode;
+        }
+
+        if( DevMode && players.Count != 0){
+
+            // Left Click -> Up btn
+            players[0].gamepadData[2] = Input.GetMouseButtonDown(0) ? 1 : 0;
+        
+            // Right  Click -> Right btn
+            players[0].gamepadData[5] = Input.GetMouseButtonDown(1) ? 1 : 0;
+        
+            // E -> Left btn
+            players[0].gamepadData[4] = Input.GetKeyUp("e") ? 1 : 0;
+        
+            // Space -> Down bnt
+            players[0].gamepadData[3] = Input.GetKeyUp(KeyCode.Space) ? 1 : 0;
+        
+            if( Input.GetAxis("Horizontal") != 0 ){
+                players[0].gamepadData[0] = Input.GetAxis("Horizontal");
+            }
+            if( Input.GetAxis("Vertical") != 0 ){
+                players[0].gamepadData[1] = Input.GetAxis("Vertical");
+            }
+
+            if( GamepadCanvas != null ){
+                GamepadCanvas.GetComponent<DebugController>().UpdateMovementData( 0, players[0].gamepadData );
             }
         }
         

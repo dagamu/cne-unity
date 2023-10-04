@@ -11,11 +11,6 @@ public class DebugController : MonoBehaviour
     public GameObject gamepadBoxContainer;
     string[] btnOrder = {"Up","Down","Left","Right"};
 
-    void Update()
-    {
-        
-    }
-
     public void UpdateMovementData( int index, float[] data ){
         var gpBox = gamepadBoxContainer.transform.GetChild(index);
         for( int i = 0; i < btnOrder.Length; i++){
@@ -24,7 +19,12 @@ public class DebugController : MonoBehaviour
                 btnText.GetComponent<TMP_Text>().SetText(btnOrder[i] + ": " + (data[i+2] == 1 ? "True" : "False"));
             }
         }
-        gpBox.transform.Find("Square/Circle").transform.localPosition = new Vector3(data[0],data[1],0) * 0.23f;
+        gpBox.transform.Find("Square/Circle").transform.localPosition = new Vector3(data[0],data[1],0) * 20;
+        gpBox.transform.Find("Square/Direction")
+            .GetComponent<TMP_Text>().SetText(
+                    data[0].ToString("F2") + "; " + data[1].ToString("F2")
+                    );
+        ;
     }
 
     public void setGamepadBoxes(List<gamePlayer> players){
