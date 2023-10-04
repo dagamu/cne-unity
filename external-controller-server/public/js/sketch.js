@@ -108,10 +108,11 @@ function draw() {
 
   circle( ...pos, rsp.Joystick.handler )
 
-
   controlMessage = [
-    round((pos[0] - rsp.Joystick.center[0]) / (rsp.Joystick.center[0]), 2),   // Joystick X 0
-    round((rsp.Joystick.center[1] - pos[1]) / (rsp.Joystick.center[0]), 2), // Joystick X 1
+    round(
+      (pos[0] - rsp.Joystick.center[0]) / (rsp.Joystick.center[0]), 2),   // Joystick X 0
+    round(
+      (rsp.Joystick.center[1] - pos[1]) / (rsp.Joystick.center[0]), 2), // Joystick X 1
     false, // btnUp 2
     false,  // btnDown 3
     false,  // btnLeft 4

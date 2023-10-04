@@ -99,8 +99,9 @@ public class playerController : MonoBehaviour
 
         Vector3 direction = new Vector3(
            data[0], 0f, data[1]
-       ).normalized;
-       currentInputVector = Vector3.SmoothDamp(currentInputVector, direction, ref smoothInputVelocity, smoothInputSpeed );
+       );
+       //currentInputVector = Vector3.SmoothDamp(currentInputVector, direction, ref smoothInputVelocity, smoothInputSpeed );
+       currentInputVector = direction;
 
         float targetAngle = Mathf.Atan2(currentInputVector.x, currentInputVector.z) * Mathf.Rad2Deg + cam.transform.eulerAngles.y;
         float angle = Mathf.SmoothDampAngle(
@@ -123,7 +124,10 @@ public class playerController : MonoBehaviour
 
         if (data[3] == 1 && grounded)
         {
-            if ( boardManager.rolling ) { boardManager.rollingTrigger( gameObject, playerData ); }
+            if(onBoard){
+                if ( boardManager.rolling ) { boardManager.rollingTrigger( gameObject, playerData ); }
+            }
+            
             playerModel.GetComponent<Animator>().SetTrigger("Jump");
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             grounded = false;

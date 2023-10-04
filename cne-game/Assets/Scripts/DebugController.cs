@@ -8,10 +8,14 @@ using TMPro;
 public class DebugController : MonoBehaviour
 {
 
-    public GameObject gamepadBoxContainer;
+    public GameObject gamepadBoxContainer, topLeftBox;
     string[] btnOrder = {"Up","Down","Left","Right"};
 
     public void UpdateMovementData( int index, float[] data ){
+
+        var gamepadObj = GameObject.Find("GamepadConnect").GetComponent<GamepadConnect>();
+        topLeftBox.transform.Find("DebugMode").GetComponent<TMP_Text>().SetText( "Debug Mode: " + gamepadObj.DevMode );
+
         var gpBox = gamepadBoxContainer.transform.GetChild(index);
         for( int i = 0; i < btnOrder.Length; i++){
             var btnText = gpBox.transform.Find( btnOrder[i] );

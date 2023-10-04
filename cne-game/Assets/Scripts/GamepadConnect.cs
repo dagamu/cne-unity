@@ -102,19 +102,21 @@ public class GamepadConnect : MonoBehaviour
         players.ForEach( delegate( gamePlayer p) {
             if(sData[0] == p.id ){
                 float[] newData = new float[6] {
-                    float.Parse( sData[1] ),    // X axis
-                    float.Parse( sData[2] ),    // Y axis
+                    float.Parse( sData[1] ) / 100,    // X axis
+                    float.Parse( sData[2] ) / 100,    // Y axis
                     Convert.ToBoolean( sData[3] ) ? 1 : 0,  //Up
                     Convert.ToBoolean( sData[4] ) ? 1 : 0,  //Down
                     Convert.ToBoolean( sData[5] ) ? 1 : 0,  //Left
                     Convert.ToBoolean( sData[6] ) ? 1 : 0   //Right
                 };
 
-                newData = manageData(newData);
+                int playerIndex = players.IndexOf(p);
+
+                newData = manageData(newData, playerIndex);
 
                 if( GamepadCanvas != null ){
                     GamepadCanvas.GetComponent<DebugController>()
-                    .UpdateMovementData( players.IndexOf(p), newData );
+                    .UpdateMovementData( playerIndex, newData );
                 }
 
                 p.gamepadData = newData;
@@ -130,10 +132,17 @@ public class GamepadConnect : MonoBehaviour
         });
     }
 
-    float[] manageData( float[] data ){
-        Vector2 dir = new Vector2( data[0], data[1] ).normalized;
-        data[0] = dir.x;
-        data[1] = dir.y;
+    Vector2[] currentDir = { new Vector2(), new Vector2(), new Vector2(), new Vector2() };
+    Vector2 smoothDir;
+    public float dirSmooth;
+    float[] manageData( float[] data, int playerIndex ){
+
+        Vector2 dir = new Vector2(data[0],data[1]);
+        currentDir[playerIndex] = Vector2.SmoothDamp(currentDir[playerIndex], dir, ref smoothDir, dirSmooth );
+
+        data[0] = currentDir[playerIndex].x > 1 ? 1 : currentDir[playerIndex].x;
+        data[1] = currentDir[playerIndex].y > 1 ? 1 : currentDir[playerIndex].y;
+
         return data;
     }
 
