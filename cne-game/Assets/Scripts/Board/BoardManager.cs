@@ -72,64 +72,73 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    Vector2 nearPoint = new Vector2(0, 0); // X: next Point Index on hover, Y: Angle 
+    Vector2 nearPoint = new Vector2(0, int.MaxValue ); // X: next Point Index on hover, Y: Angle 
 
     void getHoverPathPoint( BoardPointManager bP ){
 
         var nextPoints = bP.nextPoints;
+        var playerData = Utility.getData(gameObject);
+
+        var playerPos = new Vector3(transform.position.x, 0f, transform.position.z);
+        Debug.DrawLine(
+                playerPos,
+                new Vector3(playerData.gamepadData[0]*2, 0f, playerData.gamepadData[1]*2) + playerPos
+            );
+        
 
         for (int i = 0; i < nextPoints.Count; i++)
+        {
+            
+            Vector2 mouseDir = new Vector2(playerData.gamepadData[0], playerData.gamepadData[1]);
+            Vector2 nPointDir = new Vector2(
+                nextPoints[i].transform.position.x - transform.position.x,
+                nextPoints[i].transform.position.y - transform.position.y
+                );
 
+            Debug.Log(Vector2.Angle(mouseDir, nPointDir) + "; " + nearPoint.y);
+
+            if( Vector2.Angle(mouseDir, nPointDir) < nearPoint.y )
             {
-                var playerData = Utility.getData(gameObject);
-                Vector2 mouseDir = new Vector2(playerData.gamepadData[0], playerData.gamepadData[1]);
-                Vector2 nPointDir = new Vector2(
-                    nextPoints[i].transform.position.x - transform.position.x,
-                    nextPoints[i].transform.position.y - transform.position.y
-                    );
+                nearPoint.x = i;
+                nearPoint.y = Vector2.Angle(mouseDir, nPointDir);
 
-                if( Vector2.Angle(mouseDir, nPointDir) > nearPoint.y )
-                {
-                    nearPoint.x = i;
-                    nearPoint.y = Vector2.Angle(mouseDir, nPointDir);
-
-                }
-
-                var currentTargetPoint = bP.nextPoints[i].GetComponent<BoardPointManager>();
-                var nextTargetPoint = currentTargetPoint.nextPoints[0]
-                                .GetComponent<BoardPointManager>();
-
-                while( currentTargetPoint.nextPoints.Count == 1 && currentTargetPoint != bP ){
-                    
-                    
-                    if( currentTargetPoint.pathLines.Count == 0 ){
-                        currentTargetPoint.showLine();
-                    } else {
-                        currentTargetPoint.pathLines[0].GetComponent<LineRenderer>().material.color = Color.white;
-                    }
-
-                    var aux = currentTargetPoint;
-                    currentTargetPoint = nextTargetPoint;
-                    nextTargetPoint = aux.nextPoints[0]
-                                .GetComponent<BoardPointManager>();
-                    
-                }
-
-                if(bP.pathLines.Count == 0){ bP.showLine(); };
-
-                bP.pathLines[ (int)i ]
-                    .GetComponent<LineRenderer>().material.color = Color.white;
             }
 
-            bP.pathLines[ (int) nearPoint.x ]
-                .GetComponent<LineRenderer>().material.color = Utility.getController(gameObject).playerColor;
+            var currentTargetPoint = bP.nextPoints[i].GetComponent<BoardPointManager>();
+            var nextTargetPoint = currentTargetPoint.nextPoints[0]
+                            .GetComponent<BoardPointManager>();
 
-            var selectedTargetPoint = bP.nextPoints[ (int) nearPoint.x ].GetComponent<BoardPointManager>();
-            while( selectedTargetPoint.pathLines.Count == 1 ){
-                selectedTargetPoint.pathLines[ 0 ]
-                .GetComponent<LineRenderer>().material.color = Utility.getController(gameObject).playerColor;
-                selectedTargetPoint = selectedTargetPoint.nextPoints[0]
-                                        .GetComponent<BoardPointManager>();
+            while( currentTargetPoint.nextPoints.Count == 1 && currentTargetPoint != bP ){
+                    
+                    
+                if( currentTargetPoint.pathLines.Count == 0 ){
+                    currentTargetPoint.showLine();
+                } else {
+                    currentTargetPoint.pathLines[0].GetComponent<LineRenderer>().material.color = Color.white;
+                }
+
+                var aux = currentTargetPoint;
+                currentTargetPoint = nextTargetPoint;
+                nextTargetPoint = aux.nextPoints[0]
+                            .GetComponent<BoardPointManager>();
+                    
+            }
+
+            if(bP.pathLines.Count == 0){ bP.showLine(); };
+
+            bP.pathLines[ (int)i ]
+                .GetComponent<LineRenderer>().material.color = Color.white;
+        }
+
+        bP.pathLines[ (int) nearPoint.x ]
+            .GetComponent<LineRenderer>().material.color = Utility.getController(gameObject).playerColor;
+
+        var selectedTargetPoint = bP.nextPoints[ (int) nearPoint.x ].GetComponent<BoardPointManager>();
+        while( selectedTargetPoint.pathLines.Count == 1 ){
+            selectedTargetPoint.pathLines[ 0 ]
+            .GetComponent<LineRenderer>().material.color = Utility.getController(gameObject).playerColor;
+            selectedTargetPoint = selectedTargetPoint.nextPoints[0]
+                                    .GetComponent<BoardPointManager>();
         }
     }
 

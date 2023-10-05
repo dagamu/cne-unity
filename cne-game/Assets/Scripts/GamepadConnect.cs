@@ -174,11 +174,11 @@ public class GamepadConnect : MonoBehaviour
 
         if( DevMode && players.Count != 0){
 
-            // Left Click -> Up btn
-            players[0].gamepadData[2] = Input.GetMouseButtonDown(0) ? 1 : 0;
+            // Left Click -> Right btn
+            players[0].gamepadData[2] = Input.GetMouseButtonDown(1) ? 1 : 0;
         
-            // Right  Click -> Right btn
-            players[0].gamepadData[5] = Input.GetMouseButtonDown(1) ? 1 : 0;
+            // Right  Click -> Up btn
+            players[0].gamepadData[5] = Input.GetMouseButtonDown(0) ? 1 : 0;
         
             // E -> Left btn
             players[0].gamepadData[4] = Input.GetKeyUp("e") ? 1 : 0;
