@@ -21,4 +21,34 @@ public static class Utility {
             1f
         );
     }
+
+    public static void DebugLine( string name, List<Vector2> list){
+        string result = name + ": ";
+        foreach (var item in list)
+        {
+            result += item.ToString() + ", ";
+        }
+        Debug.Log(result);
+    }
+
+    public static Vector2 ToVector2( Vector3 vec ){
+        return new Vector2(vec.x, vec.z );
+    }
+
+    public static BoardPointManager getBPM( GameObject point ){
+        return point.GetComponent<BoardPointManager>();
+    }
+
+    public static Vector2 RotateV2( Vector2 v, float degrees) {
+		float sin = Mathf.Sin(degrees * Mathf.Deg2Rad);
+		float cos = Mathf.Cos(degrees * Mathf.Deg2Rad);
+		
+		float tx = v.x;
+		float ty = v.y;
+		v.x = (cos * tx) - (sin * ty);
+		v.y = (sin * tx) + (cos * ty);
+		return v;
+	}
+
+
 }

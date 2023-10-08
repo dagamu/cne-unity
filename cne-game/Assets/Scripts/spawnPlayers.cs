@@ -6,6 +6,7 @@ using WebSocketSharp;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using gamePlayerSpace;
+using TMPro;
 
 public class spawnPlayers : MonoBehaviour
 {
@@ -13,16 +14,22 @@ public class spawnPlayers : MonoBehaviour
     GameObject GamepadConnect;
     GamepadConnect gamepadConnectComponent;
 
-    public GameObject playerPrefab;
+    public GameObject playerPrefab, MinigameUI, MinigameEnd;
     public GameObject firstBoardPoint;
 
-    Camera cam;
+    public float MinigameTime;
 
-    // Start is called before the first frame update
+    Camera cam;
+    string currentScene;
+    bool isMinigame = false;
+    GameObject CurrentMinigameUI;
+
+
     void Start()
     {
 
         cam = (Camera) GameObject.FindObjectOfType(typeof(Camera));
+        currentScene = SceneManager.GetActiveScene().name;
 
         GamepadConnect = GameObject.Find("GamepadConnect");
         if( GamepadConnect != null ){ 
@@ -35,8 +42,44 @@ public class spawnPlayers : MonoBehaviour
                 InstantiatePlayer( player, newPosition );
                 i++;
             }
+            if(currentScene != "Board"){
+                isMinigame = true;
+                CurrentMinigameUI = Instantiate(MinigameUI);
+                timer = MinigameTime;
+            }
+            
         }
 
+    }
+
+    float timer;
+    bool isEnd = false;
+    void Update(){
+        if( isMinigame && !isEnd ){
+            timer -= Time.deltaTime;
+            string timerStr = Mathf.Round(timer).ToString();
+            CurrentMinigameUI.transform.Find("Timer").GetComponent<TMP_Text>().SetText(  Mathf.Round(timer).ToString() );
+            if( timerStr == "0"){
+                endMinigame();
+                isEnd = true;
+            }
+        }
+    }
+
+    void endMinigame(){
+        Instantiate(MinigameEnd);
+        for( int i = 0; i < transform.childCount; i++){
+            var character = transform.GetChild(i);
+            
+            character.GetComponent<Rigidbody>().useGravity = false;
+            character.GetComponent<Rigidbody>().isKinematic = true;
+            character.GetComponent<playerController>().enabled = false;
+            character.transform.GetChild(0).GetComponent<Animator>().SetBool("Running", false);
+
+            character.transform.position = new Vector3( -3 + 6*(i+1)/(transform.childCount+1), MinigameEnd.transform.position.y, 2f);
+            character.transform.rotation = Quaternion.Euler(0,180,0);
+
+        }
     }
 
     public void InstantiatePlayer( gamePlayer playerObj, Vector3 pos ){
@@ -53,7 +96,7 @@ public class spawnPlayers : MonoBehaviour
         newPlayerController.playerModel = playerModel;
 
 
-        string currentScene = SceneManager.GetActiveScene().name;
+        
         switch(  currentScene ){ 
             case "Board": 
                 addBoardManager(player);

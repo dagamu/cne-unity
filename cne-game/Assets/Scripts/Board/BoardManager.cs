@@ -35,9 +35,9 @@ public class BoardManager : MonoBehaviour
 
         if ( Utility.getData(player).turn + Utility.getData(player).turnRoll == 0 && !rolling && timer > 1.5f ) {
              startRoll( playerPos );
-             if( (int) playerBoxContainer.transform.childCount == 0 ){ 
+             if( (int) playerBoxContainer.transform.childCount == 0 )
                 transform.parent.GetComponent<BoardManager>().setBoardUIBoxes();
-            }
+            
         }
 
         else if( waitingTurn && Utility.getData(player).turn > 0 && !onTurn 
@@ -73,103 +73,32 @@ public class BoardManager : MonoBehaviour
     }
 
     Vector2 nearPoint = new Vector2(0, int.MaxValue ); // X: next Point Index on hover, Y: Angle 
-
-    void getHoverPathPoint( BoardPointManager bP ){
-
-        var nextPoints = bP.nextPoints;
-        var playerData = Utility.getData(gameObject);
-
-        var playerPos = new Vector3(transform.position.x, 0f, transform.position.z);
-        Debug.DrawLine(
-                playerPos,
-                new Vector3(playerData.gamepadData[0]*2, 0f, playerData.gamepadData[1]*2) + playerPos
-            );
-        
-
-        for (int i = 0; i < nextPoints.Count; i++)
-        {
-            
-            Vector2 mouseDir = new Vector2(playerData.gamepadData[0], playerData.gamepadData[1]);
-            Vector2 nPointDir = new Vector2(
-                nextPoints[i].transform.position.x - transform.position.x,
-                nextPoints[i].transform.position.y - transform.position.y
-                );
-
-            Debug.Log(Vector2.Angle(mouseDir, nPointDir) + "; " + nearPoint.y);
-
-            if( Vector2.Angle(mouseDir, nPointDir) < nearPoint.y )
-            {
-                nearPoint.x = i;
-                nearPoint.y = Vector2.Angle(mouseDir, nPointDir);
-
-            }
-
-            var currentTargetPoint = bP.nextPoints[i].GetComponent<BoardPointManager>();
-            var nextTargetPoint = currentTargetPoint.nextPoints[0]
-                            .GetComponent<BoardPointManager>();
-
-            while( currentTargetPoint.nextPoints.Count == 1 && currentTargetPoint != bP ){
-                    
-                    
-                if( currentTargetPoint.pathLines.Count == 0 ){
-                    currentTargetPoint.showLine();
-                } else {
-                    currentTargetPoint.pathLines[0].GetComponent<LineRenderer>().material.color = Color.white;
-                }
-
-                var aux = currentTargetPoint;
-                currentTargetPoint = nextTargetPoint;
-                nextTargetPoint = aux.nextPoints[0]
-                            .GetComponent<BoardPointManager>();
-                    
-            }
-
-            if(bP.pathLines.Count == 0){ bP.showLine(); };
-
-            bP.pathLines[ (int)i ]
-                .GetComponent<LineRenderer>().material.color = Color.white;
-        }
-
-        bP.pathLines[ (int) nearPoint.x ]
-            .GetComponent<LineRenderer>().material.color = Utility.getController(gameObject).playerColor;
-
-        var selectedTargetPoint = bP.nextPoints[ (int) nearPoint.x ].GetComponent<BoardPointManager>();
-        while( selectedTargetPoint.pathLines.Count == 1 ){
-            selectedTargetPoint.pathLines[ 0 ]
-            .GetComponent<LineRenderer>().material.color = Utility.getController(gameObject).playerColor;
-            selectedTargetPoint = selectedTargetPoint.nextPoints[0]
-                                    .GetComponent<BoardPointManager>();
-        }
-    }
-
-
     void managePathSelection()
     {
 
         var boardPoint = currentBoardPoint.GetComponent<BoardPointManager>();
+        var playerColor = Utility.getController(gameObject).playerColor;
 
-        if ( boardPoint.nextPoints.Count > 0 && nearPoint.x < boardPoint.nextPoints.Count ){
-            targetPoint = boardPoint.nextPoints[ (int) nearPoint.x ];
-        }
+        if ( boardPoint.nextPoints.Count == 1)
+            targetPoint = boardPoint.nextPoints[0];
+        
 
-        if (boardPoint.nextPoints.Count > 1) { 
-            getHoverPathPoint( boardPoint.GetComponent<BoardPointManager>() );
-        }
+        if (boardPoint.nextPoints.Count > 1) 
+            targetPoint = currentBoardPoint.GetComponent<BoardPointManager>()
+                            .getHoverPathPoint( transform.position, Utility.getData(gameObject), playerColor );
+        
 
-        else if ( boardPoint.nextPoints.Count == 1 ){
-
+        else if ( boardPoint.nextPoints.Count == 1 )
+        {
             if ( boardPoint.pathLines.Count > 0 )
-            {
                 boardPoint.pathLines[0]
                     .GetComponent<LineRenderer>().material.color = Utility.getController(gameObject).playerColor;
-            }
 
             var nextPoint = currentBoardPoint.GetComponent<BoardPointManager>().nextPoints[0];
 
             if (movingBoard)
-            {
                 targetPoint = nextPoint;
-            }
+
         }
 
         if ( Utility.getData(gameObject).gamepadData[2] == 1 ){
@@ -178,13 +107,13 @@ public class BoardManager : MonoBehaviour
             movingBoard = true;
 
             GetComponent<Rigidbody>().velocity = Vector3.zero;
-            targetPoint = boardPoint.nextPoints[ (int)nearPoint.x ];
+            targetPoint = currentBoardPoint.GetComponent<BoardPointManager>()
+                            .getHoverPathPoint( transform.position, Utility.getData(gameObject), playerColor );
             //targetPoint.GetComponent<BoardPointManager>().showLine();
 
         }
 
     }
-
     void manageBoardMove(){
 
         Vector3 dis = targetPoint.transform.position - transform.position;
@@ -213,8 +142,8 @@ public class BoardManager : MonoBehaviour
                currentBoardPoint.GetComponent<BoardPointManager>().hideLine();
             currentBoardPoint = targetPoint;
 
-            if ( currentBoardPoint.GetComponent<BoardPointManager>().nextPoints.Count > 1 ){
-
+            if ( currentBoardPoint.GetComponent<BoardPointManager>().nextPoints.Count > 1 )
+            {
                 movingBoard = false;
                 GetComponent<Rigidbody>().velocity = Vector3.zero;
                 transform.position = currentBoardPoint.transform.position;
@@ -238,20 +167,20 @@ public class BoardManager : MonoBehaviour
 
     }
 
-    void startRoll( Vector3 pos ){
-            
-            rolling = true;
-            var newDice = Instantiate(diceObj);
-            newDice.transform.position = new Vector3( pos.x, 3, pos.z);
+    void startRoll( Vector3 pos )
+    {       
+        rolling = true;
+        var newDice = Instantiate(diceObj);
+        newDice.transform.position = new Vector3( pos.x, 3, pos.z);
 
-            Rigidbody diceRb = newDice.GetComponent<Rigidbody>();
-            diceRb.angularVelocity = new Vector3(
-                                    UnityEngine.Random.Range(-200, 200),
-                                    UnityEngine.Random.Range(-200, 200),
-                                    UnityEngine.Random.Range(-200, 200));
+        Rigidbody diceRb = newDice.GetComponent<Rigidbody>();
+        diceRb.angularVelocity = new Vector3(
+                                UnityEngine.Random.Range(-200, 200),
+                                UnityEngine.Random.Range(-200, 200),
+                                UnityEngine.Random.Range(-200, 200));
 
-            GetComponent<playerController>().newDice = newDice;
-        }
+        GetComponent<playerController>().newDice = newDice;
+    }
 
     public void rollingTrigger( GameObject player, gamePlayer playerData )
     {
@@ -266,7 +195,7 @@ public class BoardManager : MonoBehaviour
         rollTag.GetComponent<TextMesh>().text = rollNum.ToString();
 
         Destroy(player.GetComponent<playerController>().newDice);
-        Destroy(rollTag, 2f);
+        Destroy(rollTag, 1f);
 
         if( playerData.turn == 0 ){
             playerData.turnRoll = rollNum;
@@ -288,9 +217,7 @@ public class BoardManager : MonoBehaviour
             List<GameObject> Children = new List<GameObject>(); 
             
             foreach (Transform child in transform)
-            {
                 Children.Add(child.gameObject);
-            }
 
             for (int min = 0; min < transform.childCount; min++)
             {
@@ -317,11 +244,7 @@ public class BoardManager : MonoBehaviour
                 Utility.getData(Children[i]).turnRoll = 0;
             }
         }
-
     }
-
-    
-
-    void Update(){ timer += Time.deltaTime; }
+    void Update() => timer += Time.deltaTime;
    
 }
