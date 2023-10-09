@@ -72,24 +72,18 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    Vector2 nearPoint = new Vector2(0, int.MaxValue ); // X: next Point Index on hover, Y: Angle 
     void managePathSelection()
     {
-
         var boardPoint = currentBoardPoint.GetComponent<BoardPointManager>();
         var playerColor = Utility.getController(gameObject).playerColor;
 
-        if ( boardPoint.nextPoints.Count == 1)
-            targetPoint = boardPoint.nextPoints[0];
-        
-
         if (boardPoint.nextPoints.Count > 1) 
             targetPoint = currentBoardPoint.GetComponent<BoardPointManager>()
-                            .getHoverPathPoint( transform.position, Utility.getData(gameObject), playerColor );
-        
+                            .getHoverPathPoint( transform.position, Utility.getData(gameObject), playerColor ); 
 
         else if ( boardPoint.nextPoints.Count == 1 )
         {
+            targetPoint = boardPoint.nextPoints[0];
             if ( boardPoint.pathLines.Count > 0 )
                 boardPoint.pathLines[0]
                     .GetComponent<LineRenderer>().material.color = Utility.getController(gameObject).playerColor;
@@ -120,9 +114,14 @@ public class BoardManager : MonoBehaviour
 
         Quaternion lookRotation = Quaternion.LookRotation(targetPoint.transform.position - transform.position);
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, timer);
-        if(Quaternion.Angle(transform.rotation, lookRotation) == 0) { timer = 0; }
+        if( Quaternion.Angle(transform.rotation, lookRotation) == 0 ) timer = 0;
 
         if (dis.magnitude < 0.5f){
+
+            currentBoardPoint.GetComponent<BoardPointManager>().hideLine();
+            currentBoardPoint = targetPoint;
+            Utility.getData(gameObject).currentBoardPoint = currentBoardPoint;
+            Debug.Log( Utility.getData(gameObject).currentBoardPoint.name );
 
             boardStepsLeft--;
             if (boardStepsLeft == 0)
@@ -139,9 +138,6 @@ public class BoardManager : MonoBehaviour
                 SceneManager.LoadScene(transform.parent.GetComponent<BoardManager>().Minigames[newMinigame]);
             }
 
-               currentBoardPoint.GetComponent<BoardPointManager>().hideLine();
-            currentBoardPoint = targetPoint;
-
             if ( currentBoardPoint.GetComponent<BoardPointManager>().nextPoints.Count > 1 )
             {
                 movingBoard = false;
@@ -152,10 +148,7 @@ public class BoardManager : MonoBehaviour
                 targetPoint = null;
                 chosingPath = true;
             } else
-            {
-                currentBoardPoint.GetComponent<BoardPointManager>().showLine();
                 targetPoint = currentBoardPoint.GetComponent<BoardPointManager>().nextPoints[0];
-            }
         }
 
         var normVel = Vector3.Normalize(dis);

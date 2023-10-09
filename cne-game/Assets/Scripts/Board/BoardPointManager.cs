@@ -98,7 +98,10 @@ public class BoardPointManager : MonoBehaviour
     }
     
     GameObject selectedTargetPoint;
-    public GameObject getHoverPathPoint( Vector3 playerPos, gamePlayer playerData, Color playerColor ){
+    public GameObject getHoverPathPoint( Vector3 playerPos, gamePlayer playerData, Color playerColor )
+    {
+        if(pathLines.Count == 0)
+            newTargetPoint( playerColor );
 
         if( playerData.gamepadData[0] == 0 && playerData.gamepadData[1] == 0 )
             return selectedTargetPoint;

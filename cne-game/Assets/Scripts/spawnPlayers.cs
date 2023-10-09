@@ -46,10 +46,8 @@ public class spawnPlayers : MonoBehaviour
                 isMinigame = true;
                 CurrentMinigameUI = Instantiate(MinigameUI);
                 timer = MinigameTime;
-            }
-            
+            }   
         }
-
     }
 
     float timer;
@@ -95,8 +93,6 @@ public class spawnPlayers : MonoBehaviour
         newPlayerController.setColor( playerObj.color );
         newPlayerController.playerModel = playerModel;
 
-
-        
         switch(  currentScene ){ 
             case "Board": 
                 addBoardManager(player);
@@ -115,13 +111,21 @@ public class spawnPlayers : MonoBehaviour
 
     }
 
-    void addBoardManager( GameObject player ){
+    void addBoardManager( GameObject player )
+    {
         BoardManager BoardManager = GetComponent<BoardManager>();
         var bm = player.AddComponent<BoardManager>();
+
         bm.diceObj = BoardManager.diceObj;
         bm.rollText = BoardManager.rollText;
         bm.playerBoxContainer = BoardManager.playerBoxContainer;
 
+        if( Utility.getData(player).currentBoardPoint != null){
+            player.transform.position = Utility.getData(player).currentBoardPoint.transform.position + Vector3.forward;
+        } else {
+            Utility.getData(player).currentBoardPoint = firstBoardPoint;
+        }
+        Debug.Log( Utility.getData(player).currentBoardPoint.name );
     }
 
     void addBasketballController( GameObject player ){
