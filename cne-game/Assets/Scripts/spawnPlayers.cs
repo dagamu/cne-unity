@@ -104,7 +104,7 @@ public class spawnPlayers : MonoBehaviour
 
         if( firstBoardPoint != null ){
             player.GetComponent<BoardManager>().currentBoardPoint = firstBoardPoint;    
-        }
+        } 
 
         var multipleTarget = cam.GetComponent<MultipleTargetCamera>();
         if( multipleTarget != null) { multipleTarget.targets.Add(player.transform); }
@@ -120,12 +120,11 @@ public class spawnPlayers : MonoBehaviour
         bm.rollText = BoardManager.rollText;
         bm.playerBoxContainer = BoardManager.playerBoxContainer;
 
-        if( Utility.getData(player).currentBoardPoint != null){
-            player.transform.position = Utility.getData(player).currentBoardPoint.transform.position + Vector3.forward;
+        if( Utility.getData(player).currentBoardPoint != new Vector3(0,-1,0) ){
+            player.transform.position = Utility.getData(player).currentBoardPoint - Vector3.forward;
         } else {
-            Utility.getData(player).currentBoardPoint = firstBoardPoint;
+            Utility.getData(player).updateCurrentBoardPos(firstBoardPoint.transform.position);
         }
-        Debug.Log( Utility.getData(player).currentBoardPoint.name );
     }
 
     void addBasketballController( GameObject player ){

@@ -546,8 +546,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7740f83277e6924694715b9574ee2c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targets:
-  - {fileID: 294671369}
+  targets: []
   offset: {x: 0, y: 6, z: 10}
   smoothTime: 0.5
   maxZoom: 40
@@ -1286,7 +1285,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 7065152594365306723, guid: 7dbaee8c84dc30f4daa994a293b7f31f, type: 3}
   MinigameUI: {fileID: 0}
+  MinigameEnd: {fileID: 0}
   firstBoardPoint: {fileID: 294671365}
+  MinigameTime: 0
 --- !u!4 &1018290257
 Transform:
   m_ObjectHideFlags: 0

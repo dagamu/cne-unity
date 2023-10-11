@@ -16,7 +16,7 @@ namespace gamePlayerSpace
         public int turnRoll = 0;
         public int turn = 0;
 
-        public GameObject currentBoardPoint;
+        public Vector3 currentBoardPoint = new Vector3(0,-1,0);
 
         public float[] gamepadData = new float[6] {0, 0, 0, 0, 0, 0} ;
 
@@ -27,6 +27,10 @@ namespace gamePlayerSpace
 
         public void updateTurn( int turn ){
             this.turn = turn;
+        }
+
+        public void updateCurrentBoardPos( Vector3 newPos ){
+            this.currentBoardPoint = newPos;
         }
 
     }
@@ -45,10 +49,10 @@ public class GamepadConnect : MonoBehaviour
     
     bool EmitConnection = false;
     public bool DevMode;
+    public int currentTurn = 1;
 
     public static GamepadConnect gamepadConnect;
 
-    // Start is called before the first frame update
     void Start()
     {
         if( gamepadConnect == null ){

@@ -15,7 +15,8 @@ public class BoardManager : MonoBehaviour
     public GameObject targetPoint, currentBoardPoint;
     public Transform playerBoxContainer;
     public bool rolling;
-    bool chosingPath, movingBoard, waitingTurn, onTurn = false;
+    bool chosingPath, movingBoard, onTurn = false;
+    bool waitingTurn = true;
 
     public List<string> Minigames = new List<string>();
 
@@ -24,32 +25,42 @@ public class BoardManager : MonoBehaviour
     float timer = 0;
     int playersWithTurn = 0;
 
-    public int currentTurn = 1;
     public float boardSpeed = 100;
     int boardStepsLeft = 0;
 
     public void managePlayerOnBoard()
     {
+        if( timer > 1.5f ) transform.parent.GetComponent<BoardManager>().setBoardUIBoxes();
+
         var player = gameObject;
         Vector3 playerPos = player.transform.position;
 
+        Debug.Log(string.Format("{0}; {1}; {2}; {3}; {4}", gameObject.name, waitingTurn, Utility.getData(player).turn, GameObject.Find("GamepadConnect").GetComponent<GamepadConnect>().currentTurn, onTurn ));
+
         if ( Utility.getData(player).turn + Utility.getData(player).turnRoll == 0 && !rolling && timer > 1.5f ) {
              startRoll( playerPos );
-             if( (int) playerBoxContainer.transform.childCount == 0 )
-                transform.parent.GetComponent<BoardManager>().setBoardUIBoxes();
-            
         }
-
         else if( waitingTurn && Utility.getData(player).turn > 0 && !onTurn 
-            && transform.parent.GetComponent<BoardManager>().currentTurn == Utility.getData(player).turn ){
-
+            && GameObject.Find("GamepadConnect").GetComponent<GamepadConnect>().currentTurn == Utility.getData(player).turn )
+        {
             onTurn = true;
             setCamera();
             waitingTurn = false;
             startRoll( playerPos );
-        } else if( chosingPath ) { managePathSelection(); }
-        else if( movingBoard ){ manageBoardMove(); }
+        } 
+        else if( chosingPath ) managePathSelection();
+        else if( movingBoard ) manageBoardMove(); 
 
+    }
+
+    void nextTurn(){
+        var currentTurn = GameObject.Find("GamepadConnect").GetComponent<GamepadConnect>().currentTurn;
+        GameObject.Find("GamepadConnect").GetComponent<GamepadConnect>().currentTurn = currentTurn == playerBoxContainer.transform.childCount ? 1 : currentTurn + 1;
+
+        onTurn = false;
+        waitingTurn = true;
+        chosingPath = false;
+        movingBoard = false;
     }
 
     void setCamera(){
@@ -120,21 +131,18 @@ public class BoardManager : MonoBehaviour
 
             currentBoardPoint.GetComponent<BoardPointManager>().hideLine();
             currentBoardPoint = targetPoint;
-            Utility.getData(gameObject).currentBoardPoint = currentBoardPoint;
-            Debug.Log( Utility.getData(gameObject).currentBoardPoint.name );
+            Utility.getData(gameObject).updateCurrentBoardPos(currentBoardPoint.transform.position);
 
             boardStepsLeft--;
             if (boardStepsLeft == 0)
             {
                 int newMinigame;
-                if (DevMode) {
+                if (DevMode)
                     newMinigame = 0;    
-                }
                 else
-                {
                     newMinigame = (int) Mathf.Round( Random.Range(0, Minigames.Count - 1) );
-                }
 
+                nextTurn();
                 SceneManager.LoadScene(transform.parent.GetComponent<BoardManager>().Minigames[newMinigame]);
             }
 
