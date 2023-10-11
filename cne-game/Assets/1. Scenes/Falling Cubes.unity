@@ -237,7 +237,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 7065152594365306723, guid: 7dbaee8c84dc30f4daa994a293b7f31f, type: 3}
+  MinigameUI: {fileID: 2888080202909822026, guid: 040595ac28ac8854fae0a6bcab8cd231, type: 3}
+  MinigameEnd: {fileID: 8480161952744711304, guid: 2a13d08de834dfd448dff45a77913665, type: 3}
   firstBoardPoint: {fileID: 0}
+  MinigameTime: 30
 --- !u!4 &490130206
 Transform:
   m_ObjectHideFlags: 0

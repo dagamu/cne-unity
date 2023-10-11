@@ -1324,9 +1324,11 @@ MonoBehaviour:
   playerBoxContainer: {fileID: 999783011}
   rolling: 0
   Minigames:
+  - Falling Cubes
+  - Ramp
+  - CubeTower
   - Basketball
   - Fence Steal
-  currentTurn: 1
   boardSpeed: 300
 --- !u!1 &1043849134
 GameObject:

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.03669729, g: 0.07924773, b: 0.042550422, a: 1}
+  m_IndirectSpecularColor: {r: 0.036322203, g: 0.07924773, b: 0.042925518, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -374,7 +374,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 220166185}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -10, y: 0, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -436,7 +436,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 326025711}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 4, y: 0, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -577,10 +577,11 @@ MonoBehaviour:
   startY: 0.5
   zPos: 0.5
   maxX: 5
-  speed: 5
+  speed: 3
   keySpawn: e
   cubePrefab: {fileID: 8323727380309283073, guid: 04de2be52758b2f44bdf45d284f8b852, type: 3}
   Tower: {fileID: 1549216764}
+  playerLinked: {fileID: 0}
   towerCubeLayer:
     serializedVersion: 2
     m_Bits: 0
@@ -738,7 +739,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1581759589}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 11, y: 0, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -835,7 +836,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1703954962}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -3, y: 0, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -892,10 +893,11 @@ MonoBehaviour:
   startY: 0.5
   zPos: 0.5
   maxX: 5
-  speed: 5
+  speed: 3
   keySpawn: w
   cubePrefab: {fileID: 8323727380309283073, guid: 04de2be52758b2f44bdf45d284f8b852, type: 3}
   Tower: {fileID: 244458392}
+  playerLinked: {fileID: 0}
   towerCubeLayer:
     serializedVersion: 2
     m_Bits: 0
@@ -1003,6 +1005,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1859668348}
+  - component: {fileID: 1859668349}
   m_Layer: 0
   m_Name: playerSpawn
   m_TagString: Untagged
@@ -1025,6 +1028,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1859668349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1859668347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 935e1cc105168c9408f615ad1fabeca3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerPrefab: {fileID: 7065152594365306723, guid: 7dbaee8c84dc30f4daa994a293b7f31f, type: 3}
+  MinigameUI: {fileID: 2888080202909822026, guid: 040595ac28ac8854fae0a6bcab8cd231, type: 3}
+  MinigameEnd: {fileID: 8480161952744711304, guid: 2a13d08de834dfd448dff45a77913665, type: 3}
+  firstBoardPoint: {fileID: 0}
+  MinigameTime: 30
 --- !u!1 &1986971609
 GameObject:
   m_ObjectHideFlags: 0
@@ -1075,10 +1095,11 @@ MonoBehaviour:
   startY: 0.5
   zPos: 0.5
   maxX: 5
-  speed: 5
+  speed: 3
   keySpawn: r
   cubePrefab: {fileID: 8323727380309283073, guid: 04de2be52758b2f44bdf45d284f8b852, type: 3}
   Tower: {fileID: 1783513432}
+  playerLinked: {fileID: 0}
   towerCubeLayer:
     serializedVersion: 2
     m_Bits: 0
@@ -1196,10 +1217,11 @@ MonoBehaviour:
   startY: 0.5
   zPos: 0.5
   maxX: 5
-  speed: 5
+  speed: 3
   keySpawn: q
   cubePrefab: {fileID: 8323727380309283073, guid: 04de2be52758b2f44bdf45d284f8b852, type: 3}
   Tower: {fileID: 1642812440}
+  playerLinked: {fileID: 0}
   towerCubeLayer:
     serializedVersion: 2
     m_Bits: 0

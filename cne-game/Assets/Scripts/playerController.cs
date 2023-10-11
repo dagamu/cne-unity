@@ -197,9 +197,6 @@ public class playerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground")) { grounded = true; }
 
     }
-
-
-
     void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject.CompareTag("Ground")) { grounded = false; }

@@ -100,6 +100,9 @@ public class spawnPlayers : MonoBehaviour
             case "Basketball":
                 addBasketballController(player);
                 break;
+            case "CubeTower":
+                manageCubeTowerSpawn(player);
+                break;
         }
 
         if( firstBoardPoint != null ){
@@ -109,6 +112,13 @@ public class spawnPlayers : MonoBehaviour
         var multipleTarget = cam.GetComponent<MultipleTargetCamera>();
         if( multipleTarget != null) { multipleTarget.targets.Add(player.transform); }
 
+    }
+
+    void manageCubeTowerSpawn( GameObject player ){
+        var CubeParents = GameObject.Find("cubeSpawn");
+        var cubeToPlayer = CubeParents.transform.GetChild( player.transform.GetSiblingIndex() );
+        cubeToPlayer.gameObject.SetActive(true);
+        cubeToPlayer.GetComponent<CubeTowerSpawn>().setLinkedPlayer(player);
     }
 
     void addBoardManager( GameObject player )
