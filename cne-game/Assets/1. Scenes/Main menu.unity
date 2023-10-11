@@ -926,6 +926,7 @@ MonoBehaviour:
   GamepadCanvasPrefab: {fileID: 1359067956514631290, guid: ede80fc56e176eb4ea28cc3b6ec00a61, type: 3}
   GamepadCanvas: {fileID: 0}
   DevMode: 0
+  dirSmooth: 0
 --- !u!4 &824997412
 Transform:
   m_ObjectHideFlags: 0
