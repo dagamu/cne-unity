@@ -3,10 +3,10 @@ const http = require('http');
 const WebSocket = require('ws');
 
 const Colors = [
-    [0,0,1,0],
-    [0,1,0,0],
-    [1,1,0,0],
-    [1,0,0,0]
+    [0,0,1,0],  //Blue
+    [0,1,0,0],  //Green
+    [1,1,0,0],  //Yellow
+    [1,0,0,0]   //Red
 ]
 
 const app = express();
