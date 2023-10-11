@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 15303, guid: 0000000000000000f000000000000000, type: 0}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
+  m_IndirectSpecularColor: {r: 0.03669729, g: 0.07924773, b: 0.042550422, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -423,7 +423,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 630207196}
   m_LocalRotation: {x: 0.1564345, y: 0, z: 0, w: 0.98768836}
-  m_LocalPosition: {x: 0, y: 12, z: -14}
+  m_LocalPosition: {x: 0, y: 13.1, z: -17.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -480,13 +480,14 @@ MonoBehaviour:
   startY: 0.5
   zPos: 0.5
   maxX: 5
-  speed: 3
+  speed: 5
   keySpawn: e
   cubePrefab: {fileID: 8323727380309283073, guid: 04de2be52758b2f44bdf45d284f8b852, type: 3}
   Tower: {fileID: 1549216764}
   towerCubeLayer:
     serializedVersion: 2
     m_Bits: 0
+  Cooldown: 1
 --- !u!65 &953764462
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -520,7 +521,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: bc29c4b6852d0144b85a6a535a11ab60, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -732,13 +733,14 @@ MonoBehaviour:
   startY: 0.5
   zPos: 0.5
   maxX: 5
-  speed: 3
+  speed: 5
   keySpawn: w
   cubePrefab: {fileID: 8323727380309283073, guid: 04de2be52758b2f44bdf45d284f8b852, type: 3}
   Tower: {fileID: 244458392}
   towerCubeLayer:
     serializedVersion: 2
     m_Bits: 0
+  Cooldown: 1
 --- !u!65 &1740905553
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -772,7 +774,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 246b7fa0fa39f9c48a9e651f20234077, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -883,13 +885,14 @@ MonoBehaviour:
   startY: 0.5
   zPos: 0.5
   maxX: 5
-  speed: 3
+  speed: 5
   keySpawn: r
   cubePrefab: {fileID: 8323727380309283073, guid: 04de2be52758b2f44bdf45d284f8b852, type: 3}
   Tower: {fileID: 1783513432}
   towerCubeLayer:
     serializedVersion: 2
     m_Bits: 0
+  Cooldown: 1
 --- !u!65 &1986971612
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -923,7 +926,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 9aec0e490bbcb9c4fa460462a8f6cb80, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -980,7 +983,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2112671612}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1003,13 +1006,14 @@ MonoBehaviour:
   startY: 0.5
   zPos: 0.5
   maxX: 5
-  speed: 3
+  speed: 5
   keySpawn: q
   cubePrefab: {fileID: 8323727380309283073, guid: 04de2be52758b2f44bdf45d284f8b852, type: 3}
   Tower: {fileID: 1642812440}
   towerCubeLayer:
     serializedVersion: 2
     m_Bits: 0
+  Cooldown: 1
 --- !u!65 &2112671615
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1043,7 +1047,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 74199d4f193e664499ff7bc1050179c8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
