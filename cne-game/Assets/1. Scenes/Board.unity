@@ -204,6 +204,7 @@ MonoBehaviour:
   - {fileID: 6123703096757736135}
   pathLines: []
   LineObject: {fileID: 5135286584292424677, guid: 648363a96b0e3b24f9b146d09196dcbb, type: 3}
+  showSelectLines: 0
 --- !u!23 &155409808
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -370,6 +371,7 @@ MonoBehaviour:
   - {fileID: 6123703098470750937}
   pathLines: []
   LineObject: {fileID: 5135286584292424677, guid: 648363a96b0e3b24f9b146d09196dcbb, type: 3}
+  showSelectLines: 0
 --- !u!1 &343128966
 GameObject:
   m_ObjectHideFlags: 0
@@ -544,8 +546,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7740f83277e6924694715b9574ee2c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targets:
-  - {fileID: 294671369}
+  targets: []
   offset: {x: 0, y: 6, z: 10}
   smoothTime: 0.5
   maxZoom: 40
@@ -601,6 +602,7 @@ MonoBehaviour:
   - {fileID: 895142380}
   pathLines: []
   LineObject: {fileID: 5135286584292424677, guid: 648363a96b0e3b24f9b146d09196dcbb, type: 3}
+  showSelectLines: 0
 --- !u!23 &674927391
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -748,6 +750,7 @@ MonoBehaviour:
   - {fileID: 895142380}
   pathLines: []
   LineObject: {fileID: 5135286584292424677, guid: 648363a96b0e3b24f9b146d09196dcbb, type: 3}
+  showSelectLines: 0
 --- !u!23 &778168112
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -863,6 +866,7 @@ MonoBehaviour:
   - {fileID: 6123703096757736135}
   pathLines: []
   LineObject: {fileID: 5135286584292424677, guid: 648363a96b0e3b24f9b146d09196dcbb, type: 3}
+  showSelectLines: 0
 --- !u!23 &885528364
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -948,6 +952,7 @@ MonoBehaviour:
   - {fileID: 885528361}
   pathLines: []
   LineObject: {fileID: 5135286584292424677, guid: 648363a96b0e3b24f9b146d09196dcbb, type: 3}
+  showSelectLines: 0
 --- !u!23 &895142382
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1279,7 +1284,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 7065152594365306723, guid: 7dbaee8c84dc30f4daa994a293b7f31f, type: 3}
+  MinigameUI: {fileID: 0}
+  MinigameEnd: {fileID: 0}
   firstBoardPoint: {fileID: 294671365}
+  MinigameTime: 0
 --- !u!4 &1018290257
 Transform:
   m_ObjectHideFlags: 0
@@ -1458,6 +1466,7 @@ MonoBehaviour:
   - {fileID: 6123703096757736135}
   pathLines: []
   LineObject: {fileID: 5135286584292424677, guid: 648363a96b0e3b24f9b146d09196dcbb, type: 3}
+  showSelectLines: 0
 --- !u!23 &1105195315
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1570,10 +1579,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextPoints:
+  - {fileID: 778168110}
   - {fileID: 674927388}
   - {fileID: 155409805}
   pathLines: []
   LineObject: {fileID: 5135286584292424677, guid: 648363a96b0e3b24f9b146d09196dcbb, type: 3}
+  showSelectLines: 0
 --- !u!23 &1263282785
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1659,6 +1670,7 @@ MonoBehaviour:
   - {fileID: 778168110}
   pathLines: []
   LineObject: {fileID: 5135286584292424677, guid: 648363a96b0e3b24f9b146d09196dcbb, type: 3}
+  showSelectLines: 0
 --- !u!23 &1452525817
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1855,7 +1867,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 32.3}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1895191450
@@ -2032,6 +2044,7 @@ MonoBehaviour:
   - {fileID: 1105195313}
   pathLines: []
   LineObject: {fileID: 5135286584292424677, guid: 648363a96b0e3b24f9b146d09196dcbb, type: 3}
+  showSelectLines: 0
 --- !u!23 &6123703096757736133
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2110,6 +2123,7 @@ MonoBehaviour:
   - {fileID: 1452525815}
   pathLines: []
   LineObject: {fileID: 5135286584292424677, guid: 648363a96b0e3b24f9b146d09196dcbb, type: 3}
+  showSelectLines: 0
 --- !u!33 &6123703096757736138
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -2210,6 +2224,7 @@ MonoBehaviour:
   - {fileID: 6123703096757736135}
   pathLines: []
   LineObject: {fileID: 5135286584292424677, guid: 648363a96b0e3b24f9b146d09196dcbb, type: 3}
+  showSelectLines: 0
 --- !u!4 &6123703097300617114
 Transform:
   m_ObjectHideFlags: 0
@@ -2272,6 +2287,7 @@ MonoBehaviour:
   - {fileID: 6123703098499924752}
   pathLines: []
   LineObject: {fileID: 5135286584292424677, guid: 648363a96b0e3b24f9b146d09196dcbb, type: 3}
+  showSelectLines: 0
 --- !u!1 &6123703098470750937
 GameObject:
   m_ObjectHideFlags: 0
@@ -2372,6 +2388,7 @@ MonoBehaviour:
   - {fileID: 1263282782}
   pathLines: []
   LineObject: {fileID: 5135286584292424677, guid: 648363a96b0e3b24f9b146d09196dcbb, type: 3}
+  showSelectLines: 0
 --- !u!1 &6123703098483159528
 GameObject:
   m_ObjectHideFlags: 0
@@ -2533,3 +2550,4 @@ MonoBehaviour:
   - {fileID: 6123703098483159528}
   pathLines: []
   LineObject: {fileID: 5135286584292424677, guid: 648363a96b0e3b24f9b146d09196dcbb, type: 3}
+  showSelectLines: 0
