@@ -13,7 +13,6 @@ public class CountObjectManager : MonoBehaviour
 
     void OnTriggerEnter(Collider collision)
     {
-        Debug.Log(collision.gameObject.name);
         if (collision.gameObject.name == "ObjectKiller")
             Destroy(gameObject);
     }

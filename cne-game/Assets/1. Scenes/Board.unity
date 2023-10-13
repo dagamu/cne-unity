@@ -1324,6 +1324,7 @@ MonoBehaviour:
   playerBoxContainer: {fileID: 999783011}
   rolling: 0
   Minigames:
+  - Hall-Obstacles
   - CubeTower
   - Falling Cubes
   - CountObjects
