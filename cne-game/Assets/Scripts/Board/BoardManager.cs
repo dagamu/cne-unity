@@ -30,7 +30,7 @@ public class BoardManager : MonoBehaviour
 
     public void managePlayerOnBoard()
     {
-        if( timer > 1.5f ) transform.parent.GetComponent<BoardManager>().setBoardUIBoxes();
+        if( timer > 1.5f && playerBoxContainer.childCount == 0 ) transform.parent.GetComponent<BoardManager>().setBoardUIBoxes();
 
         var player = gameObject;
         Vector3 playerPos = player.transform.position;

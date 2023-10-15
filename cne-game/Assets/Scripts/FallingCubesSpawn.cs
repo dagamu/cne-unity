@@ -24,8 +24,8 @@ public class FallingCubesSpawn : MonoBehaviour
     public delegate void actionsDelegate( GameObject cube, float aux );
     List<actionsDelegate> cubeActions = new List<actionsDelegate>();
 
-    void fallCube( GameObject cube ){
-
+    void fallCube( GameObject cube )
+    {
         var cubeRb = cube.GetComponent<Rigidbody>();
         cubeRb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
         cubeRb.useGravity = true;
@@ -33,7 +33,7 @@ public class FallingCubesSpawn : MonoBehaviour
     }
 
 
-    // Start is called before the first frame update
+
     void Start()
     {
 

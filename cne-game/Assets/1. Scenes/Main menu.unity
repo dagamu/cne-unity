@@ -926,6 +926,7 @@ MonoBehaviour:
   GamepadCanvasPrefab: {fileID: 1359067956514631290, guid: ede80fc56e176eb4ea28cc3b6ec00a61, type: 3}
   GamepadCanvas: {fileID: 0}
   DevMode: 0
+  currentTurn: 1
   dirSmooth: 0
 --- !u!4 &824997412
 Transform:
@@ -1864,7 +1865,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   charactersThumbnails:
-  - {fileID: 21300000, guid: 259b0f02bd7e2944f864dd087fa60b5f, type: 3}
+  - {fileID: 21300000, guid: bea0d4b7deca5534e9c78642f1f11ae4, type: 3}
   - {fileID: 21300000, guid: 6d06a02469e03db4a83b1a1df39660bf, type: 3}
   - {fileID: 21300000, guid: edc6dcbb5a235d64abad8bab20aa7e86, type: 3}
   - {fileID: 21300000, guid: ac02ff11498c35f46aac4284a8f92318, type: 3}

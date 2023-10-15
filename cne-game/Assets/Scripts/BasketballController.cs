@@ -94,8 +94,7 @@ public class BasketballController : MonoBehaviour
             // moment when ball arrives at the target
             if (t01 >= 1)
             {
-                /*var pText = pointText.GetComponent<TMP_Text>();
-                pText.SetText((int.Parse(pText.text) + 1).ToString());*/
+                Utility.getController(gameObject).MinigamePoints += 100;   
                 IsBallFlying = false;
                 Ball.GetComponent<Rigidbody>().isKinematic = false;
             }
