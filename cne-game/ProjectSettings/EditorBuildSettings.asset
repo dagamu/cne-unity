@@ -24,6 +24,12 @@ EditorBuildSettings:
     path: Assets/1. Scenes/Board.unity
     guid: c92fa409cc465c947befb227eb33a5d5
   - enabled: 1
+    path: Assets/1. Scenes/CountObjects.unity
+    guid: d41955541c4e69847a6b2c72a86c1525
+  - enabled: 1
+    path: Assets/1. Scenes/CubeTower.unity
+    guid: 104a7fa9a1319684d99e7152984d46ae
+  - enabled: 1
     path: Assets/1. Scenes/Falling Cubes.unity
     guid: 865e4feed7c8faf49b3dacac5c09537f
   - enabled: 1

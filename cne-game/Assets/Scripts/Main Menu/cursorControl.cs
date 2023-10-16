@@ -53,7 +53,6 @@ public class cursorControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-         
         var players = gamepadConnectComponent.players;
        
         velocity = new Vector2( 
@@ -70,12 +69,22 @@ public class cursorControl : MonoBehaviour
 
         transform.position = new Vector3( xpos, ypos, 0f);
 
-
-
+        RaycastHit hit;
+        // Does the ray intersect any objects excluding the player layer
+        if (Physics.Raycast(transform.position, velocity, out hit, Mathf.Infinity, LayerMask.NameToLayer("UI")))
+        {
+            Debug.DrawRay(transform.position, velocity * hit.distance, Color.yellow);
+            Debug.Log("Did Hit");
+        }
+        else
+        {
+            Debug.DrawRay(transform.position, velocity * 1000, Color.white);
+            Debug.Log("Did not Hit");
+        }
     }
 
-    void OnTriggerEnter2D (Collider2D  col) {
-
+    void OnTriggerEnter2D (Collider2D  col) 
+    {
         Color collisionHighlight = col.gameObject.GetComponent<Image>().color;
 
         if( col.gameObject.GetComponent<cursorControl>() != null || collisionHighlight != Color.white ){

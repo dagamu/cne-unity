@@ -30,12 +30,12 @@ public class BoardManager : MonoBehaviour
 
     public void managePlayerOnBoard()
     {
-        if( timer > 1.5f ) transform.parent.GetComponent<BoardManager>().setBoardUIBoxes();
+        if( timer > 1.5f && playerBoxContainer.childCount == 0 ) transform.parent.GetComponent<BoardManager>().setBoardUIBoxes();
 
         var player = gameObject;
         Vector3 playerPos = player.transform.position;
 
-        Debug.Log(string.Format("{0}; {1}; {2}; {3}; {4}", gameObject.name, waitingTurn, Utility.getData(player).turn, GameObject.Find("GamepadConnect").GetComponent<GamepadConnect>().currentTurn, onTurn ));
+        //Debug.Log(string.Format("{0}; {1}; {2}; {3}; {4}", gameObject.name, waitingTurn, Utility.getData(player).turn, GameObject.Find("GamepadConnect").GetComponent<GamepadConnect>().currentTurn, onTurn ));
 
         if ( Utility.getData(player).turn + Utility.getData(player).turnRoll == 0 && !rolling && timer > 1.5f ) {
              startRoll( playerPos );
