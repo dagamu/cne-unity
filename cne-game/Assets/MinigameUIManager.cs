@@ -39,7 +39,7 @@ public class MinigameUIManager : MonoBehaviour
             pointBoxParents.GetChild(i).Find("Outline").GetComponent<Image>().color = pController.playerColor;
             pointBoxParents.GetChild(i).Find("Points").GetComponent<TextMeshProUGUI>().color = pController.playerColor;
 
-            pointBoxParents.GetChild(i).Find("Sprite")
+            //pointBoxParents.GetChild(i).Find("Sprite")
 
 
             if ( playersParernt.transform.childCount > pointBoxParents.childCount ){
