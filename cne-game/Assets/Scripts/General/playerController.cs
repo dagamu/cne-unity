@@ -144,6 +144,10 @@ public class playerController : MonoBehaviour
             Vector3 newPos = Vector3.Lerp(takedObject.transform.position, transform.position, takedObjectInterpolation);
             takedObject.transform.position = new Vector3(newPos.x, takedObject.transform.position.y, newPos.z);
         }
+        if( SceneManager.GetActiveScene().name == "Fence Steal")
+        {
+            MinigamePoints = GameObject.Find("Base" + (transform.GetSiblingIndex() + 1)).transform.childCount * 100;
+        }
     }
 
     private void BetterJump(bool jumpBtn)
@@ -180,15 +184,14 @@ public class playerController : MonoBehaviour
 
     void OnTriggerEnter(Collider collision)
     {
-        
-
         if (collision.gameObject.CompareTag("Takable") && takedObject == null) { takedObject = collision.gameObject; }
         else if (collision.gameObject.CompareTag("TakableBase")){
-            Debug.Log(collision.gameObject.name + "; " + collision.transform.GetSiblingIndex() + 1);
-            if (collision.gameObject.name == "Base" + (collision.transform.GetSiblingIndex() + 1).ToString())
+            var baseName = "Base" + (collision.transform.GetSiblingIndex() + 1).ToString();
+            if ( collision.gameObject.name == baseName && takedObject )
             {
                 var aux = takedObject;
                 takedObject = null;
+                aux.transform.parent = collision.transform;
                 aux.transform.position += new Vector3(-2, 0, 0);
             }
         }

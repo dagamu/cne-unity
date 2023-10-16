@@ -36,7 +36,6 @@ public class MinigameUIManager : MonoBehaviour
         {
             var pController = Utility.getController(playersParernt.transform.GetChild(i).gameObject);
 
-            Debug.Log(pointBoxParents.GetChild(i).gameObject.name);
             pointBoxParents.GetChild(i).Find("Outline").GetComponent<Image>().color = pController.playerColor;
             pointBoxParents.GetChild(i).Find("Points").GetComponent<TextMeshProUGUI>().color = pController.playerColor;
 
