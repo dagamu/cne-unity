@@ -38,7 +38,7 @@ public class spawnPlayers : MonoBehaviour
             isMinigame = true;
             CurrentMinigameUI = Instantiate(MinigameUI);
             CurrentMinigameUI.GetComponent<MinigameUIManager>().setUI( gameObject );
-            timer = MinigameTime;
+            timer = MinigameTime + 3;
         } 
     }
 
@@ -65,6 +65,9 @@ public class spawnPlayers : MonoBehaviour
             if( timerStr == "0"){
                 endMinigame();
                 isEnd = true;
+            }else if(timer > MinigameTime)
+            {
+                CurrentMinigameUI.transform.Find("Timer").GetComponent<TMP_Text>().SetText(" ");
             }
         }
     }
