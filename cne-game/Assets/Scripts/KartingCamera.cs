@@ -6,14 +6,17 @@ using UnityEngine;
 public class KartingCamera : MonoBehaviour
 {
     [SerializeField] private Vector3 offset;
-    [SerializeField] private Transform target;
+    [SerializeField] public Transform target;
     [SerializeField] private float translateSpeed;
     [SerializeField] private float rotationSpeed;
 
     private void FixedUpdate()
     {
-        HandleTranslation();
-        HandleRotation();
+        if(target) {
+            HandleTranslation();
+            HandleRotation();
+        }
+        
     }
    
     private void HandleTranslation()

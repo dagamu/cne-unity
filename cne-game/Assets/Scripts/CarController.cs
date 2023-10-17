@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using gamePlayerSpace;
 
 public class CarController : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class CarController : MonoBehaviour
     private float currentSteerAngle;
     private float currentbreakForce;
     private bool isBreaking;
+
+    public gamePlayer playerData;
 
     [SerializeField] private float motorForce;
     [SerializeField] private float breakForce;
@@ -35,21 +38,23 @@ public class CarController : MonoBehaviour
         HandleSteering();
         UpdateWheels();
 
+        Debug.Log(playerData.gamepadData[0]);
+
         transform.eulerAngles += -Vector3.forward * transform.eulerAngles.z;
     }
 
 
     private void GetInput()
     {
-        horizontalInput = Input.GetAxis(HORIZONTAL);
-        verticalInput = Input.GetAxis(VERTICAL);
+        horizontalInput = playerData.gamepadData[0];
+        verticalInput = playerData.gamepadData[1];
         isBreaking = Input.GetKey(KeyCode.Space);
     }
 
     private void HandleMotor()
     {
-        frontLeftWheelCollider.motorTorque = verticalInput * motorForce;
-        frontRightWheelCollider.motorTorque = verticalInput * motorForce;
+        frontLeftWheelCollider.motorTorque = verticalInput * motorForce * 10000000;
+        frontRightWheelCollider.motorTorque = verticalInput * motorForce * 10000000;
         currentbreakForce = isBreaking ? breakForce : 0f;
         ApplyBreaking();       
     }
