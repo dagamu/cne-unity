@@ -34,6 +34,8 @@ public class CarController : MonoBehaviour
         HandleMotor();
         HandleSteering();
         UpdateWheels();
+
+        transform.eulerAngles += -Vector3.forward * transform.eulerAngles.z;
     }
 
 
@@ -65,7 +67,7 @@ public class CarController : MonoBehaviour
         currentSteerAngle = maxSteerAngle * horizontalInput;
         frontLeftWheelCollider.steerAngle = currentSteerAngle;
         frontRightWheelCollider.steerAngle = currentSteerAngle;
-    }
+    }   
 
     private void UpdateWheels()
     {
