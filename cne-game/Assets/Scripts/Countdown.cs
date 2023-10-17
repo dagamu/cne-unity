@@ -15,7 +15,7 @@ public class Countdown : MonoBehaviour
     {
         timeLeft -= Time.deltaTime;
         startText.SetText((timeLeft).ToString("0"));
-        if (timeLeft < 0)
+        if (timeLeft < 0 && startText.gameObject)
         {
             startText.SetText("");
             Destroy(startText.gameObject, 2f);

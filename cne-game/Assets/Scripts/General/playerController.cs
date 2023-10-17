@@ -9,7 +9,6 @@ using gamePlayerSpace;
 
 public class playerController : MonoBehaviour
 {
-    // Start is called before the first frame update
 
     public string gameId;
     public Color playerColor;
@@ -192,7 +191,7 @@ public class playerController : MonoBehaviour
                 var aux = takedObject;
                 takedObject = null;
                 aux.transform.parent = collision.transform;
-                aux.transform.position += new Vector3(-2, 0, 0);
+                aux.transform.position = collision.transform.GetChild( collision.transform.childCount - 1).position + collision.transform.forward * 2.6f;
             }
         }
     }
