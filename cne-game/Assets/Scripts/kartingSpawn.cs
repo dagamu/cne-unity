@@ -14,7 +14,6 @@ public class kartingSpawn : MonoBehaviour
     GamepadConnect gamepadConnectComponent;
 
     public GameObject kartingPrefab, MinigameUI, MinigameEnd;
-    public KartingCamera kartingCamera;
 
     public float MinigameTime;
 
@@ -33,7 +32,7 @@ public class kartingSpawn : MonoBehaviour
             var spawnPoint = GameObject.Find("SpawnPoints").transform.GetChild(i);
             Vector3 newPosition = spawnPoint.transform.position;
             Quaternion newRotation = spawnPoint.transform.rotation;
-            InstantiateKart(player, newPosition, newRotation);
+            InstantiateKart(player, newPosition, newRotation, i);
             i++;
         }
     }
@@ -81,11 +80,24 @@ public class kartingSpawn : MonoBehaviour
         
     }
 
-    public void InstantiateKart(gamePlayer playerObj, Vector3 pos, Quaternion newRotation)
+    public void InstantiateKart(gamePlayer playerObj, Vector3 pos, Quaternion newRotation, float i)
     {
         GameObject newKarting = Instantiate( kartingPrefab, pos, newRotation, transform );
-        newKarting.GetComponent<CarController>().playerData = playerObj;
 
-        kartingCamera.target = newKarting.transform;
+        newKarting.GetComponent<CarController>().playerData = playerObj;
+        var kartingCamera = newKarting.transform.Find("CarCamera");
+        if( gamepadConnectComponent.players.Count != 1 ){
+            kartingCamera.GetComponent<Camera>().rect = new Rect( i == 1 || i == 2 ? 0.5f: 0, i <= 1 ? 0.5f : 0, 0.5f, 0.5f);
+        } else {
+            kartingCamera.GetComponent<Camera>().rect = new Rect( 0, 0, 1, 1);
+        }
+            kartingCamera.GetComponent<KartingCamera>().target = newKarting.transform;
+        
+    }
+
+    public void SetCameras(){
+        foreach(Transform p in transform ){
+            p.transform.Find("CarCamera").gameObject.SetActive(true);
+        }
     }
 }
