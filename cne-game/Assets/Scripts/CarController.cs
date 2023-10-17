@@ -17,7 +17,7 @@ public class CarController : MonoBehaviour
 
     public gamePlayer playerData;
 
-    [SerializeField] private float motorForce;
+    [SerializeField] public float motorForce;
     [SerializeField] private float breakForce;
     [SerializeField] private float maxSteerAngle;
 
