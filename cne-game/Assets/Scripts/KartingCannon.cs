@@ -28,7 +28,7 @@ public class KartingCannon : MonoBehaviour
             newBall.transform.rotation = Quaternion.LookRotation( (Target.position - spawnBall.position).normalized );
             newBall.GetComponent<Rigidbody>().AddForce(newBall.transform.forward * powerShoot);
 
-            Destroy(newBall, 5f);
+            Destroy(newBall, 10f);
 
         }
 
