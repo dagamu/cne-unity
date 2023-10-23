@@ -72,3 +72,7 @@ cne-game/[Aa]ssets/[Ss]treamingAssets/aa.meta
 cne-game/[Aa]ssets/[Ss]treamingAssets/aa/*
 
 external-controller-server/node_modules
+*.psd
+cne-game/Assets/Kart Maps/Map3/Textures/road_normal.png
+cne-game/Assets/Kart Maps/Map3/Mapa CNE Tres.fbx
+cne-game/Assets/Kart Maps/Map3/Mapa CNE Tres.fbm/road_normal.png
