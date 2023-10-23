@@ -74,12 +74,12 @@ public class cursorControl : MonoBehaviour
         if (Physics.Raycast(transform.position, velocity, out hit, Mathf.Infinity, LayerMask.NameToLayer("UI")))
         {
             Debug.DrawRay(transform.position, velocity * hit.distance, Color.yellow);
-            Debug.Log("Did Hit");
+            //Debug.Log("Did Hit");
         }
         else
         {
             Debug.DrawRay(transform.position, velocity * 1000, Color.white);
-            Debug.Log("Did not Hit");
+            //Debug.Log("Did not Hit");
         }
     }
 
