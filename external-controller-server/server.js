@@ -92,10 +92,27 @@ async function init() {
                  "o")
 
             dir.forEach( (l, j) => lines[j] += l.split("").join("  ").replace("o",colors[colorStr[i]]("o")) )
-            
+
+            dir.forEach( (l, j) => lines[j] += l.split("").join("  ").replace("o",colors[colorStr[i]]("o")) )
+
         })
 
         lines.forEach( l => console.log(l))
+
+        console.log()
+
+        var btnLabels = ["Up", "Down", "Left", "Right"]
+        var btnLine = ""
+        players.forEach( (p, i) => {
+            btnLabels.forEach( (b,j) => { 
+                btnLine += p[j+3] == "true" ? colors[colorStr[i]]( b ): b
+                btnLine += " "
+            })
+            btnLine += "\t"
+        })
+
+        console.log(btnLine)
+        
 
         await sleep(500);
         console.clear()
