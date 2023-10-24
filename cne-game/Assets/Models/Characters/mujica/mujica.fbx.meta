@@ -3,9 +3,59 @@ guid: 3c5de6b0d719e2c4fb16bb38bea5978e
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: felipe_mujica
+    second: {fileID: 2100000, guid: 29d82c27ee978ee4dae5cc96bcf3cfb6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: male_casualsuit06
+    second: {fileID: 2100000, guid: 3677d76c6c8cb3b43a50e15a6a42cd80, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: material_0.001
+    second: {fileID: 2100000, guid: afc07cdff43a45648b80027ad36cda3e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: shoes01
+    second: {fileID: 2100000, guid: cafd143590d64654192e3b8b97305ddb, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: brown_eye
+    second: {fileID: 2800000, guid: a481744df88393545aa80f66ee06211a, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: male_casualsuit06_diffuse
+    second: {fileID: 2800000, guid: 6e8f130967b5b9f4fae34a53dc6ff53a, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: male_casualsuit06_normal
+    second: {fileID: 2800000, guid: 05ce6602a2fbbea4b84ff088fc5c17e2, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: model
+    second: {fileID: 2800000, guid: 99583cd8ccab53746b1bd23935cc7061, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: shoes01_diffuse
+    second: {fileID: 2800000, guid: 39032ac6a39311b4baf9eda3ee7efe2e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: shoes01_normal
+    second: {fileID: 2800000, guid: f02a0cba711a29940b302255b6aa169a, type: 3}
   materials:
-    materialImportMode: 2
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1
@@ -44,7 +94,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 1
       loopBlendPositionY: 1
