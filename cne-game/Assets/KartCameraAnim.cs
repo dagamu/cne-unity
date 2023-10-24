@@ -46,7 +46,6 @@ public class KartCameraAnim : MonoBehaviour
                 
             } else {
                 //Start Race
-                Debug.Log("Start Race");
                 setCameras.Invoke();
             }
         }

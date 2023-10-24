@@ -1,44 +1,14 @@
 fileFormatVersion: 2
-guid: f3aa0f74e34647b4289db0c80405d863
+guid: 66dddc15f34bd4f4c916090919b86a2b
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: claudio
-    second: {fileID: 2100000, guid: f1d0d6b9125a1e6489665e778ece8d40, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: male_casualsuit06
-    second: {fileID: 2100000, guid: af6f0ab63fd3868469213f8239152a55, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: material_0.001
-    second: {fileID: 2100000, guid: 5a8fb9a52df6d874ea9fe2ebc02a54c8, type: 2}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: male_casualsuit06_diffuse
-    second: {fileID: 2800000, guid: 7a47d0b4b5dcdea489c40afe39cb48ad, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: male_casualsuit06_normal
-    second: {fileID: 2800000, guid: e543b09dbc59b4345a01664c95a7009f, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: model
-    second: {fileID: 2800000, guid: b9197dd780c00884f83031a1b318725c, type: 3}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
     materialSearch: 1
-    materialLocation: 0
+    materialLocation: 1
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -47,14 +17,21 @@ ModelImporter:
     removeConstantScaleCurves: 1
     motionNodeName: 
     rigImportErrors: 
-    rigImportWarnings: 
+    rigImportWarnings: "Copied Avatar Rig Configuration mis-match. Bone length in
+      copied configuration does not match position in animation file:\n\t'mixamorig:LeftUpLeg'
+      : position error = 91.064720 mm\n\t'mixamorig:LeftLeg' : position error = 368.115570
+      mm\n\t'mixamorig:LeftFoot' : position error = 409.868195 mm\n\t'mixamorig:LeftToeBase'
+      : position error = 123.826149 mm\n\t'mixamorig:RightUpLeg' : position error
+      = 91.245636 mm\n\t'mixamorig:RightLeg' : position error = 368.166656 mm\n\t'mixamorig:RightFoot'
+      : position error = 409.707611 mm\n\t'mixamorig:RightToeBase' : position error
+      = 117.060692 mm\n"
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -105,7 +82,8 @@ ModelImporter:
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
-  referencedClips: []
+  referencedClips:
+  - 5419bb4d9afd82e4a817921551367a9e
   importAnimation: 1
   humanDescription:
     serializedVersion: 3
@@ -121,13 +99,13 @@ ModelImporter:
     globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
-    hasExtraRoot: 0
+    hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
-  animationType: 2
+  animationType: 3
   humanoidOversampling: 1
-  avatarSetup: 0
+  avatarSetup: 1
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   remapMaterialsIfMaterialImportModeIsNone: 0
   additionalBone: 0

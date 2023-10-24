@@ -13,7 +13,8 @@ public class kartingSpawn : MonoBehaviour
     GameObject GamepadConnect;
     GamepadConnect gamepadConnectComponent;
 
-    public GameObject kartingPrefab, MinigameUI, MinigameEnd;
+    public GameObject MinigameUI, MinigameEnd;
+    public GameObject RedKart, BlueKart, GreenKart, YellowKart;
 
     public float MinigameTime;
 
@@ -51,37 +52,24 @@ public class kartingSpawn : MonoBehaviour
     }
 
     float timer;
-    bool isEnd = false;
-    void Update()
-    {
-
-       
-        /*
-        if (!isEnd)
-        {
-            timer -= Time.deltaTime;
-            string timerStr = Mathf.Round(timer).ToString();
-            CurrentMinigameUI.transform.Find("Timer").GetComponent<TMP_Text>().SetText(Mathf.Round(timer).ToString());
-            if (timerStr == "0")
-            {
-                endMinigame();
-                isEnd = true;
-            }
-            else if (timer > MinigameTime)
-            {
-                CurrentMinigameUI.transform.Find("Timer").GetComponent<TMP_Text>().SetText(" ");
-            }
-        }*/
-    }
-
     void endMinigame()
     {
         Instantiate(MinigameEnd);
-        
     }
 
     public void InstantiateKart(gamePlayer playerObj, Vector3 pos, Quaternion newRotation, float i)
     {
+        var color = playerObj.color.Split(';');
+        GameObject kartingPrefab;
+
+        if (color[0] == "1")
+        {
+            if (color[1] == "1") kartingPrefab = YellowKart;
+            else kartingPrefab = RedKart;
+        }
+        else if(color[1] == "1") kartingPrefab = GreenKart;
+        else kartingPrefab = BlueKart;
+
         GameObject newKarting = Instantiate( kartingPrefab, pos, newRotation, transform );
 
         newKarting.GetComponent<CarController>().playerData = playerObj;

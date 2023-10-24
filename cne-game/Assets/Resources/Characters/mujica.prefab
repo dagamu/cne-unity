@@ -2333,7 +2333,7 @@ GameObject:
   - component: {fileID: 7736326061943550725}
   - component: {fileID: 4448676015115348351}
   m_Layer: 0
-  m_Name: mujica
+  m_Name: Mujica
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2371,7 +2371,7 @@ Animator:
   m_GameObject: {fileID: 6924041693214648767}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 3c5de6b0d719e2c4fb16bb38bea5978e, type: 3}
-  m_Controller: {fileID: 9100000, guid: 46975f15d1edc0f4ba273220f9960e59, type: 2}
+  m_Controller: {fileID: 9100000, guid: d75a7902d35060f4da6cf4135e95dc24, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
