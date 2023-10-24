@@ -8,13 +8,14 @@ const Colors = [
 const colorStr = [ "blue", "green", "yellow", "red" ]
 
 var connections = []
+var devPlayerBot = false;
 
-module.exports = function(ws, newLog, wss) {
+module.exports = function(ws, newLog, wss, updatePlayers) {
 
     //connection is up, let's add a simple simple event
     ws.on('message', (message) => {
 
-        //console.log(message.toString())
+        //newLog(message.toString())
 
         if(message == 'createPlayer'){
 
@@ -57,10 +58,15 @@ module.exports = function(ws, newLog, wss) {
                 newLog(`Player ${ p.id } entered into Unity`)
                 ws.send(`newPlayer:${ p.id },${ p.color }`)
             })
+        } else {
+            updatePlayers( message.toString().split(":")[1])
         }
 
-        wss.clients.forEach(c => 
-            c.send(`${message}`))
+        wss.clients.forEach(c => {
+            c.send(`${message}`)
+            //updatePlayers(connections)
+        }
+            )
     });
 
     ws.on('close', () => {

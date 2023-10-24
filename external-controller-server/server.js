@@ -26,15 +26,29 @@ getUniqueID = function () {
     return s4() + s4() 
 };
 
-var devPlayerBot = false;
+
+const colorStr = [ "blue", "green", "yellow", "red" ]
 
 consoleMessages = []
-
-const newLog = ( text, color ) => {
+const newLog = ( text, color="white" ) => {
     consoleMessages.push({text,time:moment().format("hh:mm:ss"), color})
+    if( consoleMessages.length > 15 ) consoleMessages.shift()
 }
 
-wss.on('connection', (ws) => onConnection(ws, newLog, wss) )
+var players = []
+const updatePlayers = moveMsg => {
+    var msg = moveMsg.split(",")
+    var isNew = true
+    players.forEach( (p,i) => {
+        if(p[0] == msg[0]) {
+            players[i] = msg
+            isNew = false
+        }
+    })
+    if (isNew) players.push(msg)
+}
+
+wss.on('connection', (ws) => onConnection(ws, newLog, wss, updatePlayers) )
 
 //start our server
 server.listen(process.env.PORT || 8080, () => {
@@ -61,13 +75,40 @@ async function init() {
             console.log(msg.time +": " +colors[msg.color](msg.text))
         })
 
+        console.log()
+        console.log("--------------------")
+        console.log()
+
+        var lines = [ "", "", "" ]
+        players.forEach( (p,i) => {
+            
+            var dir = [ "···\t",
+                        "·+·\t",
+                        "···\t"]
+
+            dir[ 1-Math.round(p[2]*1.4)] = setCharAt( 
+                dir[1-Math.round(p[2]*1.4)],
+                 1+Math.round(p[1]*1.4),
+                 "o")
+
+            dir.forEach( (l, j) => lines[j] += l.split("").join("  ").replace("o",colors[colorStr[i]]("o")) )
+            
+        })
+
+        lines.forEach( l => console.log(l))
+
         await sleep(500);
         console.clear()
     }
   }
-  
+  function setCharAt(str,index,chr) {
+    if(index > str.length-1) return str;
+    return str.substring(0,index) + chr + str.substring(index+1);
+} 
 function sleep(ms) {
 return new Promise((resolve) => {
     setTimeout(resolve, ms);
 });
+
+
 }
