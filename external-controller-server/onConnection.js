@@ -75,7 +75,7 @@ module.exports = function(ws, newLog, wss, updatePlayers) {
             if(devPlayerBot ){
                 var bot = connections.shift()
                 devPlayerBot = false
-                newLog(`Dev player bot killed: ${bot.id}`)
+                newLog(`Dev player bot killed:`)
             }
             return
         }

@@ -4,5 +4,17 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/1. Scenes/Main menu.unity
+    guid: fc75cc2f4df1e084e9d11fd205672b18
+  - enabled: 1
+    path: Assets/1. Scenes/Karting Maps/Karting Map I.unity
+    guid: 8afc841e191ed48408737d431f5a7f4f
+  - enabled: 1
+    path: Assets/1. Scenes/Karting Maps/Karting Map II.unity
+    guid: f5d79b1c0d9014645891f9f697d099e2
+  - enabled: 1
+    path: Assets/1. Scenes/Karting Maps/Karting Map III.unity
+    guid: 388caacb613b6ec48af9c63d0a381000
   m_configObjects: {}
