@@ -7,8 +7,13 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: male_casualsuit06
-    second: {fileID: 2100000, guid: 21813c58301cc974e9d17376ad16a213, type: 2}
+      name: m_swimming_trunks_01
+    second: {fileID: 2100000, guid: fcf1d4ce989e53044b0a20ed564a4e00, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: male_muscle_13290
+    second: {fileID: 2100000, guid: e72c57af88856e0479c6ac59650555d7, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -17,28 +22,43 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: rodrigo
-    second: {fileID: 2100000, guid: 75bef97b47e9d1c4f9c6d82870e43dfd, type: 2}
+      name: sneakers
+    second: {fileID: 2100000, guid: fd6ee63c9b7a2834b94dceda34c8f47d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: tank_top_01
+    second: {fileID: 2100000, guid: 0b968c010ac16644bbb93c032c806b1f, type: 2}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
-      name: male_casualsuit06_diffuse
-    second: {fileID: 2800000, guid: d15ae949b1adacd4cbb0b1f0f21aa145, type: 3}
+      name: M_Swimming_trunks_01
+    second: {fileID: 2800000, guid: 7f5f489704fc6c24ab47ce4e0fc78029, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
-      name: male_casualsuit06_normal
-    second: {fileID: 2800000, guid: f0fdc14d3eb6ae84d8b2c84f8249a01d, type: 3}
+      name: Tank_Top_01
+    second: {fileID: 2800000, guid: 819b414a525efdf429d808365fc0d547, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Tank_Top_01_NRM
+    second: {fileID: 2800000, guid: 88fe3e360bb38a144a877915ef8f7d49, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: model
-    second: {fileID: 2800000, guid: 829d1b89c110a5a40aad2fc6708b2563, type: 3}
+    second: {fileID: 2800000, guid: 21e9376d61cf00841a8c4b6319df79be, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: sneaker_brown_diffuse
+    second: {fileID: 2800000, guid: 399346f04b191c44dbf166a0ad0d5cea, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
     materialSearch: 1
-    materialLocation: 0
+    materialLocation: 1
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0

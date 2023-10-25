@@ -23,7 +23,7 @@ public class mainMenuSpawner : MonoBehaviour
     void nextScene() { SceneManager.LoadScene(FirstScene.name); }
     public void PlayGame()
     {
-        Invoke("nextScene", 5f);
+        Invoke("nextScene", 10f);
         
      }
 }

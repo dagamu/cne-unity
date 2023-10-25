@@ -9,7 +9,7 @@ public class StartButton : MonoBehaviour
     GameObject GamepadConnect;
     GamepadConnect gamepadConnectComponent;
 
-    public GameObject BgVideo, SelectPlayer, Bar;
+    public GameObject BgVideo, SelectPlayer, Bar, Model;
 
     // Start is called before the first frame update
     void Start()
@@ -40,5 +40,6 @@ public class StartButton : MonoBehaviour
         BgVideo.SetActive(false);
         SelectPlayer.SetActive(false);
         Bar.SetActive(true);
+        Model.SetActive(false);
     }
 }
