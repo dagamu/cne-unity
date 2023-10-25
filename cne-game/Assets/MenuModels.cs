@@ -11,7 +11,9 @@ public class MenuModels : MonoBehaviour
     void Update()
     {
         timer += Time.deltaTime;
-        transform.Rotate(0,spinSpeed * Time.deltaTime,0);
+        var lookingBack = transform.rotation.eulerAngles.y < -90 || transform.rotation.eulerAngles.y > 90;
+        var speed = !lookingBack ? spinSpeed : spinSpeed * 5;
+        transform.Rotate(0,speed * Time.deltaTime,0);
         if( timer > changeModelTime){
             timer = 0;
             transform.GetChild(i).gameObject.SetActive(false);
