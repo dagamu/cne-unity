@@ -91,9 +91,11 @@ async function init() {
                  1+Math.round(p[1]*1.4),
                  "o")
 
-            dir.forEach( (l, j) => lines[j] += l.split("").join("  ").replace("o",colors[colorStr[i]]("o")) )
-
-            dir.forEach( (l, j) => lines[j] += l.split("").join("  ").replace("o",colors[colorStr[i]]("o")) )
+            if( colorStr[i] ){
+                dir.forEach( (l, j) => lines[j] += l.split("").join("  ").replace("o",colors[colorStr[i]]("o")) )
+                dir.forEach( (l, j) => lines[j] += l.split("").join("  ").replace("o",colors[colorStr[i]]("o")) )
+            }
+            
 
         })
 
