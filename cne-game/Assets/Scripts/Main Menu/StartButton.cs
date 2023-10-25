@@ -39,6 +39,7 @@ public class StartButton : MonoBehaviour
     {
         BgVideo.SetActive(false);
         SelectPlayer.SetActive(false);
+        Model.SetActive(false);
         Bar.SetActive(true);
         Model.SetActive(false);
     }
