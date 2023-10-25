@@ -20,9 +20,10 @@ public class mainMenuSpawner : MonoBehaviour
         cursorController.id = args[0];
 
     }
-
+    void nextScene() { SceneManager.LoadScene(FirstScene.name); }
     public void PlayGame()
     {
-        SceneManager.LoadScene(FirstScene.name);
+        Invoke("nextScene", 5f);
+        
      }
 }

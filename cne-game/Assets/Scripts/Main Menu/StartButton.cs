@@ -9,13 +9,13 @@ public class StartButton : MonoBehaviour
     GameObject GamepadConnect;
     GamepadConnect gamepadConnectComponent;
 
+    public GameObject BgVideo, SelectPlayer, Bar;
+
     // Start is called before the first frame update
     void Start()
     {
         GamepadConnect = GameObject.Find("GamepadConnect");
-        gamepadConnectComponent = GamepadConnect.GetComponent<GamepadConnect> ();
-
-        
+        gamepadConnectComponent = GamepadConnect.GetComponent<GamepadConnect>();
     }
 
     // Update is called once per frame
@@ -24,15 +24,21 @@ public class StartButton : MonoBehaviour
         var players = gamepadConnectComponent.players;
 
         var playerSelected = 0;
-        foreach (var p in players ){
-            if( p.model != null ){ 
+        foreach (var p in players) {
+            if (p.model != null) {
                 playerSelected++;
             }
         }
-        if(playerSelected == 4){
-            gameObject.GetComponent<Button>().onClick.Invoke(); 
+        if (playerSelected == 4) {
+            gameObject.GetComponent<Button>().onClick.Invoke();
         }
 
+    }
 
+    public void btnFunc()
+    {
+        BgVideo.SetActive(false);
+        SelectPlayer.SetActive(false);
+        Bar.SetActive(true);
     }
 }
