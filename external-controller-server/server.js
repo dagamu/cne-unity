@@ -93,7 +93,6 @@ async function init() {
 
             if( colorStr[i] ){
                 dir.forEach( (l, j) => lines[j] += l.split("").join("  ").replace("o",colors[colorStr[i]]("o")) )
-                dir.forEach( (l, j) => lines[j] += l.split("").join("  ").replace("o",colors[colorStr[i]]("o")) )
             }
             
 
@@ -121,6 +120,7 @@ async function init() {
     }
   }
   function setCharAt(str,index,chr) {
+    if( !str ) return str
     if(index > str.length-1) return str;
     return str.substring(0,index) + chr + str.substring(index+1);
 } 

@@ -9,7 +9,7 @@ public class RaceCarController : MonoBehaviour
     public int Laps = 0;
     Transform CheckPointParent;
     public Transform nextCheckpoint;
-    List<GameObject> playersPositions = new List<GameObject>();
+    public List<GameObject> playersPositions = new List<GameObject>();
     public GameObject PositionLabel;
 
     void Start(){
