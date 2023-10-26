@@ -662,8 +662,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0e35b3f1808005468f0c097ab3bd0e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MinigameUI: {fileID: 2888080202909822026, guid: 040595ac28ac8854fae0a6bcab8cd231, type: 3}
-  MinigameEnd: {fileID: 8480161952744711304, guid: 2a13d08de834dfd448dff45a77913665, type: 3}
+  MinigameUI: {fileID: 770702187}
   RedKart: {fileID: 4942289592451775589, guid: 786006dd07347444099033ddad4a20eb, type: 3}
   BlueKart: {fileID: 5271709297047433674, guid: ac8a8a3b0699001499c5210a2498ea5a, type: 3}
   GreenKart: {fileID: 1306127422560575588, guid: faabea82f4f6b8445af6c9b4870ba6c7, type: 3}
@@ -823,7 +822,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &770702188
 MonoBehaviour:
   m_ObjectHideFlags: 0

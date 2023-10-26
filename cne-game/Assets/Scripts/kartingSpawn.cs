@@ -13,7 +13,7 @@ public class kartingSpawn : MonoBehaviour
     GameObject GamepadConnect;
     GamepadConnect gamepadConnectComponent;
 
-    public GameObject MinigameUI, MinigameEnd;
+    public GameObject MinigameUI;
     public GameObject RedKart, BlueKart, GreenKart, YellowKart;
 
     public float MinigameTime;
@@ -54,7 +54,7 @@ public class kartingSpawn : MonoBehaviour
     float timer;
     void endMinigame()
     {
-        Instantiate(MinigameEnd);
+        //Instantiate(MinigameEnd);
     }
 
     public void InstantiateKart(gamePlayer playerObj, Vector3 pos, Quaternion newRotation, float i)
@@ -87,5 +87,6 @@ public class kartingSpawn : MonoBehaviour
         foreach(Transform p in transform ){
             p.transform.Find("CarCamera").gameObject.SetActive(true);
         }
+        MinigameUI.SetActive(true);
     }
 }
