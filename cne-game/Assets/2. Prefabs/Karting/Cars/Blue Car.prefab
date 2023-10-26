@@ -1078,6 +1078,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Laps: 0
   nextCheckpoint: {fileID: 0}
+  playersPositions: []
   PositionLabel: {fileID: 9092033844746591637}
 --- !u!1 &5876329882564808880
 GameObject:
@@ -1917,7 +1918,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
-  m_SortingLayerID: 0
+  m_SortingLayerID: 2039393693
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!114 &5460399441832082561
@@ -1959,7 +1960,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 0
 --- !u!1 &8998911686358723746
 GameObject:
   m_ObjectHideFlags: 0

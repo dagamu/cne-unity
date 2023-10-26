@@ -948,6 +948,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Laps: 0
   nextCheckpoint: {fileID: 0}
+  playersPositions: []
   PositionLabel: {fileID: 4250256930257621023}
 --- !u!1 &5159067987331183558
 GameObject:
@@ -1293,7 +1294,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
-  m_SortingLayerID: 0
+  m_SortingLayerID: 2039393693
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!114 &3804137376940260861
