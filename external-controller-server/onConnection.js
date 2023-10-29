@@ -70,6 +70,7 @@ module.exports = function(ws, newLog, wss, updatePlayers) {
     });
 
     ws.on('close', () => {
+        if( ws.id == undefined ) return;
         if( ws.isUnityClient ) { 
             console.log(`UnityClient left: ${ws.id}`)
             if(devPlayerBot ){

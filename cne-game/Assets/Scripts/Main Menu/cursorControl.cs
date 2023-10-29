@@ -9,8 +9,8 @@ public class cursorControl : MonoBehaviour
 
     public string id;
     public float cursorSpeed;
-    public float velSmooth;
     public Color playerColor;
+    Transform thumbnailsParent;
 
 
     GameObject GamepadConnect;
@@ -21,14 +21,16 @@ public class cursorControl : MonoBehaviour
 
     Vector3 velocity;
     Rigidbody2D rb;
+    Transform targetSelectable;
 
-    // Start is called before the first frame update
     void Start()
     {
         GamepadConnect = GameObject.Find("GamepadConnect");
         gamepadConnectComponent = GamepadConnect.GetComponent<GamepadConnect> ();
 
         rb = GetComponent<Rigidbody2D>();
+
+        //thumbnailsParent = GameObject.Find("/Canvas/selectPlayer/Character Layout").transform;
 
         var players = gamepadConnectComponent.players;
 
@@ -47,10 +49,12 @@ public class cursorControl : MonoBehaviour
                 gameObject.GetComponent<Image>().color = playerColor;
             }
         }
+
+        
         
     }
 
-    // Update is called once per frame
+    public float raycastOffset;
     void Update()
     {
         var players = gamepadConnectComponent.players;
@@ -58,29 +62,30 @@ public class cursorControl : MonoBehaviour
         velocity = new Vector2( 
             playerObject.gamepadData[0],
             playerObject.gamepadData[1]
-        ).normalized;
-
-        rb.velocity = Vector3.Lerp( rb.velocity, velocity * cursorSpeed * 100f, 0.1f );
+        );
+      
 
         //gameObject.transform.position += velocity;
 
         var xpos = Mathf.Clamp(transform.position.x, 0, Screen.width);
         var ypos = Mathf.Clamp(transform.position.y, 0, Screen.height);
 
-        transform.position = new Vector3( xpos, ypos, 0f);
+        var newPos = new Vector3( xpos, ypos, 0f);
 
-        RaycastHit hit;
-        // Does the ray intersect any objects excluding the player layer
-        if (Physics.Raycast(transform.position, velocity, out hit, Mathf.Infinity, LayerMask.NameToLayer("UI")))
+        if( targetSelectable )
+            transform.position = Vector3.Lerp(newPos, targetSelectable.position + new Vector3(0,-25,0), cursorSpeed);
+
+        RaycastHit2D hit = Physics2D.Raycast( transform.position + velocity * raycastOffset, velocity );
+        if ( hit.collider != null && hit.transform.CompareTag("UISelectable") && velocity.magnitude > 0.5f )
         {
-            Debug.DrawRay(transform.position, velocity * hit.distance, Color.yellow);
-            //Debug.Log("Did Hit");
+            Debug.DrawRay(transform.position + velocity * raycastOffset, velocity * hit.distance, Color.yellow);
+            targetSelectable = hit.transform;
+        } else {
+            Debug.DrawRay(transform.position + velocity * raycastOffset, velocity * 1000, Color.yellow);
+            rb.velocity = Vector3.Lerp( rb.velocity, velocity * cursorSpeed * 3000f, 0.1f );
+            if( velocity.magnitude > 0.5f ) targetSelectable = null;
         }
-        else
-        {
-            Debug.DrawRay(transform.position, velocity * 1000, Color.white);
-            //Debug.Log("Did not Hit");
-        }
+
     }
 
     void OnTriggerEnter2D (Collider2D  col) 

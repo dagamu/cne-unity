@@ -13,16 +13,17 @@ public class kartingSpawn : MonoBehaviour
     GameObject GamepadConnect;
     GamepadConnect gamepadConnectComponent;
 
-    public GameObject MinigameUI;
+    public GameObject MinigameUI, Podium;
     public GameObject RedKart, BlueKart, GreenKart, YellowKart;
 
     public float MinigameTime;
+    public Vector3 PodiumPos;
 
     Camera cam;
     string currentScene;
     GameObject CurrentMinigameUI;
 
-    string[] defaultModels = { "mujica", "Nigga", "Pucho", "Tatita" };
+    string[] defaultModels = { "Claudio", "Mujica", "Rodrigo", "Andrea" };
 
     void getPlayers()
     {
@@ -52,13 +53,44 @@ public class kartingSpawn : MonoBehaviour
     }
 
     float timer;
-    void endMinigame()
+    bool podiumSetted = false;
+    void Update()
     {
-        //Instantiate(MinigameEnd);
+        if( podiumSetted && Input.anyKey ) {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
+        if( Input.GetKeyDown(KeyCode.Return) ) SetPodium();
+    }
+
+    public void SetPodium(){
+        var pod = Instantiate( Podium, PodiumPos, Quaternion.identity, transform.parent );
+        foreach( Transform players in transform ){
+
+            players.Find("CarCamera").gameObject.SetActive(false);
+            var cam = GameObject.Find("Main Camera").GetComponent<KartCameraAnim>();
+            cam.MovPoints = pod.transform.Find("Camera Mov").transform;
+            cam.currentIndex = 0;
+
+            MinigameUI.SetActive(false);
+
+            var charModel = players.Find("Character Model");
+            var racePosition = players.GetComponent<RaceCarController>().position;
+            var animation = racePosition == 1 ? "Victory" : racePosition == 4 ? "Sad" : "Clapping";
+
+            charModel.GetComponent<Animator>().SetBool( "Driving", false );
+            charModel.GetComponent<Animator>().SetBool( animation, true );
+
+            charModel.transform.parent = pod.transform;
+            charModel.transform.rotation = Quaternion.Euler(0, 90, 0);
+            charModel.transform.position = pod.transform.GetChild(racePosition-1).GetChild(0).position;
+        }
+        podiumSetted = true;
     }
 
     public void InstantiateKart(gamePlayer playerObj, Vector3 pos, Quaternion newRotation, float i)
     {
+        GameObject characterPrefab = Resources.Load<GameObject>("Characters/"+playerObj.model);
+
         var color = playerObj.color.Split(';');
         GameObject kartingPrefab;
 
@@ -71,6 +103,16 @@ public class kartingSpawn : MonoBehaviour
         else kartingPrefab = BlueKart;
 
         GameObject newKarting = Instantiate( kartingPrefab, pos, newRotation, transform );
+
+        var modelPos = newKarting.transform.Find("ModelSpawn").transform.position;
+        var modelRot = newKarting.transform.Find("ModelSpawn").transform.rotation;
+        var model = Instantiate( characterPrefab, modelPos, modelRot, newKarting.transform );
+
+        model.GetComponent<Animator>().SetBool("Driving", true);
+        model.name = "Character Model";
+
+        newKarting.GetComponent<RaceCarController>().CharacterModel = model;
+        
 
         newKarting.GetComponent<CarController>().playerData = playerObj;
         var kartingCamera = newKarting.transform.Find("CarCamera");
@@ -86,6 +128,7 @@ public class kartingSpawn : MonoBehaviour
     public void SetCameras(){
         foreach(Transform p in transform ){
             p.transform.Find("CarCamera").gameObject.SetActive(true);
+            p.GetComponent<CarController>().kartSpeed = 1;
         }
         MinigameUI.SetActive(true);
     }

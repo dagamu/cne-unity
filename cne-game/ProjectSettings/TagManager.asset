@@ -10,6 +10,7 @@ TagManager:
   - Border
   - Basketball
   - TakableBase
+  - RaceCheckpoint
   layers:
   - Default
   - TransparentFX

@@ -31,6 +31,8 @@ public class CarController : MonoBehaviour
     [SerializeField] private Transform rearLeftWheelTransform;
     [SerializeField] private Transform rearRightWheelTransform;
 
+    public float kartSpeed = 0;
+
     private void FixedUpdate()
     {
         GetInput();
@@ -51,8 +53,8 @@ public class CarController : MonoBehaviour
 
     private void HandleMotor()
     {
-        frontLeftWheelCollider.motorTorque = verticalInput * motorForce * 10000000;
-        frontRightWheelCollider.motorTorque = verticalInput * motorForce * 10000000;
+        frontLeftWheelCollider.motorTorque = verticalInput * motorForce * Mathf.Pow(10, 30) * Time.deltaTime * kartSpeed;
+        frontRightWheelCollider.motorTorque = verticalInput * motorForce * Mathf.Pow(10, 30) * Time.deltaTime * kartSpeed;
         currentbreakForce = isBreaking ? breakForce : 0f;
         ApplyBreaking();       
     }

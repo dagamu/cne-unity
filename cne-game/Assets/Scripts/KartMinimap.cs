@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class KartMinimap : MonoBehaviour
 {
@@ -11,8 +12,6 @@ public class KartMinimap : MonoBehaviour
     public float MapRoation;
     public Vector2 Offset;
 
-
-    // Update is called once per frame
     void Update()
     {
         for( var i = 0; i < playersParent.childCount; i++){
@@ -20,6 +19,9 @@ public class KartMinimap : MonoBehaviour
             var mapImg = transform.GetChild(i);
             var playerObj = playersParent.GetChild(i);
             var playerPos = playerObj.position;
+            var playerModelName = playerObj.GetComponent<CarController>().playerData.model;
+
+            mapImg.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>("Thumbnails/"+playerModelName);
 
             mapImg.localPosition = Rotate( new Vector2( playerPos.x, playerPos.z ), MapRoation)  * scale + Offset;
         }

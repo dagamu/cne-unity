@@ -114,11 +114,11 @@ async function init() {
 
         console.log(btnLine)
         
-
         await sleep(500);
         console.clear()
     }
   }
+
   function setCharAt(str,index,chr) {
     if( !str ) return str
     if(index > str.length-1) return str;

@@ -5,11 +5,14 @@ using UnityEngine.Events;
 
 public class KartCameraAnim : MonoBehaviour
 {
-    int currentIndex = 0;
+    public int currentIndex = 0;
     Transform currentStart, currentTarget;
     public Transform MovPoints;
-
     public UnityEvent setCameras;
+    public GameObject Countdown, NextMapText;
+    public float CountdownTime;
+
+    float totalAnimTime;
 
     Vector3 vel;
     Vector3 rVel;
@@ -17,11 +20,37 @@ public class KartCameraAnim : MonoBehaviour
         transform.position = target.position;
         transform.rotation = target.rotation;
     }
-    void Start()
+
+    void hideCountdown(){ Countdown.SetActive(false); }
+    
+    void setNextMapText(){ NextMapText.SetActive(true); }
+
+    void setCountdown(){
+        
+        Countdown.SetActive(true);
+        this.Invoke( "hideCountdown", Countdown.GetComponent<Animator>()
+                                    .GetCurrentAnimatorClipInfo(0)[0]
+                                    .clip.length);
+    }
+
+    void Start(){newMove();}
+    void newMove()
     {
+        currentIndex = 0;
         goTo( MovPoints.GetChild(0) );
         currentStart = MovPoints.GetChild(0);
         currentTarget = MovPoints.GetChild(1);
+
+        totalAnimTime = 0;
+        foreach(Transform p in MovPoints ){
+            if( p.GetSiblingIndex() % 2 == 0 || p.gameObject.name.Substring(0,1) == "T" ){
+                totalAnimTime += p.localScale.x;
+            }
+        }
+
+        if (!MovPoints.parent) Invoke("setCountdown", CountdownTime);
+        else Invoke( "setNextMapText", 5f);
+
     }
 
     void Update()
@@ -29,7 +58,7 @@ public class KartCameraAnim : MonoBehaviour
         transform.position = Vector3.SmoothDamp( transform.position, currentTarget.position, ref vel, currentStart.localScale.x );
         transform.rotation = Quaternion.Euler( Vector3.SmoothDamp(transform.rotation.eulerAngles, currentTarget.eulerAngles, ref rVel, currentStart.localScale.x));
 
-        if( (transform.position -currentTarget.position).magnitude < 0.3 ){
+        if( (transform.position - currentTarget.position).magnitude < 0.3 ){
             currentIndex += 1;
             if( currentIndex + 1 < MovPoints.childCount ){
                 if( MovPoints.GetChild(currentIndex+1).gameObject.name.Substring(0,1) == "T" ){
@@ -46,7 +75,8 @@ public class KartCameraAnim : MonoBehaviour
                 
             } else {
                 //Start Race
-                setCameras.Invoke();
+                if (MovPoints.parent) newMove();
+                else setCameras.Invoke();
             }
         }
     }

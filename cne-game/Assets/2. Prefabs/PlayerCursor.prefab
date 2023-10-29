@@ -139,7 +139,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 
-  cursorSpeed: 12
+  cursorSpeed: 0.3
   velSmooth: 0
   playerColor: {r: 0, g: 0, b: 0, a: 0}
-  playerSelectLayout: {fileID: 2977791201372056923, guid: e75e2d1c3167e7a4dabe9566b40643f0, type: 3}
+  raycastOffset: 90

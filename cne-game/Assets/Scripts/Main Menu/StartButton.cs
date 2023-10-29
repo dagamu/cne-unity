@@ -30,7 +30,7 @@ public class StartButton : MonoBehaviour
             }
         }
         if (playerSelected == 4) {
-            gameObject.GetComponent<Button>().onClick.Invoke();
+            //gameObject.GetComponent<Button>().onClick.Invoke();
         }
 
     }

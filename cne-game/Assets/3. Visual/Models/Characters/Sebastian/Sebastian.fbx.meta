@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f83f676e1837ee14e879f836b11c2b82
+guid: a0ac9062dd43e9a4586bf0b96593e1d3
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -7,98 +7,98 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: AvatarEyelashes
-    second: {fileID: 2100000, guid: 70f80addeb7db6c40b945b6df614ce2f, type: 2}
+      name: AvatarEyelashes.001
+    second: {fileID: 2100000, guid: f25815bbfb34bb44291be764ef95ab25, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: AvatarHead
-    second: {fileID: 2100000, guid: 1666e3b446bcb724c912eb523f151ab0, type: 2}
+      name: AvatarHead.001
+    second: {fileID: 2100000, guid: 6c556af1f7177d149af2224c715ce758, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: AvatarLeftCornea
-    second: {fileID: 2100000, guid: 2048822fdeea21e41ba20a7eb087a1d4, type: 2}
+      name: AvatarLeftCornea.001
+    second: {fileID: 2100000, guid: 36959124032372a47be4e99972983bb7, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: AvatarLeftEyeball
-    second: {fileID: 2100000, guid: fbbce2b195582644894e7937444d9937, type: 2}
+      name: AvatarLeftEyeball.001
+    second: {fileID: 2100000, guid: 3170099f825f88b428d540d30503cacc, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: AvatarRightCornea
-    second: {fileID: 2100000, guid: eac5c6990f86e8e4d8526083051fbbda, type: 2}
+      name: AvatarRightCornea.001
+    second: {fileID: 2100000, guid: 4f5ddfb36190ba742b0b4c03ea63cdae, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: AvatarRightEyeball
-    second: {fileID: 2100000, guid: 73261341dfb737540be6ce8c3c78ba8c, type: 2}
+      name: AvatarRightEyeball.001
+    second: {fileID: 2100000, guid: 3d39ea277a353bf4bba4953dbee47ddc, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: glasses
-    second: {fileID: 2100000, guid: c3f2e253c6089a441bd0df73a13b78d1, type: 2}
+      name: glasses.001
+    second: {fileID: 2100000, guid: f85bcbb5c0aa5f74fae43b6e4c65c72b, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: male_elegantsuit01
-    second: {fileID: 2100000, guid: a28449354bc0c0f4fba29b9582c985f3, type: 2}
+      name: male_elegantsuit01.001
+    second: {fileID: 2100000, guid: 752d09ff37af4fc458def0f665a54c49, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: male_muscle_13290
-    second: {fileID: 2100000, guid: 7c46dad687e5adc4681ae90d5fc5ee5f, type: 2}
+      name: male_muscle_13290.002
+    second: {fileID: 2100000, guid: c9a7c741730e5664fb474cb32e0ad026, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: shoes03
-    second: {fileID: 2100000, guid: 113ab92cc344055459d6ddd1e3baf786, type: 2}
+      name: shoes03.001
+    second: {fileID: 2100000, guid: b488780765e66cc43bace45502fddde3, type: 2}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: AvatarEyes_Color_512
-    second: {fileID: 2800000, guid: 29f3d7420314c3a47b287225975b00f1, type: 3}
+    second: {fileID: 2800000, guid: 36bc0be75e449ca4ca7e5420732afafa, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: AvatarEyes_Normal_512
-    second: {fileID: 2800000, guid: 73b6a66c58610734bb96d0f5f038d3c1, type: 3}
+    second: {fileID: 2800000, guid: c044e879717b69d42b14fed0361df5ce, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: AvatarHeadMale_Color_1K
-    second: {fileID: 2800000, guid: 3ea6a2a037c391e45bf7b4d697f888be, type: 3}
+    second: {fileID: 2800000, guid: e6fd8d7655a8e574eb0cb8f3e5b6693a, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: AvatarHeadMale_Normal1_1K
-    second: {fileID: 2800000, guid: 7d45dc7d4f46ab242a3bccd252497d60, type: 3}
+    second: {fileID: 2800000, guid: 7ec130aa7b905b4458ff72fc5f524790, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: AvatarLeftCornea_Color_512
-    second: {fileID: 2800000, guid: fdc2e343956338d4a86d1eb4e67ea061, type: 3}
+    second: {fileID: 2800000, guid: f0084f500bd1a0143bac9c1e6c42a4c2, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: AvatarRightCornea_Color_512
-    second: {fileID: 2800000, guid: ed4830178faf7bc46ae2be97ad5880a2, type: 3}
+    second: {fileID: 2800000, guid: eae0af77a18004540af5b82638a567f1, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: glasses_10_Color_256
-    second: {fileID: 2800000, guid: 0bfe95b114ab96e4b8152668aba16db3, type: 3}
+    second: {fileID: 2800000, guid: 76f8b9e4cd62f8948a7ae41b5ca9f91f, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: male_elegantsuit01_diffuse
-    second: {fileID: 2800000, guid: e0ae29c4b0435d843b08ab009d37c650, type: 3}
+    second: {fileID: 2800000, guid: a0ede6aa5dba26745b7f73f9383fad38, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: shoes03_diffuse
-    second: {fileID: 2800000, guid: 0b60aa7672a2efe45834c88d38640628, type: 3}
+    second: {fileID: 2800000, guid: e611b88a3420b2a4f9cc7586f0afc69d, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
