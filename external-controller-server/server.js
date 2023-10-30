@@ -92,7 +92,7 @@ async function init() {
                  "o")
 
             if( colorStr[i] ){
-                dir.forEach( (l, j) => lines[j] += l.split("").join("  ").replace("o",colors[colorStr[i]]("o")) )
+                 dir.forEach( (l, j) => { if( l ) { lines[j] += l.split("").join("  ").replace("o",colorMsg(colorStr[i])("o")) }  } )
             }
             
 
@@ -106,7 +106,7 @@ async function init() {
         var btnLine = ""
         players.forEach( (p, i) => {
             btnLabels.forEach( (b,j) => { 
-                btnLine += p[j+3] == "true" ? colors[colorStr[i]]( b ): b
+                btnLine += p[j+3] == "true" ? colorMsg(colorStr[i])( b ): b
                 btnLine += " "
             })
             btnLine += "\t"
@@ -123,11 +123,13 @@ async function init() {
     if( !str ) return str
     if(index > str.length-1) return str;
     return str.substring(0,index) + chr + str.substring(index+1);
-} 
-function sleep(ms) {
-return new Promise((resolve) => {
-    setTimeout(resolve, ms);
-});
+    } 
+    function sleep(ms) {
+    return new Promise((resolve) => {
+        setTimeout(resolve, ms);
+    });
 
 
 }
+
+function colorMsg(colorStr) { return colors[colorStr] ? colors[colorStr] : colors.white }

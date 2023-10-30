@@ -53,8 +53,11 @@ public class CarController : MonoBehaviour
 
     private void HandleMotor()
     {
-        frontLeftWheelCollider.motorTorque = verticalInput * motorForce * Mathf.Pow(10, 30) * Time.deltaTime * kartSpeed;
-        frontRightWheelCollider.motorTorque = verticalInput * motorForce * Mathf.Pow(10, 30) * Time.deltaTime * kartSpeed;
+        var input = new Vector2(horizontalInput, verticalInput);
+        if( input.magnitude > 0.1 ){
+            frontLeftWheelCollider.motorTorque = verticalInput * motorForce * Mathf.Pow(10, 30) * Time.deltaTime * kartSpeed;
+            frontRightWheelCollider.motorTorque = verticalInput * motorForce * Mathf.Pow(10, 30) * Time.deltaTime * kartSpeed;
+        }
         currentbreakForce = isBreaking ? breakForce : 0f;
         ApplyBreaking();       
     }

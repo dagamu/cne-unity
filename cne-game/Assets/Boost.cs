@@ -4,11 +4,18 @@ using UnityEngine;
 
 public class Boost : MonoBehaviour
 {
+
+    public float boostForce;
+    Transform playersParent;
+    void Start(){
+        playersParent = GameObject.Find("playerSpawn").transform;
+    }
     void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.name == "Car")
+        if(other.transform.parent == playersParent)
         {
-            other.gameObject.GetComponent<CarController>().motorForce *= 10; 
+            Debug.Log(other.gameObject.name);
+            other.gameObject.GetComponent<Rigidbody>().AddForce(transform.right * boostForce * Time.deltaTime, ForceMode.Impulse); 
         }
     }
 }

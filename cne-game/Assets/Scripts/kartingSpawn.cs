@@ -56,10 +56,11 @@ public class kartingSpawn : MonoBehaviour
     bool podiumSetted = false;
     void Update()
     {
-        if( podiumSetted && Input.anyKey ) {
+        if( podiumSetted && Input.anyKey && timer > 2 ) {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
         if( Input.GetKeyDown(KeyCode.Return) ) SetPodium();
+        if( podiumSetted ) timer += Time.deltaTime;
     }
 
     public void SetPodium(){
