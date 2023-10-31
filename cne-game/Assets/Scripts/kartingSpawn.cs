@@ -14,8 +14,10 @@ public class kartingSpawn : MonoBehaviour
     GameObject GamepadConnect;
     GamepadConnect gamepadConnectComponent;
 
-    public GameObject MinigameUI, Podium;
+    public GameObject MinigameUI, Podium, BgMusic;
     public GameObject RedKart, BlueKart, GreenKart, YellowKart;
+
+    public AudioClip VictoryAudio, Lambada;
 
     public float MinigameTime;
     public Vector3 PodiumPos;
@@ -87,7 +89,17 @@ public class kartingSpawn : MonoBehaviour
             charModel.transform.position = pod.transform.GetChild(racePosition-1).GetChild(0).position;
         }
         podiumSetted = true;
+        
+
+        
+        GetComponent<AudioSource>().PlayOneShot(VictoryAudio);
+        Invoke("playLambada", 5f);
+        
+        
+        BgMusic.SetActive(false);
     }
+
+    void playLambada() =>  GetComponent<AudioSource>().PlayOneShot(Lambada);
 
     public void InstantiateKart(gamePlayer playerObj, Vector3 pos, Quaternion newRotation, float i)
     {
