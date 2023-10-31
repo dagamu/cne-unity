@@ -56,7 +56,7 @@ public class KartCameraAnim : MonoBehaviour
     void Update()
     {
         transform.position = Vector3.SmoothDamp( transform.position, currentTarget.position, ref vel, currentStart.localScale.x );
-        transform.rotation = Quaternion.Euler( Vector3.SmoothDamp(transform.rotation.eulerAngles, currentTarget.eulerAngles, ref rVel, currentStart.localScale.x));
+        transform.rotation = SmoothDampQuaternion(transform.rotation, currentTarget.rotation, ref rVel, currentStart.localScale.x);
 
         if( (transform.position - currentTarget.position).magnitude < 0.3 ){
             currentIndex += 1;
@@ -79,5 +79,16 @@ public class KartCameraAnim : MonoBehaviour
                 else setCameras.Invoke();
             }
         }
+    }
+
+    public Quaternion SmoothDampQuaternion(Quaternion current, Quaternion target, ref Vector3 currentVelocity, float smoothTime)
+    {
+    Vector3 c = current.eulerAngles;
+    Vector3 t = target.eulerAngles;
+    return Quaternion.Euler(
+        Mathf.SmoothDampAngle(c.x, t.x, ref currentVelocity.x, smoothTime),
+        Mathf.SmoothDampAngle(c.y, t.y, ref currentVelocity.y, smoothTime),
+        Mathf.SmoothDampAngle(c.z, t.z, ref currentVelocity.z, smoothTime)
+    );
     }
 }

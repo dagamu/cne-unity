@@ -44,11 +44,21 @@ public class CarController : MonoBehaviour
     }
 
 
+    float breakTime = 0;
     private void GetInput()
     {
         horizontalInput = playerData.gamepadData[0];
-        verticalInput = playerData.gamepadData[1];
-        isBreaking = Input.GetKey(KeyCode.Space);
+        verticalInput = playerData.gamepadData[3];
+        isBreaking = playerData.gamepadData[5] == 1;
+
+        if( isBreaking ){
+            breakTime += Time.deltaTime;
+            if( breakTime > 2 ){ 
+                verticalInput = -1;
+                isBreaking = false;
+            }
+            
+        } else breakTime = 0;
     }
 
     private void HandleMotor()

@@ -41,7 +41,13 @@ public class RaceCarController : MonoBehaviour
                 if( iCtr.Laps > jCtr.Laps){ // Higher Lap
                     higher = true;
                 } else if (iCtr.Laps == jCtr.Laps) {
-                    if( iCtr.nextCheckpoint.GetSiblingIndex() > jCtr.nextCheckpoint.GetSiblingIndex() ){ // Higher Checkpoint
+                    var iCheckPoint = iCtr.nextCheckpoint.GetSiblingIndex();
+                    var jCheckPoint = jCtr.nextCheckpoint.GetSiblingIndex();
+
+                    iCheckPoint = iCheckPoint == 0 ? iCtr.nextCheckpoint.parent.childCount : iCheckPoint;
+                    jCheckPoint = jCheckPoint == 0 ? jCtr.nextCheckpoint.parent.childCount : jCheckPoint;
+
+                    if(  iCheckPoint > jCheckPoint ){ // Higher Checkpoint
                         higher = true;
                     } else if( iCtr.nextCheckpoint.GetSiblingIndex() == jCtr.nextCheckpoint.GetSiblingIndex()){
                         var iDisVec = iCtr.nextCheckpoint.position - iCtr.transform.position;

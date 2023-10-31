@@ -1172,7 +1172,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MinigameUI: {fileID: 771722762}
-  Podium: {fileID: 4458908911004900289, guid: 1b93d12ba8c58e84fa65f6aeb29352f4, type: 3}
+  Podium: {fileID: 1453275954137806936, guid: 5b15c3cac982d054da683f98ab3389cf, type: 3}
   BgMusic: {fileID: 1305772139}
   RedKart: {fileID: 4942289592451775589, guid: 786006dd07347444099033ddad4a20eb, type: 3}
   BlueKart: {fileID: 5271709297047433674, guid: ac8a8a3b0699001499c5210a2498ea5a, type: 3}
@@ -1207,7 +1207,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 8f31109a13cc3bc45b15b5b9475c0a6c, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -1671,7 +1671,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4576534226595546565, guid: dd44d0b80809f494e8204ff9d83e5e49, type: 3}
       propertyPath: boostForce
-      value: 500000
+      value: 250000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd44d0b80809f494e8204ff9d83e5e49, type: 3}
@@ -2072,7 +2072,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -2330,7 +2330,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4576534226595546565, guid: dd44d0b80809f494e8204ff9d83e5e49, type: 3}
       propertyPath: boostForce
-      value: 500000
+      value: 250000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd44d0b80809f494e8204ff9d83e5e49, type: 3}
