@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.Concurrent;
 using WebSocketSharp;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using gamePlayerSpace;
 using TMPro;
@@ -91,6 +92,7 @@ public class kartingSpawn : MonoBehaviour
     public void InstantiateKart(gamePlayer playerObj, Vector3 pos, Quaternion newRotation, float i)
     {
         GameObject characterPrefab = Resources.Load<GameObject>("Characters/"+playerObj.model);
+        Sprite characterSprite = Resources.Load<Sprite>("Thumbnails/"+playerObj.model);
 
         var color = playerObj.color.Split(';');
         GameObject kartingPrefab;
@@ -111,6 +113,9 @@ public class kartingSpawn : MonoBehaviour
 
         model.GetComponent<Animator>().SetBool("Driving", true);
         model.name = "Character Model";
+
+        newKarting.transform.Find("Canvas/Circle/Image")
+                    .GetComponent<Image>().sprite = characterSprite;
 
         newKarting.GetComponent<RaceCarController>().CharacterModel = model;
         

@@ -26,7 +26,7 @@ module.exports = function(ws, newLog, wss, updatePlayers) {
             ws.color = Colors[colorIndex].join(';')
             while( connections.filter( c => c.color == ws.color ).length ){
                 colorIndex++
-                ws.color = Colors[colorIndex].join(';')
+                ws.color = Colors[colorIndex] ? Colors[colorIndex].join(';') : Colors[0]
             }
 
             ws.send("ID:"+ws.id);

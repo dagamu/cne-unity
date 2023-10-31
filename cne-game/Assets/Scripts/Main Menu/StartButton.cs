@@ -16,6 +16,8 @@ public class StartButton : MonoBehaviour
     {
         GamepadConnect = GameObject.Find("GamepadConnect");
         gamepadConnectComponent = GamepadConnect.GetComponent<GamepadConnect>();
+
+        gameObject.SetActive(true);
     }
 
     // Update is called once per frame
