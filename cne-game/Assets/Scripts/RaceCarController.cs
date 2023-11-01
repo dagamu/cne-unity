@@ -6,13 +6,20 @@ using TMPro;
 
 public class RaceCarController : MonoBehaviour
 {
-    public int Laps = 0;
-    Transform CheckPointParent;
-    public Transform nextCheckpoint;
-    public List<GameObject> playersPositions = new List<GameObject>();
-    public GameObject PositionLabel, CharacterModel;
+    public GameObject CharacterModel;
+    [Header("Laps System")]
+    public int Laps = 1;
+    public int totalLaps;
 
+    [Header("Labels")]
+    public GameObject PositionLabel;
+    public GameObject LapsLabel;
+
+    [Header("Ranking System")]
+    public List<GameObject> playersPositions = new List<GameObject>();
     public int position;
+    public Transform nextCheckpoint;
+    Transform CheckPointParent;
 
     void Start(){
         CheckPointParent = GameObject.Find("Checkpoints").transform;
@@ -20,6 +27,7 @@ public class RaceCarController : MonoBehaviour
         foreach( Transform p in transform.parent ){
             playersPositions.Add(p.gameObject);
         }
+        PositionLabel.GetComponent<TMP_Text>().SetText( Laps.ToString() + "/" + totalLaps.ToString());
     }
     float timer;
     void Update(){
@@ -77,6 +85,7 @@ public class RaceCarController : MonoBehaviour
                 nextCheckpoint = CheckPointParent.GetChild(0);          
             } else if( nextCheckpoint.GetSiblingIndex() == 0){
                 Laps++;
+                LapsLabel.GetComponent<TMP_Text>().SetText( Laps.ToString() + "/" + totalLaps.ToString());
                 nextCheckpoint = CheckPointParent.GetChild(1);  
             } else {
                 nextCheckpoint = CheckPointParent.GetChild(nextCheckpoint.GetSiblingIndex() + 1);

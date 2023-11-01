@@ -17,21 +17,24 @@ public class CarController : MonoBehaviour
 
     public gamePlayer playerData;
 
+    [Header("Car Settings")]
     [SerializeField] public float motorForce;
     [SerializeField] private float breakForce;
     [SerializeField] private float maxSteerAngle;
 
+    [Header("Wheel Colliders")]
     [SerializeField] private WheelCollider frontLeftWheelCollider;
     [SerializeField] private WheelCollider frontRightWheelCollider;
     [SerializeField] private WheelCollider rearLeftWheelCollider;
     [SerializeField] private WheelCollider rearRightWheelCollider;
 
+    [Header("Wheels")]
     [SerializeField] private Transform frontLeftWheelTransform;
     [SerializeField] private Transform frontRightWheeTransform;
     [SerializeField] private Transform rearLeftWheelTransform;
     [SerializeField] private Transform rearRightWheelTransform;
 
-    public float kartSpeed = 0;
+    [HideInInspector] public float kartSpeed = 0;
 
     private void FixedUpdate()
     {

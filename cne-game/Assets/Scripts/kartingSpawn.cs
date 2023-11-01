@@ -11,17 +11,27 @@ using TMPro;
 
 public class kartingSpawn : MonoBehaviour
 {
-    GameObject GamepadConnect;
-    GamepadConnect gamepadConnectComponent;
+    [Header("Game Objects")]
+    public GameObject MinigameUI;
+    public GameObject Podium;
+    public GameObject BgMusic;
 
-    public GameObject MinigameUI, Podium, BgMusic;
-    public GameObject RedKart, BlueKart, GreenKart, YellowKart;
+    [Header("Kart Prefabs")]
+    public GameObject RedKart; 
+    public GameObject BlueKart; 
+    public GameObject GreenKart; 
+    public GameObject YellowKart;
 
-    public AudioClip VictoryAudio, Lambada;
+    [Header("Audio Clips")]
+    public AudioClip VictoryAudio;
+    public AudioClip Lambada;
 
-    public float MinigameTime;
+    [Header("Minimap Settings")]
+    public int totalLaps;
     public Vector3 PodiumPos;
 
+    GameObject GamepadConnect;
+    GamepadConnect gamepadConnectComponent;
     Camera cam;
     string currentScene;
     GameObject CurrentMinigameUI;
@@ -63,7 +73,14 @@ public class kartingSpawn : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
         if( Input.GetKeyDown(KeyCode.Return) ) SetPodium();
+        
         if( podiumSetted ) timer += Time.deltaTime;
+        else {
+            bool raceCompleted = true;
+            foreach (Transform player in transform )
+                if (player.GetComponent<RaceCarController>().Laps != totalLaps ) raceCompleted = false; 
+            if( raceCompleted && transform.childCount != 0 ) SetPodium();
+        }
     }
 
     public void SetPodium(){
@@ -130,6 +147,7 @@ public class kartingSpawn : MonoBehaviour
                     .GetComponent<Image>().sprite = characterSprite;
 
         newKarting.GetComponent<RaceCarController>().CharacterModel = model;
+        newKarting.GetComponent<RaceCarController>().totalLaps = totalLaps;
         
 
         newKarting.GetComponent<CarController>().playerData = playerObj;
