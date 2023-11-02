@@ -103,6 +103,8 @@ public class cursorControl : MonoBehaviour
         characterSelect = col.gameObject; 
         characterSelect.GetComponent<Image>().color = playerColor;
         playerObject.model = col.gameObject.transform.GetChild(0).GetComponent<Image>().sprite.name;
-         
+
+
+        gamepadConnectComponent.sendModel();
      }
 }

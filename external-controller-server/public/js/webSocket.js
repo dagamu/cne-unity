@@ -15,6 +15,10 @@ const proccessByType = {
       playerColor = `rgba(${colorList.join(',')})`
       console.log(playerColor)
 
+    },
+    'ModelChange': ( data, message ) => {
+        console.log(data)
+        data.forEach( (m,i) => { if(m==gameID) playerThumbnail = data[i+1]} )
     }
   }
 
@@ -23,6 +27,8 @@ webSocket.onmessage = (event) => {
     let message = event.data.split(':')
     let type = message[0]
     let data = message[1] ? message[1].split(',') : ''
+
+    if( type!="Move") console.log(message)
   
     if (proccessByType[type]) proccessByType[type]( data, message )
 

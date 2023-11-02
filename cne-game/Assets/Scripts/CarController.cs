@@ -19,8 +19,11 @@ public class CarController : MonoBehaviour
 
     [Header("Car Settings")]
     [SerializeField] public float motorForce;
+    [SerializeField] public float expMotor;
+    [SerializeField] public float rearForce;
     [SerializeField] private float breakForce;
     [SerializeField] private float maxSteerAngle;
+    [SerializeField] public float backwardsTime;
 
     [Header("Wheel Colliders")]
     [SerializeField] private WheelCollider frontLeftWheelCollider;
@@ -56,7 +59,8 @@ public class CarController : MonoBehaviour
 
         if( isBreaking ){
             breakTime += Time.deltaTime;
-            if( breakTime > 2 ){ 
+            if( breakTime > backwardsTime )
+            { 
                 verticalInput = -1;
                 isBreaking = false;
             }
@@ -68,8 +72,10 @@ public class CarController : MonoBehaviour
     {
         var input = new Vector2(horizontalInput, verticalInput);
         if( input.magnitude > 0.1 ){
-            frontLeftWheelCollider.motorTorque = verticalInput * motorForce * Mathf.Pow(10, 30) * Time.deltaTime * kartSpeed;
-            frontRightWheelCollider.motorTorque = verticalInput * motorForce * Mathf.Pow(10, 30) * Time.deltaTime * kartSpeed;
+            frontLeftWheelCollider.motorTorque = verticalInput * motorForce * Mathf.Pow(10, expMotor) * Time.deltaTime * kartSpeed;
+            frontRightWheelCollider.motorTorque = verticalInput * motorForce * Mathf.Pow(10, expMotor) * Time.deltaTime * kartSpeed;
+            //rearLeftWheelCollider.motorTorque = verticalInput * motorForce * Mathf.Pow(10, expMotor) * Time.deltaTime * kartSpeed / rearForce;
+            //rearRightWheelCollider.motorTorque = verticalInput * motorForce * Mathf.Pow(10, expMotor) * Time.deltaTime * kartSpeed / rearForce;
         }
         currentbreakForce = isBreaking ? breakForce : 0f;
         ApplyBreaking();       

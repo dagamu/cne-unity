@@ -13,7 +13,7 @@ namespace gamePlayerSpace
 
         public string id;
         public string color;
-        public string model;
+        public string model = "default";
         public int turnRoll = 0;
         public int turn = 0;
 
@@ -81,6 +81,14 @@ public class GamepadConnect : MonoBehaviour
         };
         ws.Connect();
 
+    }
+
+    public void sendModel() {
+        var msg = "ModelChange:";
+        foreach(gamePlayer player in players){
+            msg += player.id + "," + player.model+",";
+        }
+        ws.Send(msg);
     }
 
     /* void Awake(){

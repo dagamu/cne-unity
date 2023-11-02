@@ -38,7 +38,10 @@ module.exports = function(ws, newLog, wss, updatePlayers) {
 
             newLog(`New Player entered: ${newId} [${connections.length}]`, colorStr[colorIndex])
 
-        } else if( message == "UnityConnection"){
+        } else if( message.toString().split(":")[0] == "ModelChange"){
+            newLog(message.toString().split(":")[1])
+        }
+        else if( message == "UnityConnection"){
             
             let newId = getUniqueID() 
             ws.id = newId

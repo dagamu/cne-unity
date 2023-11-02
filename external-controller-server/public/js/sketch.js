@@ -31,8 +31,14 @@ var isTablet = /(ipad|tablet|(android(?!.*mobile))|(windows(?!.*phone)(.*touch))
 const moveMsg = () => webSocket.send('Move:' + [gameID, controlMessage].toString() )
 function windowResized () { resizeCanvas(windowWidth, windowHeight) }
 
+const thumbnails = {names:["mujica","Sebastian","Leandro","Andrea","Alejandra","Rodrigo","Mariella","Claudio","default","mask"]}
+var playerThumbnail = "default"
+
 function preload(){
    themeImg = loadImage('https://static-00.iconduck.com/assets.00/dark-theme-icon-512x512-185rlszm.png')
+   thumbnails.names.forEach( t => {
+    thumbnails[t] = loadImage('imgs/'+t+'.png')
+   })
 }
 
 function setup() {
@@ -159,6 +165,11 @@ function draw() {
     pop()
   })
 
+  if(isTablet){
+      image( thumbnails[playerThumbnail], width/2-width/12, height/2-width/8, width/4,width/4)
+      image( thumbnails["mask"], width/2-width/12, height/2-width/8, width/4,width/4)
+  }
+
   noStroke()
   textSize(height / 15)
   fill( colorTheme.text )
@@ -166,8 +177,10 @@ function draw() {
   text('Id: ' + gameID, height / 6, height / 10)
 
   moveMsg()
+  push()
   tint(255, 70)
   image( themeImg, width - height/5.8, height/16, height/6, height/6 );
+  pop()
 
 }
 

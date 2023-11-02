@@ -1063,8 +1063,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   motorForce: 3000
+  expMotor: 15
+  rearForce: 30
   breakForce: 100
-  maxSteerAngle: 15
+  maxSteerAngle: 30
+  backwardsTime: 1
   frontLeftWheelCollider: {fileID: 7002102479178613587}
   frontRightWheelCollider: {fileID: 3146480560285529435}
   rearLeftWheelCollider: {fileID: 4673352648355999440}
@@ -1083,7 +1086,7 @@ Rigidbody:
   m_GameObject: {fileID: 4942289592451775589}
   serializedVersion: 2
   m_Mass: 300
-  m_Drag: 1.5
+  m_Drag: 5
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0

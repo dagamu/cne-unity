@@ -1180,7 +1180,7 @@ MonoBehaviour:
   YellowKart: {fileID: 1486098981331543993, guid: 294bb175c4e961846815a05ca76bdfd1, type: 3}
   VictoryAudio: {fileID: 8300000, guid: 02d1f8a8fe9764b44aa7f545d803c4e4, type: 3}
   Lambada: {fileID: 8300000, guid: c275efdb5f8cb9a4f8711a9e1efe88d5, type: 3}
-  MinigameTime: 100
+  totalLaps: 3
   PodiumPos: {x: 58, y: 19.48, z: -12}
 --- !u!4 &735168293
 Transform:

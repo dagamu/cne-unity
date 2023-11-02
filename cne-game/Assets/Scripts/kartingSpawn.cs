@@ -76,9 +76,9 @@ public class kartingSpawn : MonoBehaviour
         
         if( podiumSetted ) timer += Time.deltaTime;
         else {
-            bool raceCompleted = true;
+            bool raceCompleted = false;
             foreach (Transform player in transform )
-                if (player.GetComponent<RaceCarController>().Laps != totalLaps ) raceCompleted = false; 
+                if (player.GetComponent<RaceCarController>().Laps == totalLaps + 1 ) raceCompleted = true; 
             if( raceCompleted && transform.childCount != 0 ) SetPodium();
         }
     }
@@ -106,9 +106,9 @@ public class kartingSpawn : MonoBehaviour
             charModel.transform.position = pod.transform.GetChild(racePosition-1).GetChild(0).position;
         }
         podiumSetted = true;
-        
 
-        
+
+        GetComponent<AudioSource>().Stop();
         GetComponent<AudioSource>().PlayOneShot(VictoryAudio);
         Invoke("playLambada", 5f);
         
