@@ -12,10 +12,10 @@ public class Boost : MonoBehaviour
     }
     void OnTriggerEnter(Collider other)
     {
-        if(other.transform.parent == playersParent)
+        if(other.gameObject.name == "Motor")
         {
             Debug.Log(other.gameObject.name);
-            other.gameObject.GetComponent<Rigidbody>().AddForce(transform.right * boostForce * Time.deltaTime, ForceMode.Impulse); 
+            other.GetComponent<Rigidbody>().AddForce(transform.right * boostForce * Time.deltaTime, ForceMode.Impulse); 
         }
     }
 }

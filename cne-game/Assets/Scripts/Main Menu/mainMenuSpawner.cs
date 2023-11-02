@@ -9,6 +9,8 @@ public class mainMenuSpawner : MonoBehaviour
     public GameObject cursorPrefab;
     public Object FirstScene;
 
+    public float loadingTime;
+
     private void NewPlayer( string[] args ) 
     {
         var playerCursor = Instantiate(cursorPrefab) as GameObject;
@@ -23,7 +25,7 @@ public class mainMenuSpawner : MonoBehaviour
     void nextScene() { SceneManager.LoadScene(FirstScene.name); }
     public void PlayGame()
     {
-        Invoke("nextScene", 10f);
+        Invoke("nextScene", loadingTime);
         
      }
 }

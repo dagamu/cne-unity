@@ -11,46 +11,89 @@ public class CarController : MonoBehaviour
 
     private float horizontalInput;
     private float verticalInput;
-    private float currentSteerAngle;
-    private float currentbreakForce;
-    private bool isBreaking;
+
+    public Rigidbody sphereRB;
+
+    public float fwdSpeed;
+    public float revSpeed;
+    public float turnSpeed;
+    public float backwardsTime;
+    public float yOffset;
+    public LayerMask groundLayer;
+
+    private float moveInput;
+    private float turnInput;
+    public bool isCarGrounded;
+
+    private float normalDrag;
+    public float modifiedDrag;
+    public float modifiedAngularDrag;
+
+    public float alignToGroundTime;
+
 
     public gamePlayer playerData;
 
     [Header("Car Settings")]
-    [SerializeField] public float motorForce;
-    [SerializeField] public float expMotor;
-    [SerializeField] public float rearForce;
-    [SerializeField] private float breakForce;
-    [SerializeField] private float maxSteerAngle;
-    [SerializeField] public float backwardsTime;
-
-    [Header("Wheel Colliders")]
-    [SerializeField] private WheelCollider frontLeftWheelCollider;
-    [SerializeField] private WheelCollider frontRightWheelCollider;
-    [SerializeField] private WheelCollider rearLeftWheelCollider;
-    [SerializeField] private WheelCollider rearRightWheelCollider;
-
-    [Header("Wheels")]
-    [SerializeField] private Transform frontLeftWheelTransform;
-    [SerializeField] private Transform frontRightWheeTransform;
-    [SerializeField] private Transform rearLeftWheelTransform;
-    [SerializeField] private Transform rearRightWheelTransform;
+   
 
     [HideInInspector] public float kartSpeed = 0;
 
+    void Start()
+    {
+        sphereRB.transform.parent = null;
+
+        normalDrag = sphereRB.drag;
+    }
+
+    void Update()
+    {
+
+        GetInput();
+        // Get Input
+        moveInput = verticalInput;
+        turnInput = horizontalInput;
+
+        // Calculate Turning Rotation
+        float newRot = turnInput * turnSpeed * Time.deltaTime * sphereRB.velocity.magnitude;
+
+        if (isCarGrounded)
+            transform.Rotate(0, newRot, 0, Space.World);
+
+        // Set Cars Position to Our Sphere
+        transform.position = sphereRB.transform.position + Vector3.up * yOffset;
+
+        // Raycast to the ground and get normal to align car with it.
+        RaycastHit hit;
+        isCarGrounded = Physics.Raycast(transform.position, -transform.up, out hit, 1f, groundLayer);
+
+        // Rotate Car to align with ground
+        Quaternion toRotateTo = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
+        transform.rotation = Quaternion.Slerp(transform.rotation, toRotateTo, alignToGroundTime * Time.deltaTime);
+
+        // Calculate Movement Direction
+        moveInput *= moveInput > 0 ? fwdSpeed : revSpeed;
+
+        // Calculate Drag
+        sphereRB.drag = isCarGrounded ? normalDrag : modifiedDrag;
+        sphereRB.angularDrag = modifiedAngularDrag;
+    }
+
     private void FixedUpdate()
     {
-        GetInput();
-        HandleMotor();
-        HandleSteering();
-        UpdateWheels();
+
+        if (isCarGrounded)
+            sphereRB.AddForce(transform.forward * moveInput, ForceMode.Acceleration); // Add Movement
+        else
+            sphereRB.AddForce(transform.up * -200f); // Add Gravity
 
         transform.eulerAngles += -Vector3.forward * transform.eulerAngles.z;
     }
 
 
     float breakTime = 0;
+    bool isBreaking;
+
     private void GetInput()
     {
         horizontalInput = playerData.gamepadData[0];
@@ -68,48 +111,5 @@ public class CarController : MonoBehaviour
         } else breakTime = 0;
     }
 
-    private void HandleMotor()
-    {
-        var input = new Vector2(horizontalInput, verticalInput);
-        if( input.magnitude > 0.1 ){
-            frontLeftWheelCollider.motorTorque = verticalInput * motorForce * Mathf.Pow(10, expMotor) * Time.deltaTime * kartSpeed;
-            frontRightWheelCollider.motorTorque = verticalInput * motorForce * Mathf.Pow(10, expMotor) * Time.deltaTime * kartSpeed;
-            //rearLeftWheelCollider.motorTorque = verticalInput * motorForce * Mathf.Pow(10, expMotor) * Time.deltaTime * kartSpeed / rearForce;
-            //rearRightWheelCollider.motorTorque = verticalInput * motorForce * Mathf.Pow(10, expMotor) * Time.deltaTime * kartSpeed / rearForce;
-        }
-        currentbreakForce = isBreaking ? breakForce : 0f;
-        ApplyBreaking();       
-    }
-
-    private void ApplyBreaking()
-    {
-        frontRightWheelCollider.brakeTorque = currentbreakForce;
-        frontLeftWheelCollider.brakeTorque = currentbreakForce;
-        rearLeftWheelCollider.brakeTorque = currentbreakForce;
-        rearRightWheelCollider.brakeTorque = currentbreakForce;
-    }
-
-    private void HandleSteering()
-    {
-        currentSteerAngle = maxSteerAngle * horizontalInput;
-        frontLeftWheelCollider.steerAngle = currentSteerAngle;
-        frontRightWheelCollider.steerAngle = currentSteerAngle;
-    }   
-
-    private void UpdateWheels()
-    {
-        UpdateSingleWheel(frontLeftWheelCollider, frontLeftWheelTransform);
-        UpdateSingleWheel(frontRightWheelCollider, frontRightWheeTransform);
-        UpdateSingleWheel(rearRightWheelCollider, rearRightWheelTransform);
-        UpdateSingleWheel(rearLeftWheelCollider, rearLeftWheelTransform);
-    }
-
-    private void UpdateSingleWheel(WheelCollider wheelCollider, Transform wheelTransform)
-    {
-        Vector3 pos;
-        Quaternion rot
-;       wheelCollider.GetWorldPose(out pos, out rot);
-        wheelTransform.rotation = rot;
-        wheelTransform.position = pos;
-    }
+    
 }
