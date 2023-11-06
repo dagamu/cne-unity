@@ -897,6 +897,7 @@ GameObject:
   - component: {fileID: -7614568231372783863}
   - component: {fileID: 3197145796018593431}
   - component: {fileID: 4724345224462988936}
+  - component: {fileID: 2482481211627765299}
   m_Layer: 0
   m_Name: Red Car
   m_TagString: Untagged
@@ -938,18 +939,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sphereRB: {fileID: 2267363312323122408}
-  fwdSpeed: 10
-  revSpeed: 14
-  turnSpeed: 9
+  fwdSpeed: 8
+  revSpeed: 8
+  turnSpeed: 7
   backwardsTime: 0.5
   yOffset: -0.33
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
   isCarGrounded: 1
-  modifiedDrag: 300
+  modifiedDrag: 1000
   modifiedAngularDrag: 100
   alignToGroundTime: 20
+  maxAngVel: 3
   kartSpeed: 1
 --- !u!54 &3197145796018593431
 Rigidbody:
@@ -983,10 +985,24 @@ MonoBehaviour:
   Laps: 1
   totalLaps: 0
   PositionLabel: {fileID: 4250256930257621023}
-  LapsLabel: {fileID: 0}
+  LapsLabel: {fileID: 3220182952107250588}
   playersPositions: []
   position: 0
   nextCheckpoint: {fileID: 0}
+  CheckPointParent: {fileID: 0}
+--- !u!65 &2482481211627765299
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4942289592451775589}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1.0434757, z: 1.0224036}
+  m_Center: {x: 0, y: 1.0446215, z: 1.2752739}
 --- !u!1 &5159067987331183558
 GameObject:
   m_ObjectHideFlags: 0

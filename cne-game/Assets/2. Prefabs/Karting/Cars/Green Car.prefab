@@ -282,18 +282,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sphereRB: {fileID: 8359383262000753917}
-  fwdSpeed: 10
-  revSpeed: 14
-  turnSpeed: 9
+  fwdSpeed: 8
+  revSpeed: 8
+  turnSpeed: 7
   backwardsTime: 0.5
   yOffset: -0.43
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
   isCarGrounded: 1
-  modifiedDrag: 300
+  modifiedDrag: 1000
   modifiedAngularDrag: 100
   alignToGroundTime: 20
+  maxAngVel: 3
   kartSpeed: 1
 --- !u!54 &8156666947698142444
 Rigidbody:
@@ -320,10 +321,10 @@ BoxCollider:
   m_GameObject: {fileID: 1306127422560575588}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.3878648, y: 0.87508357, z: 3.2673674}
-  m_Center: {x: -0.00451006, y: 0.48666555, z: 0.11293501}
+  m_Size: {x: 1.3878648, y: 0.87508357, z: 0.6764078}
+  m_Center: {x: -0.00451006, y: 0.48666555, z: 1.4084148}
 --- !u!114 &-6045297670870569550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -344,6 +345,7 @@ MonoBehaviour:
   playersPositions: []
   position: 0
   nextCheckpoint: {fileID: 0}
+  CheckPointParent: {fileID: 0}
 --- !u!1 &2510372505960095766
 GameObject:
   m_ObjectHideFlags: 0

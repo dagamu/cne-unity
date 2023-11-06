@@ -17,7 +17,7 @@ public class mainMenuSpawner : MonoBehaviour
         var cursorController = playerCursor.GetComponent<cursorControl>();
         playerCursor.transform.SetParent(gameObject.transform);
         playerCursor.transform.position = 
-                gameObject.transform.position + new Vector3(-420+150*transform.childCount,0,0);
+                gameObject.transform.position + new Vector3(-640+250*transform.childCount,20,0);
 
         cursorController.id = args[0];
 

@@ -31,18 +31,20 @@ public class CarController : MonoBehaviour
 
     public float alignToGroundTime;
 
+    public float maxAngVel;
+
 
     public gamePlayer playerData;
 
     [Header("Car Settings")]
    
 
-    [HideInInspector] public float kartSpeed = 0;
+    public float kartSpeed;
 
     void Start()
     {
         sphereRB.transform.parent = null;
-
+        kartSpeed = 0;
         normalDrag = sphereRB.drag;
     }
 
@@ -51,7 +53,7 @@ public class CarController : MonoBehaviour
 
         GetInput();
         // Get Input
-        moveInput = verticalInput;
+        moveInput = verticalInput * kartSpeed;
         turnInput = horizontalInput;
 
         // Calculate Turning Rotation
@@ -76,7 +78,10 @@ public class CarController : MonoBehaviour
 
         // Calculate Drag
         sphereRB.drag = isCarGrounded ? normalDrag : modifiedDrag;
-        sphereRB.angularDrag = modifiedAngularDrag;
+        sphereRB.angularDrag = isBreaking ? 0 : modifiedAngularDrag;
+
+        //sphereRB.angularVelocity = sphereRB.angularVelocity.y > maxAngVel ? sphereRB.angularVelocity.normalized * maxAngVel : sphereRB.angularVelocity;
+
     }
 
     private void FixedUpdate()
@@ -99,6 +104,14 @@ public class CarController : MonoBehaviour
         horizontalInput = playerData.gamepadData[0];
         verticalInput = playerData.gamepadData[3];
         isBreaking = playerData.gamepadData[5] == 1;
+
+        if (playerData.gamepadData[2] == 1)
+        {
+            sphereRB.transform.position = GetComponent<RaceCarController>()
+                    .CheckPointParent.GetChild(GetComponent<RaceCarController>().nextCheckpoint.GetSiblingIndex() - 1).transform.position - Vector3.up + Vector3.right * (transform.GetSiblingIndex() - 2)*2;
+            sphereRB.velocity = Vector3.zero;
+            sphereRB.angularVelocity = Vector3.zero;
+        }
 
         if( isBreaking ){
             breakTime += Time.deltaTime;

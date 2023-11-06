@@ -19,7 +19,7 @@ public class RaceCarController : MonoBehaviour
     public List<GameObject> playersPositions = new List<GameObject>();
     public int position;
     public Transform nextCheckpoint;
-    Transform CheckPointParent;
+    public Transform CheckPointParent;
 
     void Start(){
         CheckPointParent = GameObject.Find("Checkpoints").transform;
