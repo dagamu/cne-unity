@@ -43,7 +43,7 @@ public class kartingSpawn : MonoBehaviour
         var i = 0;
         foreach (gamePlayer player in gamepadConnectComponent.players)
         {
-            if (player.model == null) player.model = defaultModels[i];
+            if (player.model == null || player.model == "default") player.model = defaultModels[i];
             var spawnPoint = GameObject.Find("SpawnPoints").transform.GetChild(i);
             Vector3 newPosition = spawnPoint.transform.position;
             Quaternion newRotation = spawnPoint.transform.rotation;

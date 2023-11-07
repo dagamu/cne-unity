@@ -43,6 +43,7 @@ public class CarController : MonoBehaviour
 
     void Start()
     {
+        sphereRB.GetComponent<MotorController>().carParent = gameObject;
         sphereRB.transform.parent = null;
         kartSpeed = 0;
         normalDrag = sphereRB.drag;
@@ -63,7 +64,7 @@ public class CarController : MonoBehaviour
             transform.Rotate(0, newRot, 0, Space.World);
 
         // Set Cars Position to Our Sphere
-        transform.position = sphereRB.transform.position + Vector3.up * yOffset;
+        transform.position = sphereRB.transform.position;
 
         // Raycast to the ground and get normal to align car with it.
         RaycastHit hit;
@@ -78,7 +79,7 @@ public class CarController : MonoBehaviour
 
         // Calculate Drag
         sphereRB.drag = isCarGrounded ? normalDrag : modifiedDrag;
-        sphereRB.angularDrag = isBreaking ? 0 : modifiedAngularDrag;
+        //sphereRB.angularDrag = isBreaking ? 0 : modifiedAngularDrag;
 
         //sphereRB.angularVelocity = sphereRB.angularVelocity.y > maxAngVel ? sphereRB.angularVelocity.normalized * maxAngVel : sphereRB.angularVelocity;
 
@@ -108,7 +109,7 @@ public class CarController : MonoBehaviour
         if (playerData.gamepadData[2] == 1)
         {
             sphereRB.transform.position = GetComponent<RaceCarController>()
-                    .CheckPointParent.GetChild(GetComponent<RaceCarController>().nextCheckpoint.GetSiblingIndex() - 1).transform.position - Vector3.up + Vector3.right * (transform.GetSiblingIndex() - 2)*2;
+                    .CheckPointParent.GetChild(GetComponent<RaceCarController>().nextCheckpoint.GetSiblingIndex() - 1).transform.position + Vector3.up;
             sphereRB.velocity = Vector3.zero;
             sphereRB.angularVelocity = Vector3.zero;
         }

@@ -78,7 +78,7 @@ public class RaceCarController : MonoBehaviour
         PositionLabel.GetComponent<TMP_Text>().SetText( position.ToString() + "°");
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void triggerController(Collider other)
     {
         if( other.transform == nextCheckpoint){
             if( nextCheckpoint.GetSiblingIndex() == CheckPointParent.childCount - 1 ){
